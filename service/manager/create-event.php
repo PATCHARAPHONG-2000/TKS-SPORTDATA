@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conn->prepare($sql);
             $stmt->execute($ids);
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
+
             if($rows) {
                 foreach($rows as $row) {
                     
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $age = $row['age'];
                     $license = $row['license'];
                     $fileImage = $row['image'];
-
+                    
                     $stmt = $conn->prepare("INSERT INTO event (firstname, lastname, status, team, age, class, weigth, license, image) 
                         VALUES (:firstname, :lastname, :status, :team, :age, :class, :weigth, :license, :image)");
                     $stmt->bindParam(':firstname', $firstname, PDO::PARAM_STR);
@@ -53,17 +53,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 }
 
-                // หลังจากบันทึกข้อมูลลงในตาราง "event" เรียบร้อยแล้ว
-                // ให้ทำการอัพเดตค่าในคอลัมน์ "IsActive" ในตาราง "player" ให้มีค่าเป็น 1
-
-                // กำหนดคำสั่ง SQL สำหรับอัพเดตค่าในคอลัมน์ "IsActive"
                 $updateSql = "UPDATE player SET IsActive = 1 WHERE id IN ($placeholders)";
-
-                // เตรียมข้อมูลที่จะส่งเข้าไปในคำสั่ง SQL
                 $updateStmt = $conn->prepare($updateSql);
                 $updateStmt->execute($ids);
 
-                // ตรวจสอบว่ามีข้อผิดพลาดในการอัพเดตหรือไม่
                 if ($updateStmt->rowCount() === 0) {
                     respondError('Error updating IsActive column in player table');
                 }
@@ -85,3 +78,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     respondError('Invalid request method');
 }
+?>

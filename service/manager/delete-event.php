@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 require_once '../connect.php';
 
 $Database = new Database();
@@ -9,44 +10,53 @@ function respondError($message)
     echo json_encode(['error' => $message]);
     exit();
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
-    $ids = $_POST['id'];
 
-    // เช็คว่า $ids เป็นอาร์เรย์หรือไม่
-    if (!is_array($ids)) {
-        $ids = [$ids];
-    }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['ids']) && !empty($_POST['ids'])) {
+        $ids = $_POST['ids'];
 
-    // ตรวจสอบและลบรายการทีละรายการ
-    foreach ($ids as $id) {
-        $id = filter_var($id, FILTER_VALIDATE_INT);
-        if ($id === false || $id <= 0) {
-            continue; // ข้ามรายการที่ไม่ถูกต้อง
-        }
+        if (!empty($ids)) {
+            // Prepare SQL statement to select license from event table
+            $sql = "SELECT license FROM event WHERE id IN (".implode(',', array_fill(0, count($ids), '?')).")";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute($ids);
+            $eventLicenses = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-        $stmt = $conn->prepare("SELECT `image` FROM `event` WHERE `id` = :id");
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            // Delete events
+            $placeholders = rtrim(str_repeat('?,', count($ids)), ',');
+            $deleteSql = "DELETE FROM event WHERE id IN ($placeholders)";
+            $deleteStmt = $conn->prepare($deleteSql);
+            $deleteStmt->execute($ids);
 
-        if ($result) {
-            // ลบข้อมูลจากฐานข้อมูล
-            $deleteStmt = $conn->prepare("DELETE FROM `event` WHERE `id` = :id");
-            $deleteStmt->bindParam(':id', $id);
-            
-            if ($deleteStmt->execute()) {
-                // การลบสำเร็จ
-                echo json_encode(['status' => true, 'message' => 'Delete Success']);
-            } else {
-                // การลบล้มเหลว
-                echo json_encode(['status' => false, 'message' => 'Delete Failed']);
+            if ($deleteStmt->rowCount() === 0) {
+                respondError('Error deleting event records');
             }
+
+            // Update players
+            foreach ($eventLicenses as $license) {
+                // Prepare SQL statement to update IsActive in player table
+                $updateSql = "UPDATE player SET IsActive = 0 WHERE license = ?";
+                $updateStmt = $conn->prepare($updateSql);
+                $updateStmt->execute([$license]);
+
+                // Check if the update was successful
+                if ($updateStmt->rowCount() === 0) {
+                    respondError('Error updating IsActive column in player table');
+                }
+            }
+
+            echo json_encode([
+                'status' => true,
+                'message' => 'Delete and update successful'
+            ]);
+            exit();
         } else {
-            // ไม่พบข้อมูลที่ต้องการลบ
-            echo json_encode(['status' => false, 'message' => 'Data not found']);
+            respondError('No ids provided');
         }
+    } else {
+        respondError('No ids provided');
     }
 } else {
-    http_response_code(400);
-    echo json_encode(['status' => false, 'message' => 'Invalid request']);
+    respondError('Invalid request method');
 }
+?>

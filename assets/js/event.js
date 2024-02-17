@@ -70,105 +70,67 @@ $(document).ready(function () {
         return $(this).val();
       })
       .get();
-
-    if (selectedIds.length === 0) {
+    if (selectedIds.length > 0) {
       Swal.fire({
-        text: "กรุณาเลือกรายการที่ต้องการลบ",
+        text: "คุณแน่ใจหรือไม่...ที่จะลบรายการที่เลือก?",
         icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "ใช่! ลบเลย",
+        cancelButtonText: "ยกเลิก",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            type: "POST",
+            url: "../../service/manager/delete-event.php",
+            data: {
+              ids: selectedIds,
+            },
+            success: function (response) {
+              console.log(response);
+              Swal.fire({
+                text: "รายการถูกลบเรียบร้อย",
+                icon: "success",
+                // timer: 1000,
+                confirmButtonText: "ตกลง",
+                timerProgressBar: true,
+              }).then((result) => {
+                location.assign("./");
+              });
+            },
+            error: function (xhr, status, error) {
+              console.error(error);
+              Swal.fire({
+                text: "เกิดข้อผิดพลาดในการส่งข้อมูล",
+                icon: "error",
+                // timer: 1000,
+                confirmButtonText: "ตกลง",
+                timerProgressBar: true,
+              }).then((result) => {
+                location.assign("./");
+              });
+            },
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        text: "เลือกรายการที่ต้องลบ",
+        icon: "question",
         confirmButtonText: "ตกลง",
       });
-      return;
     }
-
-    Swal.fire({
-      text: "คุณแน่ใจหรือไม่...ที่จะลบรายการที่เลือก?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "ใช่! ลบเลย",
-      cancelButtonText: "ยกเลิก",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        $.ajax({
-          type: "POST",
-          url: "../../service/manager/delete-event.php",
-          data: {
-            id: selectedIds,
-          },
-          success: function (response) {
-            Swal.fire({
-              text: "รายการถูกลบเรียบร้อย",
-              icon: "success",
-              confirmButtonText: "ตกลง",
-              timer: 500,
-              timerProgressBar: true,
-            }).then((result) => {
-              location.assign("./");
-            });
-          },
-          error: function (xhr, status, error) {
-            console.error(error);
-            Swal.fire({
-              text: "เกิดข้อผิดพลาดในการลบข้อมูล",
-              icon: "error",
-              confirmButtonText: "ตกลง",
-            });
-          },
-        });
-      }
-    });
   });
 
   table.on("draw", function () {
     if ($(".checkbox:checked").length === $(".checkbox").length) {
-      $("#select_all").prop("checked", true);
+      $("#selectAll").prop("checked", true);
     } else {
-      $("#select_all").prop("checked", false);
+      $("#selectAll").prop("checked", false);
     }
-  });
-
-  $(document).on("click", ".delete-btn", function () {
-    let id = $(this).data("id");
-    let index = $(this).data("index");
-
-    Swal.fire({
-      text: "คุณแน่ใจหรือไม่...ที่จะลบรายการนี้?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "ใช่! ลบเลย",
-      cancelButtonText: "ยกเลิก",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        $.ajax({
-          type: "POST",
-          url: "../../service/manager/delete-event.php",
-          data: {
-            id: id,
-          },
-          success: function (response) {
-            Swal.fire({
-              text: "รายการของคุณถูกลบเรียบร้อย",
-              icon: "success",
-              confirmButtonText: "ตกลง",
-              timer: 500,
-              timerProgressBar: true,
-            }).then((result) => {
-              location.assign("./");
-            });
-          },
-          error: function (xhr, status, error) {
-            console.error(error);
-            Swal.fire({
-              text: "เกิดข้อผิดพลาดในการลบข้อมูล",
-              icon: "error",
-              confirmButtonText: "ตกลง",
-            });
-          },
-        });
-      }
-    });
   });
 });
 
+//
 $(document).ready(function () {
   var table = $("#form-create-event").DataTable({
     paging: true,
@@ -195,15 +157,15 @@ $(document).ready(function () {
         targets: 3,
       },
       {
-        width: "10%",
+        width: "7%",
         targets: 4,
       },
       {
-        width: "10%",
+        width: "7%",
         targets: 5,
       },
       {
-        width: "20%",
+        width: "15%",
         targets: 6,
       },
       {
@@ -270,12 +232,19 @@ $(document).ready(function () {
         },
         error: function (xhr, status, error) {
           console.error(error);
-          alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
+          Swal.fire({
+            text: "เกิดข้อผิดพลาดในการส่งข้อมูล",
+            icon: "error",
+            // timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            location.assign("./");
+          });
         },
       });
     } else {
       Swal.fire({
-        title: "เลือกคลาสและรุ่นน้ำหนัก?",
         text: "กรุณาเลือกคลาสและรุ่นน้ำหนักและรายชื่อนักกีฬา?",
         icon: "question",
         confirmButtonText: "ตกลง",

@@ -23,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $role = 'default_status';
     }
 
-    // Check image format
     $allowedImageTypes = ['image/jpeg', 'image/png'];
     if (!$check || !in_array($check['mime'], $allowedImageTypes)) {
         respondError('Invalid or unreadable image format. Please upload a JPEG, PNG.');
@@ -40,13 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $age = filter_input(INPUT_POST, 'age', FILTER_SANITIZE_STRING);
                 $license = filter_input(INPUT_POST, 'license', FILTER_SANITIZE_STRING);
 
-                // แปลงค่า status
                 if ($status === 'male') {
                     $status = 'ชาย';
                 } elseif ($status === 'female') {
                     $status = 'หญิง';
                 } else {
-                    // กรณีค่า status ไม่ใช่ male หรือ female ให้กำหนดค่าเป็นอะไรก็ตามที่เหมาะสม
                     $status = 'ไม่ระบุ';
                 }
 

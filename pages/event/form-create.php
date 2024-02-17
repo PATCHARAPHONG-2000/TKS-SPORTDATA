@@ -47,8 +47,6 @@ if (isset($_SESSION['team']['role'])) {
 
     .form-group {
         display: flex;
-        margin-top: 1rem;
-        /* ปรับขนาดของช่องว่างตรงนี้ตามต้องการ */
     }
 
     .id_save {
@@ -72,7 +70,11 @@ if (isset($_SESSION['team']['role'])) {
                                         <i class="fa-solid fa-id-card-clip mr-2"></i>
                                         เพิ่มนักกีฬา
                                     </h4>
-                                    <div class="mt-3 text-white">
+                                    <a href="./" class="btn btn-info my-3 mr-auto">
+                                        <i class="fas fa-list"></i>
+                                        กลับหน้าหลัก
+                                    </a>
+                                    <div class="text-white">
                                         <div class="form-group">
                                             <div class="mr-3">
                                                 <label for="clas">คลาส</label>
@@ -112,6 +114,7 @@ if (isset($_SESSION['team']['role'])) {
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="p-2">
                                     <table id="form-create-event" class="table table table-striped table-hover">
                                         <thead>
