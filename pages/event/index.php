@@ -5,6 +5,12 @@
 
     $per = $conn->prepare("SELECT * FROM event");
     $per->execute();
+
+    if (isset($_SESSION['team']['role'])) {
+    $role = $_SESSION['team']['role'];
+    } else {
+        $role = 'default_status';
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +54,7 @@
                                             <i class="fas fa-plus"></i>
                                             เพิ่มนักกีฬา
                                         </a>
-                                        <a href="#" class="btn btn-info mt-3 text-white" type="button" id="delete">
+                                        <a href="#" class="btn btn-info mt-3 text-white delete-btn" type="button">
                                             <i class="nav-icon fa-solid fa-print"></i>
                                             ลบรายการที่เลือก
                                         </a>
@@ -78,7 +84,9 @@
                                             <?php
                                             $counter = 1;
                                             if ($per->rowCount() > 0) {
-                                                while ($person = $per->fetch(PDO::FETCH_ASSOC)) { ?>
+                                                while ($person = $per->fetch(PDO::FETCH_ASSOC)) { 
+                                                    if ($person["team"] === $role) {
+                                            ?>
                                             <tr id="<?php echo $person["id"]; ?>">
                                                 <td class="align-middle"><input type="checkbox" class="checkbox"
                                                         name="idc[]" value="<?php echo $person["id"]; ?>"></td>
@@ -108,19 +116,18 @@
                                                         alt="Profile" style="max-width: 50px;">
                                                 </td>
                                                 <td class="align-middle">
-                                                    <button type="button" class="btn btn-danger delete-btn"
-                                                        data-id="<?php echo $person["id"]; ?>">
-                                                        <i class="far fa-trash-alt"></i> ลบ
-                                                    </button>
-
+                                                    <a href="form-edit.php?id=<?php echo $person['id']; ?>"
+                                                        type="button" class="btn btn-warning">
+                                                        <i class="far fa-trash-alt"></i> แก้ไข
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <?php
                                                     $counter++;
+                                                    }
                                                 }
-
                                             } else {
-                                                ?>
+                                            ?>
                                             <tr>
                                                 <td colspan="7">ยังไม่รายชื่อ</td>
                                             </tr>
@@ -131,10 +138,6 @@
                                     </table>
 
                                 </div>
-                                <!-- <div class="card-body">
-                                    <table id="logs" class="table table-hover" width="100%">
-                                    </table>
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -149,13 +152,12 @@
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="../../assets/js/adminlte.min.js"></script>
-
     <!-- datatables -->
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="../../assets/js/event.js"></script>
+    <script src="../../assets/js/index-event.js"></script>
 
 </body>
 

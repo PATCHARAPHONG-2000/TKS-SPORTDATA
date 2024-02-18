@@ -74,10 +74,10 @@ if (isset($_SESSION['team']['role'])) {
                                         <i class="fas fa-list"></i>
                                         กลับหน้าหลัก
                                     </a>
-                                    <div class="text-white">
+                                    <div class="text-white mt-3">
                                         <div class="form-group">
                                             <div class="mr-3">
-                                                <label for="clas">คลาส</label>
+                                                <label for="clas" style="color: black; font-size: 1.1rem;">คลาส</label>
                                                 <select class="form-control" name="clas" id="clas" required>
                                                     <option value="" disabled selected>กรุณาเลือกคลาส</option>
                                                     <?php
@@ -91,7 +91,8 @@ if (isset($_SESSION['team']['role'])) {
                                                 </select>
                                             </div>
                                             <div class="mr-3">
-                                                <label for="weigth">คลาส</label>
+                                                <label for="weigth"
+                                                    style="color: black; font-size: 1.1rem;">รุ่นน้ำหนัก</label>
                                                 <select class="form-control" name="weigth" id="weigth" required>
                                                     <option value="" disabled selected>กรุณาเลือกรุ่นน้ำหนัก</option>
                                                     <?php
@@ -136,7 +137,9 @@ if (isset($_SESSION['team']['role'])) {
                                             <?php
                                             $counter = 1;
                                             if ($per->rowCount() > 0) {
-                                                while ($person = $per->fetch(PDO::FETCH_ASSOC)) { ?>
+                                                while ($person = $per->fetch(PDO::FETCH_ASSOC)) { 
+                                                    if ($person["team"] === $role) {
+                                            ?>
                                             <tr id="<?php echo $person["id"]; ?>">
                                                 <td class="align-middle"><input type="checkbox" class="checkbox"
                                                         name="idc[]" value="<?php echo $person["id"]; ?>"></td>
@@ -168,6 +171,7 @@ if (isset($_SESSION['team']['role'])) {
                                             </tr>
                                             <?php
                                                     $counter++;
+                                                    }
                                                 }
                                             } else {
                                                 ?>
@@ -195,7 +199,7 @@ if (isset($_SESSION['team']['role'])) {
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="../../assets/js/adminlte.min.js"></script>
-    <script src="../../assets/js/event.js"></script>
+    <script src="../../assets/js/create-event.js"></script>
 
     <!-- datatables -->
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>

@@ -40,7 +40,7 @@ $rowe = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
                                 <div class="card-header border-0 pt-4">
                                     <h4>
                                         <i class="fas fa-user-cog"></i>
-                                        แก้ไขข้อมูลผู้ดูแล
+                                        แก้ไขข้อมูล นักกีฬา
                                     </h4>
                                     <a href="./" class="btn btn-info my-3 ">
                                         <i class="fas fa-list"></i>
@@ -189,7 +189,6 @@ $rowe = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
                     });
                 },
                 error: function(xhr, status, error) {
-                    // Handle AJAX request errors
                     console.log('XHR:', xhr);
                     console.log('Status:', status);
                     console.log('Error:', error);

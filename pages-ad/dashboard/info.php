@@ -19,7 +19,8 @@ $conn = $Database->connect();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo isset($_SESSION['id_city']['province']) ? $_SESSION['id_city']['province'] : ''; ?> | TKS SPORTDATA</title>
+    <title><?php echo isset($_SESSION['id_city']['province']) ? $_SESSION['id_city']['province'] : ''; ?> | TKS
+        SPORTDATA</title>
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon.ico">
     <!-- stylesheet -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
@@ -27,7 +28,7 @@ $conn = $Database->connect();
     <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <link rel="stylesheet" href="../../assets/css/adminlte.min.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
-  
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -42,14 +43,14 @@ $conn = $Database->connect();
                             <div class="card shadow">
                                 <div class="card-header border-0 pt-4">
                                     <h4>
-                                    <i class="fa-regular fa-address-book"></i>
+                                        <i class="fa-regular fa-address-book"></i>
                                         ข้อมูลทั้งหมดของ : <?php echo $info['firstname']; ?>
-                                        
+
                                     </h4>
                                     <a href="./" class="btn btn-info mt-3">
-                                    <i class="fas fa-list"></i>
-                                    กลับหน้าหลัก
-                                </a>
+                                        <i class="fas fa-list"></i>
+                                        กลับหน้าหลัก
+                                    </a>
                                 </div>
                                 <div class="card-body px-5">
                                     <div class="row">
@@ -57,7 +58,7 @@ $conn = $Database->connect();
                                             <div class="card shadow-sm">
                                                 <div class="card-header pt-4">
                                                     <h3 class="card-title">
-                                                    <i class="fa-regular fa-user"></i>
+                                                        <i class="fa-regular fa-user"></i>
                                                         ข้อมูลส่วตัว
                                                     </h3>
                                                 </div>
@@ -71,7 +72,7 @@ $conn = $Database->connect();
                                                     <div class="row mb-3">
                                                         <p class="col-xl-3 text-muted">นามสกุล :</p>
                                                         <div class="col-xl-9">
-                                                           <?php echo $info['lastname'] ?>
+                                                            <?php echo $info['lastname'] ?>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
@@ -92,7 +93,7 @@ $conn = $Database->connect();
                                                             <p><?php echo $info['create_time'] ?></p>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -100,13 +101,14 @@ $conn = $Database->connect();
                                             <div class="card shadow-sm">
                                                 <div class="card-header pt-4">
                                                     <h3 class="card-title">
-                                                    <i class="fa-regular fa-image"></i>
-                                                     รูปภาพ
+                                                        <i class="fa-regular fa-image"></i>
+                                                        รูปภาพ
                                                     </h3>
                                                 </div>
                                                 <div class="card-body px-5">
-                                                <img src="../../service/uploads/<?php echo $info['image'] ?>" alt="Profile" style="max-width: 180px;">
-                                                   
+                                                    <img src="../../service/uploads/<?php echo $info['image'] ?>"
+                                                        alt="Profile" style="max-width: 180px;">
+
                                                 </div>
                                             </div>
                                         </div>
@@ -114,7 +116,7 @@ $conn = $Database->connect();
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

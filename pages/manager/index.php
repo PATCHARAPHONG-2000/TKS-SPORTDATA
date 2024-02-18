@@ -105,7 +105,7 @@ require_once('../authen.php');
         });
 
         function createEditLink(id) {
-            return `<a href="../manager/form-edit.php?id=${id}" type="button" class="btn btn-warning text-white">
+            return `<a href="form-edit.php?id=${id}" type="button" class="btn btn-warning text-white">
                 <i class="far fa-edit"></i> แก้ไข
                 </a>`;
         }

@@ -26,16 +26,6 @@ function isActive($data)
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars fa-2x"></i></a>
         </li>
     </ul>
-
-    <ul class="navbar-nav ml-auto ">
-        <li class="nav-item d-md-none d-block">
-            <a href="../dashboard/">
-                <img src="../../assets/images/logo.png" alt="Admin Logo" width="50px" class="img-circle elevation-3">
-                <span class="font-weight-light pl-1">TKS SOFTVISION</span>
-            </a>
-        </li>
-
-    </ul>
 </nav>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-light-info elevation-4">
