@@ -1,9 +1,5 @@
 <?php
 require_once('../authen.php');
-
-$Database = new Database();
-$conn = $Database->connect();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,9 +7,7 @@ $conn = $Database->connect();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        <?php echo isset($_SESSION['id_city']['province']) ? $_SESSION['id_city']['province'] : ''; ?> | TKS SPORTDATA
-    </title>
+    <title>จัดการผู้ดูแลระบบ | AppzStory</title>
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon.ico">
     <!-- stylesheet -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
@@ -36,37 +30,67 @@ $conn = $Database->connect();
                                 <div class="card-header border-0 pt-4">
                                     <h4>
                                         <i class="fa-solid fa-user-plus"></i>
-                                        เพิ่มข้อมูลรายชื่อ
+                                        เพิ่มรายชื่อนักกีฬา
                                     </h4>
-                                    <a href="../dashboard/" class="btn btn-info my-3 ">
+                                    <a href="./" class="btn btn-info my-3 ">
                                         <i class="fas fa-list"></i>
                                         กลับหน้าหลัก
                                     </a>
                                 </div>
-                                <form id="formData" id="originalCardBody" enctype="multipart/form-data">
-                                    <!-- <form action="../../service/managercard/create.php" method="post" enctype="multipart/form-data" > -->
-                                    <div class="card-body" id="originalCardBody">
+                                <form id="formData">
+                                    <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6 px-1 px-md-5">
                                                 <div class="form-group">
-                                                    <label for="firstname">ชื่อ <span
-                                                            style="color: red;">*</span></label>
+                                                    <label for="firstname">ชื่อ</label>
                                                     <input type="text" class="form-control" name="firstname"
                                                         id="firstname" placeholder="ชื่อ" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="status">ตำแหน่ง <span
-                                                            style="color: red;">*</span></label>
-                                                    <input type="text" class="form-control" name="status" id="status"
-                                                        placeholder="ตำแหน่ง" required>
+                                                    <label for="permission">เพศ</label>
+                                                    <select class="form-control" name="status" id="permission" required>
+                                                        <option value disabled selected>เลือกเพศ</option>
+                                                        <option value="male">ชาย</option>
+                                                        <option value="female">หญิง</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="age">อายุ</label>
+                                                    <select class="form-control" name="age" id="age" required>
+                                                        <option value="" disabled selected>กรุณาเลือกอายุ</option>
+                                                        <?php
+                                                        for ($i = 1; $i <= 100; $i++) {
+                                                            echo "<option value=\"$i\">$i</option>";
+                                                        }
+                                                        ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 px-1 px-md-5">
                                                 <div class="form-group">
-                                                    <label for="lastname">นามสกุล <span
-                                                            style="color: red;">*</span></label>
+                                                    <label for="lastname">นามสกุล</label>
                                                     <input type="text" class="form-control" name="lastname"
                                                         id="lastname" placeholder="นามสกุล" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="clas">คลาส</label>
+                                                    <select class="form-control" name="clas" id="clas" required>
+                                                        <option value="" disabled selected>กรุณาเลือกคลาส</option>
+                                                        <option value="A">A</option>
+                                                        <option value="B">B</option>
+                                                        <option value="C">C</option>
+                                                        <option value="D">D</option>
+                                                        <option value="E">E</option>
+                                                        <option value="F">F</option>
+                                                        <option value="G">G</option>
+                                                        <option value="H">H</option>
+                                                        <option value="I">I</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="license">License Number</label>
+                                                    <input type="text" class="form-control" name="license" id="license"
+                                                        placeholder="License Number" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="customFile">รูปโปรไฟล์ <span
@@ -96,13 +120,12 @@ $conn = $Database->connect();
         </div>
         <?php include_once('../includes/footer.php') ?>
     </div>
-
     <!-- SCRIPTS -->
     <script src="../../plugins/jquery/jquery.min.js"></script>
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="../../assets/js/adminlte.min.js"></script>
-
+    <script src="https://kit.fontawesome.com/86e67b6ecc.js" crossorigin="anonymous"></script>
 
     <script>
     const fileInput = document.getElementById('customFile');
@@ -117,14 +140,12 @@ $conn = $Database->connect();
         }
         const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB
 
-        // Check image size
         if (file.size > maxSizeInBytes) {
             showFileSizeExceedWarning();
             resetFileInput();
             return;
         }
 
-        // เมื่อไฟล์ถูกต้อง อัปเดตป้ายกำกับด้วยชื่อไฟล์
         const fileName = file.name;
         customFileLabel.html(fileName);
     });
@@ -147,7 +168,7 @@ $conn = $Database->connect();
             e.preventDefault();
             $.ajax({
                 type: 'POST',
-                url: '../../service/sport/create.php',
+                url: '../../service/manager/create.php',
                 data: new FormData(this),
                 contentType: false,
                 processData: false
@@ -157,7 +178,7 @@ $conn = $Database->connect();
                     icon: 'success',
                     confirmButtonText: 'ตกลง',
                     showConfirmButton: false,
-                    timer: 500
+                    timer: 1000
                 }).then((result) => {
                     location.assign('./form-create');
                 });
@@ -165,8 +186,6 @@ $conn = $Database->connect();
         });
     });
     </script>
-
-
 </body>
 
 </html>

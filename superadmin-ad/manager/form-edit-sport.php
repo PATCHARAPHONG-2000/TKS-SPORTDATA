@@ -8,9 +8,9 @@ $conn = $Database->connect();
 
 $id = $_GET['id'];
 $params = array('id' => $id);
-$selectbyidUser = $conn->prepare("SELECT * FROM personnel WHERE id = :id");
+$selectbyidUser = $conn->prepare("SELECT * FROM sport WHERE id = :id");
 $selectbyidUser->execute($params);
-$rowe = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
+$sp = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
 
 ?>
 <!DOCTYPE html>
@@ -58,12 +58,12 @@ $rowe = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
                                                     <label for="firstname">ชื่อ</label>
                                                     <input type="text" class="form-control" name="firstname"
                                                         id="firstname" placeholder="ชื่อ"
-                                                        value="<?php echo $rowe['firstname'] ?>">
+                                                        value="<?php echo $sp['firstname'] ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="status">ตำแหน่ง</label>
                                                     <input type="text" class="form-control" name="status" id="status"
-                                                        placeholder="ตำแหน่ง" value="<?php echo $rowe['status'] ?>">
+                                                        placeholder="ตำแหน่ง" value="<?php echo $sp['status'] ?>">
                                                 </div>
 
                                                 <div class="form-group">
@@ -71,7 +71,7 @@ $rowe = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
                                                     <select class="form-control" disabled name="province" id="province">
                                                         <option value="" disabled selected></option>
                                                         <?php
-                                                        echo "<option value='{$rowe['province']}' selected>{$rowe['province']}</option>";
+                                                        echo "<option value='{$sp['province']}' selected>{$sp['province']}</option>";
                                                         ?>
                                                     </select>
                                                 </div>
@@ -82,7 +82,7 @@ $rowe = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
                                                     <label for="lastname">นามสกุล</label>
                                                     <input type="text" class="form-control" name="lastname"
                                                         id="lastname" placeholder="นามสกุล"
-                                                        value="<?php echo $rowe['lastname'] ?>">
+                                                        value="<?php echo $sp['lastname'] ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="customFile">รูปโปรไฟล์</label>
@@ -116,7 +116,7 @@ $rowe = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="../../assets/js/adminlte.min.js"></script>
-    <script src="../../assets/js/pages_ad/manager/form-edit.js"></script>
+    <script src="../../assets/js/superadmin-ad/manager/form-edit-sport.js"></script>
 
 </body>
 

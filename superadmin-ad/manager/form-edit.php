@@ -1,8 +1,16 @@
 <?php
+
 require_once('../authen.php');
 
 $Database = new Database();
 $conn = $Database->connect();
+
+
+$id = $_GET['id'];
+$params = array('id' => $id);
+$selectbyidUser = $conn->prepare("SELECT * FROM personnel WHERE id = :id");
+$selectbyidUser->execute($params);
+$row = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
 
 ?>
 <!DOCTYPE html>
@@ -11,16 +19,16 @@ $conn = $Database->connect();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        <?php echo isset($_SESSION['id_city']['province']) ? $_SESSION['id_city']['province'] : ''; ?> | TKS SPORTDATA
-    </title>
+    <title>จัดการผู้ดูแลระบบ | TKS SPORTDATA</title>
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon.ico">
-    <!-- stylesheet -->
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <link rel="stylesheet" href="../../assets/css/adminlte.min.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
+
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -35,45 +43,55 @@ $conn = $Database->connect();
                             <div class="card shadow">
                                 <div class="card-header border-0 pt-4">
                                     <h4>
-                                        <i class="fa-solid fa-user-plus"></i>
-                                        เพิ่มข้อมูลรายชื่อ
+                                        <i class="fas fa-user-cog"></i>
+                                        แก้ไขข้อมูล
                                     </h4>
                                     <a href="../dashboard/" class="btn btn-info my-3 ">
                                         <i class="fas fa-list"></i>
                                         กลับหน้าหลัก
                                     </a>
                                 </div>
-                                <form id="formData" id="originalCardBody" enctype="multipart/form-data">
-                                    <!-- <form action="../../service/managercard/create.php" method="post" enctype="multipart/form-data" > -->
-                                    <div class="card-body" id="originalCardBody">
+                                <form id="formData">
+                                    <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+                                    <div class="card-body">
+
                                         <div class="row">
                                             <div class="col-md-6 px-1 px-md-5">
                                                 <div class="form-group">
-                                                    <label for="firstname">ชื่อ <span
-                                                            style="color: red;">*</span></label>
+                                                    <label for="firstname">ชื่อ</label>
                                                     <input type="text" class="form-control" name="firstname"
-                                                        id="firstname" placeholder="ชื่อ" required>
+                                                        id="firstname" placeholder="ชื่อ"
+                                                        value="<?php echo $row['firstname'] ?>">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="status">ตำแหน่ง <span
-                                                            style="color: red;">*</span></label>
+                                                    <label for="status">ตำแหน่ง</label>
                                                     <input type="text" class="form-control" name="status" id="status"
-                                                        placeholder="ตำแหน่ง" required>
+                                                        placeholder="ตำแหน่ง" value="<?php echo $row['status'] ?>">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="province">จังหวัด</label>
+                                                    <select class="form-control" disabled name="province" id="province">
+                                                        <option value="" disabled selected></option>
+                                                        <?php
+                                                        echo "<option value='{$row['province']}' selected>{$row['province']}</option>";
+                                                        ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 px-1 px-md-5">
+
                                                 <div class="form-group">
-                                                    <label for="lastname">นามสกุล <span
-                                                            style="color: red;">*</span></label>
+                                                    <label for="lastname">นามสกุล</label>
                                                     <input type="text" class="form-control" name="lastname"
-                                                        id="lastname" placeholder="นามสกุล" required>
+                                                        id="lastname" placeholder="นามสกุล"
+                                                        value="<?php echo $row['lastname'] ?>">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="customFile">รูปโปรไฟล์ <span
-                                                            style="color: red;">*</span></label>
-                                                    <div class="custom-file mb-2">
+                                                    <label for="customFile">รูปโปรไฟล์</label>
+                                                    <div class="custom-file mb-2 ">
                                                         <input name="image" type="file" class="custom-file-input"
-                                                            id="customFile" accept="image/*" required>
+                                                            id="customFile" accept="image/*">
                                                         <label class="custom-file-label"
                                                             for="customFile">เลือกรูปภาพ</label>
                                                     </div>
@@ -96,76 +114,12 @@ $conn = $Database->connect();
         </div>
         <?php include_once('../includes/footer.php') ?>
     </div>
-
     <!-- SCRIPTS -->
     <script src="../../plugins/jquery/jquery.min.js"></script>
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="../../assets/js/adminlte.min.js"></script>
-
-
-    <script>
-    const fileInput = document.getElementById('customFile');
-    const customFileLabel = $(fileInput).next('.custom-file-label');
-
-    fileInput.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-
-        if (!file) {
-            resetFileInput();
-            return;
-        }
-        const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB
-
-        // Check image size
-        if (file.size > maxSizeInBytes) {
-            showFileSizeExceedWarning();
-            resetFileInput();
-            return;
-        }
-
-        // เมื่อไฟล์ถูกต้อง อัปเดตป้ายกำกับด้วยชื่อไฟล์
-        const fileName = file.name;
-        customFileLabel.html(fileName);
-    });
-
-    function resetFileInput() {
-        fileInput.value = '';
-        customFileLabel.html('');
-    }
-
-    function showFileSizeExceedWarning() {
-        Swal.fire({
-            title: "ขนาดไฟล์เกิน",
-            text: "ขนาดไฟล์ภาพของคุณเกิน 5 MB กรุณาเลือกใหม่",
-            icon: "warning",
-        });
-    }
-
-    $(function() {
-        $('#formData').on('submit', function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: '../../service/sport/create.php',
-                data: new FormData(this),
-                contentType: false,
-                processData: false
-            }).done(function(resp) {
-                Swal.fire({
-                    text: 'เพิ่มข้อมูลเรียบร้อย',
-                    icon: 'success',
-                    confirmButtonText: 'ตกลง',
-                    showConfirmButton: false,
-                    timer: 500
-                }).then((result) => {
-                    location.assign('./form-create');
-                });
-            })
-        });
-    });
-    </script>
-
+    <script src="../../assets/js/superadmin-ad/manager/form-edit.js"></script>
 
 </body>
 

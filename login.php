@@ -177,9 +177,78 @@ $conn = $Database->connect();
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/86e67b6ecc.js" crossorigin="anonymous"></script>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/login.js"></script>
+    <script src="assets/js/main.js"></script>>
+    <!-- <script src="assets/js/login.js"></script> -->
     <script src="assets/js/reset_password.js"></script>
+
+    <script>
+    $("#formLogin").submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "service/auth/login.php",
+            data: $(this).serialize(),
+            dataType: "json",
+        }).done(function(resp) {
+            if (resp.error) {
+                console.log(resp);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: resp.error,
+                    confirmButtonColor: "#FF0000", // สีแดง
+                });
+            } else {
+                console.log(resp);
+                let timerInterval;
+                Swal.fire({
+                    title: "กำลังเข้าสู่ระบบ",
+                    html: "กำลังตรวจสอบ <b></b> ข้อมูล.",
+                    timer: 1500,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading();
+                        const b = Swal.getHtmlContainer().querySelector("b");
+                        timerInterval = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft();
+                        }, 100);
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval);
+                    },
+                }).then((result) => {
+                    if (result
+                        .isDismissed
+                    ) { // แก้ไขจาก result.dismiss === Swal.DismissReason.timer เป็น result.isDismissed
+                        console.log("I was closed by the timer");
+                        if (resp.role ===
+                            "tkd") { // แก้ไขจาก resp.email === "tkd" เป็น resp.role === "tkd"
+                            location.href = "pages-twd/";
+                        } else if (resp.role ===
+                            "superadmin"
+                        ) { // แก้ไขจาก resp.email === "SPAM" เป็น resp.role === "SPAM"
+                            location.href = "superadmin_twd/";
+                        }
+                    }
+                });
+            }
+
+        });
+    });
+
+    document.getElementById("show_pass").addEventListener("click", function() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+            document.getElementById("show_pass").classList.remove("fa-eye");
+            document.getElementById("show_pass").classList.add("fa-eye-slash");
+        } else {
+            x.type = "password";
+            document.getElementById("show_pass").classList.remove("fa-eye-slash");
+            document.getElementById("show_pass").classList.add("fa-eye");
+        }
+    });
+    </script>
 </body>
 
 </html>

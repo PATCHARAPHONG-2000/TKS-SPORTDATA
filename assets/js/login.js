@@ -33,11 +33,15 @@ $("#formLogin").submit(function (e) {
           clearInterval(timerInterval);
         },
       }).then((result) => {
-        /* Read more about handling dismissals below */
-        if (result.dismiss === Swal.DismissReason.timer) {
+        if (result.isDismissed) {
+          // แก้ไขจาก result.dismiss === Swal.DismissReason.timer เป็น result.isDismissed
           console.log("I was closed by the timer");
-          if (resp.email === "tkd") {
-            location.href = "pages/";
+          if (resp.role === "tkd") {
+            // แก้ไขจาก resp.email === "tkd" เป็น resp.role === "tkd"
+            location.href = "pages-twd/";
+          } else if (resp.role === "superadmin") {
+            // แก้ไขจาก resp.email === "SPAM" เป็น resp.role === "SPAM"
+            location.href = "superadmin_twd/";
           }
         }
       });

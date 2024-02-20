@@ -31,21 +31,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['AD_USERNAME'] = $user['email'];
                 $_SESSION['AD_ROLE'] = $user['Role'];
 
-                if ($_SESSION['AD_ROLE']) {
-                    // ตรวจสอบ Role และทำการตั้งค่า Session ตามความเหมาะสม
-                    // โดยในที่นี้คือตั้งค่า $_SESSION['tkd']
-                    $_SESSION['team'] = [
-                        'role' => $user['Role'],
-                        'email' => $user['email'],
-                    ];
-                    echo json_encode([
-                        'status' => true,
-                        'email' => 'tkd',
-                        'role' => $user['Role'], // เพิ่มข้อมูล Role ลงใน JSON
-                        'message' => 'Login Success'
-                    ]);
-                    exit();
-                }
+                if ($_SESSION['AD_ROLE'] == 'tkd') { // แก้ไขเป็น $_SESSION['AD_ROLE'] == 'tkd'
+                        echo json_encode([
+                            'status' => true,
+                            'role' => $user['Role'], // เพิ่มข้อมูล Role ลงใน JSON
+                            'message' => 'Login Success'
+                        ]);
+                        exit();
+                    } else if ($_SESSION['AD_ROLE'] == 'superadmin') { // แก้ไขเป็น $_SESSION['AD_ROLE'] == 'SPAM'
+                        echo json_encode([
+                            'status' => true,
+                            'role' => $user['Role'], // เพิ่มข้อมูล Role ลงใน JSON
+                            'message' => 'Login Success'
+                        ]);
+                        exit();
+                    } else {
+                        respondError('ไม่มีสิทธิ์ในการเข้าสู่ระบบ');
+                    }
             } else {
                 respondError('รหัสผ่านไม่ถูกต้อง');
             }
