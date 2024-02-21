@@ -31,14 +31,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['AD_USERNAME'] = $user['email'];
                 $_SESSION['AD_ROLE'] = $user['Role'];
 
-                if ($_SESSION['AD_ROLE'] == 'tkd') { // แก้ไขเป็น $_SESSION['AD_ROLE'] == 'tkd'
+             if ($_SESSION['AD_ROLE'] !== 'superadmin') {
+                        $_SESSION['team'] = [
+                                'role' => $user['Role'],
+                                'email' => $user['email'],
+                            ];
+
                         echo json_encode([
                             'status' => true,
-                            'role' => $user['Role'], // เพิ่มข้อมูล Role ลงใน JSON
+                            'email' => 'tkd',
+                            'role' => $user['Role'], 
                             'message' => 'Login Success'
                         ]);
                         exit();
-                    } else if ($_SESSION['AD_ROLE'] == 'superadmin') { // แก้ไขเป็น $_SESSION['AD_ROLE'] == 'SPAM'
+                    } else if ($_SESSION['AD_ROLE'] == 'superadmin') { 
+                        
+                         $_SESSION['team'] = [
+                                'role' => $user['Role'],
+                                'email' => $user['email'],
+                            ];
                         echo json_encode([
                             'status' => true,
                             'role' => $user['Role'], // เพิ่มข้อมูล Role ลงใน JSON

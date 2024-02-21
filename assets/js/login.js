@@ -34,13 +34,10 @@ $("#formLogin").submit(function (e) {
         },
       }).then((result) => {
         if (result.isDismissed) {
-          // แก้ไขจาก result.dismiss === Swal.DismissReason.timer เป็น result.isDismissed
           console.log("I was closed by the timer");
           if (resp.role === "tkd") {
-            // แก้ไขจาก resp.email === "tkd" เป็น resp.role === "tkd"
             location.href = "pages-twd/";
           } else if (resp.role === "superadmin") {
-            // แก้ไขจาก resp.email === "SPAM" เป็น resp.role === "SPAM"
             location.href = "superadmin_twd/";
           }
         }

@@ -221,7 +221,7 @@ $conn = $Database->connect();
                         .isDismissed
                     ) { // แก้ไขจาก result.dismiss === Swal.DismissReason.timer เป็น result.isDismissed
                         console.log("I was closed by the timer");
-                        if (resp.role ===
+                        if (resp.email ===
                             "tkd") { // แก้ไขจาก resp.email === "tkd" เป็น resp.role === "tkd"
                             location.href = "pages-twd/";
                         } else if (resp.role ===

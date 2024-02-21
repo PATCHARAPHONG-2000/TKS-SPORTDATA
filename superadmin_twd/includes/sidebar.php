@@ -26,10 +26,14 @@ function isActive($data)
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars fa-2x"></i></a>
         </li>
     </ul>
+
 </nav>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-light-info elevation-4">
-
+    <a href="../dashboard/" class="brand-link">
+        <img src="../../assets/images/logo.png" alt="Admin Logo" class="brand-image ">
+        <span class="brand-text font-weight-light">TKS SPORTDATA</span>
+    </a>
     <div class="sidebar mt-3 pb-3 mb-3 d-flex">
         <nav class="mt-3 pb-3 mb-3 d-flex">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -39,18 +43,25 @@ function isActive($data)
                         <p>หน้าหลัก</p>
                     </a>
                 </li>
+                <div>
+                    <hr>
+                </div>
+                <li class="nav-header mt-1" style="font-size: 1.10rem;">ตั้งค่า</li>
                 <li class="nav-item">
-                    <a href="../manager/" class="nav-link <?php echo isActive('manager') ?>">
-                        <i class="nav-icon fa-solid fa-user"></i>
-                        <p>รายชื่อนักกีฬา</p>
+                    <a href="../setting/image-event" class="nav-link">
+                        <i class="nav-icon fa-solid fa-calendar-plus fa-xl2 mr-2"></i>
+                        <p>เพิ่มแบร์นเนอร์</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../event/" class="nav-link <?php echo isActive('event') ?>">
-                        <i class="nav-icon fa-brands fa-elementor"></i>
-                        <p>สมัครอีเว้นท์</p>
+                    <a href="../setting/create_event" class="nav-link">
+                        <i class="nav-icon fa-solid fa-calendar-plus fa-xl2 mr-2"></i>
+                        <p>เพิ่มอัเว้นท์</p>
                     </a>
                 </li>
+                <div>
+                    <hr>
+                </div>
                 <li class="nav-header">บัญชีของเรา</li>
                 <li class="nav-item">
                     <a id="logout" class="nav-link" onclick="confirmLogout()">
