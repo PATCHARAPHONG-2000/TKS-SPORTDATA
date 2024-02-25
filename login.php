@@ -178,10 +178,10 @@ $conn = $Database->connect();
     <script src="https://kit.fontawesome.com/86e67b6ecc.js" crossorigin="anonymous"></script>
 
     <script src="assets/js/main.js"></script>>
-    <!-- <script src="assets/js/login.js"></script> -->
+    <script src="assets/js/login.js"></script>
     <script src="assets/js/reset_password.js"></script>
 
-    <script>
+    <!-- <script>
     $("#formLogin").submit(function(e) {
         e.preventDefault();
         $.ajax({
@@ -248,7 +248,7 @@ $conn = $Database->connect();
             document.getElementById("show_pass").classList.add("fa-eye");
         }
     });
-    </script>
+    </script> -->
 </body>
 
 </html>
