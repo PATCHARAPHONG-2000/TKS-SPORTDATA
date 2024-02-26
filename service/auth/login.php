@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['AD_USERNAME'] = $user['email'];
                 $_SESSION['AD_ROLE'] = $user['Role'];
 
-             if ($_SESSION['AD_ROLE'] !== 'superadmin') {
+             if ($_SESSION['AD_ROLE'] !== 'SUPERADMIN TWD') {
                         $_SESSION['team'] = [
                                 'role' => $user['Role'],
                                 'email' => $user['email'],
@@ -39,12 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         echo json_encode([
                             'status' => true,
-                            'email' => 'tkd',
-                            'role' => $user['Role'], 
+                            'role' => 'TWD', 
                             'message' => 'Login Success'
                         ]);
                         exit();
-                    } else if ($_SESSION['AD_ROLE'] == 'superadmin') { 
+                    } else if ($_SESSION['AD_ROLE'] == 'SUPERADMIN TWD') { 
                         
                          $_SESSION['team'] = [
                                 'role' => $user['Role'],

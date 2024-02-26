@@ -1,13 +1,42 @@
 <?php
-    require_once('../authen.php');
+require_once('../authen.php');
 
-    $Database = new Database();
-    $conn = $Database->connect();
+$Database = new Database();
+$conn = $Database->connect();
 
-    $per = $conn->prepare("SELECT * FROM player ORDER BY RAND()");
-    $per->execute();
-    
+$per_chart = $conn->prepare("SELECT * FROM event");
+$per_chart->execute();
+
+$per_table = $conn->prepare("SELECT * FROM event ORDER BY RAND()");
+$per_table->execute();
+
+$data_by_age = array();
+$data_by_team = array();
+
+if ($per_chart->rowCount() > 0) {
+    while ($person = $per_chart->fetch(PDO::FETCH_ASSOC)) {
+        $age_group = getAgeGroup($person['age']);
+        $data_by_age[$age_group][] = $person['age'];
+        $data_by_team[$person['team']][] = $person['age'];
+    }
+}
+
+function getAgeGroup($age)
+{
+    if ($age >= 5 && $age <= 12) {
+        return '5-12';
+    } elseif ($age >= 13 && $age <= 15) {
+        return '13-15';
+    } elseif ($age >= 16 && $age <= 18) {
+        return '16-18';
+    } elseif ($age >= 19 && $age <= 40) {
+        return '19-40';
+    } else {
+        return 'Over 40';
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,56 +56,9 @@
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
     <style>
-    .List::-webkit-scrollbar {
-        width: 0;
-    }
-
-    .List_name {
-        width: auto;
-        height: 35px;
-        background-color: white;
-        border-radius: 20px;
-    }
-
-    .first {
-        margin-right: 10px;
-        width: 100px;
-        /* ล็อคความกว้างของช่อง firstname และ lastname */
-        overflow: hidden;
-        text-overflow: ellipsis;
-        /* แสดงข้อความเดียวกันถ้าเกินความยาว */
-        white-space: nowrap;
-        /* ไม่ขึ้นบรรทัดใหม่ */
-    }
-
-    .last {
-        margin-right: 40px;
-        width: 100px;
-        /* ล็อคความกว้างของช่อง firstname และ lastname */
-        overflow: hidden;
-        text-overflow: ellipsis;
-        /* แสดงข้อความเดียวกันถ้าเกินความยาว */
-        white-space: nowrap;
-        /* ไม่ขึ้นบรรทัดใหม่ */
-    }
-
-    .team {
-        margin-right: 10px;
-        width: 100px;
-        /* ล็อคความกว้างของช่อง firstname และ lastname */
-        overflow: hidden;
-        text-overflow: ellipsis;
-        /* แสดงข้อความเดียวกันถ้าเกินความยาว */
-        white-space: nowrap;
-        /* ไม่ขึ้นบรรทัดใหม่ */
-    }
-
-    .image {
-        max-width: auto;
-        max-height: 30px;
-        border-radius: 50%;
-        margin-top: 2.5px;
-    }
+        .List::-webkit-scrollbar {
+            width: 0;
+        }
     </style>
 </head>
 
@@ -89,45 +71,94 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card shadow">
-                                <div class="card-body">
-                                    <div class="card  p-3" style="width:500px; height:700px;">
-                                        <div class="card-header border-0 ">
-                                            <h4>
-                                                <i class="fa-solid fa-person"></i>
-                                                รายชื่อนักกีฬา
-                                            </h4>
-                                        </div>
-                                        <div class="List p-2" style="overflow-y: auto;">
-                                            <?php
-                                                $counter = 1;
-                                                if ($per->rowCount() > 0) {
-                                                    while ($person = $per->fetch(PDO::FETCH_ASSOC)) {
-                                            ?>
-                                            <div class="List_name shadow mb-4">
-                                                <div class="row">
-                                                    <div style="display: flex; align-items: center;">
-                                                        <h5 style="margin-left: 20px; margin-right: 30px;">
-                                                            <?php echo $counter; ?></h5>
-                                                        <p class="mt-2 first"><?php echo $person["firstname"]; ?></p>
-                                                        <p class="mt-2 last"><?php echo $person["lastname"]; ?></p>
-                                                        <p class="mt-2 team"><?php echo $person["team"]; ?></p>
-                                                    </div>
-                                                    <div>
-                                                        <img src="../../service/tksuploads/<?php echo $person["image"]; ?>"
-                                                            alt="" class="image">
-                                                    </div>
-                                                </div>
+                                <div class="card-body row">
+                                    <div class="col-md-6">
+                                        <div class="card p-3 mr-2">
+                                            <div class="card-header border-0">
+                                                <h4>
+                                                    <i class="fa-solid fa-person"></i>
+                                                    รายชื่อนักกีฬา ที่สมัคร
+                                                </h4>
                                             </div>
-                                            <?php
-                                                    $counter++;
-                                                }
-                                            }
-                                            ?>
+                                            <div class="List p-2" style="max-height: 700px; overflow-y: auto;">
+                                                <table id="index-event" class="table table-striped table-hover"
+                                                    style="border-radius: 50%;">
+                                                    <tbody>
+                                                        <?php
+                                                        $counter = 1;
+                                                        if ($per_table->rowCount() > 0 && $counter <= 20) {
+                                                            $teamChartLabels = array_keys($data_by_team);
+                                                            $teamChartData = array_values($data_by_team);
+                                                            while ($person = $per_table->fetch(PDO::FETCH_ASSOC)) {
+                                                                ?>
+                                                                <tr id="<?php echo $person["id"]; ?>">
+                                                                    <td class="align-middle">
+                                                                        <?php echo $counter; ?>
+                                                                    </td>
+                                                                    <td class="align-middle"
+                                                                        style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                                        <?php echo $person["firstname"]; ?>
+                                                                    </td>
+                                                                    <td class="align-middle"
+                                                                        style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                                        <?php echo $person["lastname"]; ?>
+                                                                    </td>
+                                                                    <td class="align-middle">
+                                                                        <?php echo $person["team"]; ?>
+                                                                    </td>
+                                                                    <td class="align-middle">
+                                                                        <img src="../../service/tksuploads/<?php echo $person["image"]; ?>"
+                                                                            alt="Profile"
+                                                                            style="max-width: 20px; border-radius: 50%;">
+                                                                    </td>
+                                                                </tr>
+                                                                <?php
+                                                                $counter++;
+                                                                if ($counter > 20) {
+                                                                    break;
+                                                                }
+                                                            }
+                                                        } else {
+                                                            ?>
+                                                            <tr>
+                                                                <td colspan="6">ยังไม่รายชื่อที่สมัคร</td>
+                                                            </tr>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card p-3 mb-2">
+                                            <div class="card-header border-0">
+                                                <h4>
+                                                    <i class="fa-solid fa-transgender"></i>
+                                                    ช่วงอายุที่สมัคร
+                                                </h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <canvas id="myChart"></canvas>
+                                            </div>
+                                        </div>
+                                        <div class="card p-3">
+                                            <div class="card-header border-0">
+                                                <h4>
+                                                    <i class="fa-solid fa-people-group"></i>
+                                                    รายชื่อทีมที่สมัครมา
+                                                </h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <canvas id="teamChart"></canvas>
+                                            </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -147,7 +178,55 @@
     <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        const ageChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode(array_keys($data_by_age)); ?>,
+                datasets: [{
+                    label: 'จำนวนผู้สมัครตามอายุ',
+                    data: <?php echo json_encode(array_map('count', $data_by_age)); ?>,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const teamCtx = document.getElementById('teamChart');
+
+        const teamChart = new Chart(teamCtx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($teamChartLabels); ?>,
+                datasets: [{
+                    label: 'จำนวนผู้สมัครตามทีม',
+                    data: <?php echo json_encode(array_map('count', $teamChartData)); ?>,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
