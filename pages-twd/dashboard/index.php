@@ -1,50 +1,7 @@
 <?php
 require_once('../authen.php');
 
-$Database = new Database();
-$conn = $Database->connect();
-
-if (isset($_SESSION['team']['role'])) {
-    $role = $_SESSION['team']['role'];
-} else {
-    $role = 'default_status';
-}
-
-$player = $conn->prepare("SELECT * FROM player WHERE team = :role");
-$player->bindParam(':role', $role);
-$player->execute();
-
-
-$per_chart = $conn->prepare("SELECT * FROM player WHERE team = :role");
-$per_chart->bindParam(':role', $role);
-$per_chart->execute();
-
-
-$data_by_age = array();
-$data_by_team = array();
-
-if ($per_chart->rowCount() > 0) {
-    while ($person = $per_chart->fetch(PDO::FETCH_ASSOC)) {
-        $age_group = getAgeGroup($person['age']);
-        $data_by_age[$age_group][] = $person['age'];
-        $data_by_team[$person['team']][] = $person['age'];
-    }
-}
-
-function getAgeGroup($age)
-{
-    if ($age >= 5 && $age <= 12) {
-        return '5-12';
-    } elseif ($age >= 13 && $age <= 15) {
-        return '13-15';
-    } elseif ($age >= 16 && $age <= 18) {
-        return '16-18';
-    } elseif ($age >= 19 && $age <= 40) {
-        return '19-40';
-    } else {
-        return 'Over 40';
-    }
-}
+include_once('../../assets/php/pages-twd/dashboard/index.php');
 ?>
 
 <!DOCTYPE html>
@@ -64,6 +21,16 @@ function getAgeGroup($age)
     <!-- Datatables -->
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
+    <style>
+    .td {
+        width: 30%;
+    }
+
+    .id {
+        width: 20px;
+    }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -81,7 +48,7 @@ function getAgeGroup($age)
                                             <div class="card-header border-0">
                                                 <h4>
                                                     <i class="fa-solid fa-person"></i>
-                                                    รายชื่อนักกีฬา ที่สมัครอีเว้นท์
+                                                    รายชื่อนักกีฬาที่ได้เหรียญทอง
                                                 </h4>
                                             </div>
                                             <div class="List p-2" style="max-height: 700px; overflow-y: auto;">
@@ -98,39 +65,39 @@ function getAgeGroup($age)
                                                                     continue;
                                                                 }
                                                                 ?>
-                                                                <tr id="<?php echo $person["id"]; ?>">
-                                                                    <td class="align-middle">
-                                                                        <?php echo $counter; ?>
-                                                                    </td>
-                                                                    <td class="align-middle"
-                                                                        style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                                                        <?php echo $person["firstname"]; ?>
-                                                                    </td>
-                                                                    <td class="align-middle"
-                                                                        style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                                                        <?php echo $person["lastname"]; ?>
-                                                                    </td>
-                                                                    <td class="align-middle">
-                                                                        <?php echo $person["team"]; ?>
-                                                                    </td>
-                                                                    <td class="align-middle">
-                                                                        <img src="../../service/tksuploads/<?php echo $person["image"]; ?>"
-                                                                            alt="Profile"
-                                                                            style="max-width: 20px; border-radius: 50%;">
-                                                                    </td>
-                                                                </tr>
-                                                                <?php
-                                                                $counter++;
-                                                                if ($counter > 20) {
-                                                                    break;
-                                                                }
+                                                        <tr id="<?php echo $person["id"]; ?>">
+                                                            <td class="id align-middle">
+                                                                <?php echo $counter; ?>
+                                                            </td>
+                                                            <td class="td align-middle"
+                                                                style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                                <?php echo $person["firstname"]; ?>
+                                                            </td>
+                                                            <td class="td align-middle"
+                                                                style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                                <?php echo $person["lastname"]; ?>
+                                                            </td>
+                                                            <td class="td align-middle">
+                                                                <?php echo $person["team"]; ?>
+                                                            </td>
+                                                            <td class="td align-middle">
+                                                                <img src="../../service/tksuploads/<?php echo $person["image"]; ?>"
+                                                                    alt="Profile"
+                                                                    style="width: 30px; height: 30px; border-radius: 50%;">
+                                                            </td>
+                                                        </tr>
+                                                        <?php
+                                                        $counter++;
+                                                        if ($counter > 20) {
+                                                            break;
+                                                        }
                                                             }
                                                         } else {
                                                             ?>
-                                                            <tr>
-                                                                <td colspan="5">ยังไม่รายชื่อ</td>
-                                                            </tr>
-                                                            <?php
+                                                        <tr>
+                                                            <td colspan="5">ยังไม่รายชื่อ</td>
+                                                        </tr>
+                                                        <?php
                                                         }
                                                         ?>
                                                     </tbody>
@@ -185,51 +152,85 @@ function getAgeGroup($age)
     <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 
     <script>
-        const ctx = document.getElementById('myChart');
+    const ctx = document.getElementById('myChart');
 
-        const ageChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: <?php echo json_encode(array_keys($data_by_age)); ?>,
-                datasets: [{
-                    label: 'จำนวนผู้สมัครตามอายุ',
-                    data: <?php echo json_encode(array_map('count', $data_by_age)); ?>,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+    const ageChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode(array_keys($data_by_age)); ?>,
+            datasets: [{
+                label: 'จำนวนผู้สมัครตามอายุ',
+                data: <?php echo json_encode(array_map('count', $data_by_age)); ?>,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        });
+        }
+    });
 
-        const teamCtx = document.getElementById('teamChart');
+    const teamCtx = document.getElementById('teamChart');
 
-        const teamChart = new Chart(teamCtx, {
-            type: 'bar',
-            data: {
-                labels: <?php echo json_encode($teamChartLabels); ?>,
-                datasets: [{
-                    label: 'จำนวนผู้สมัครตามทีม',
-                    data: <?php echo json_encode(array_map('count', $teamChartData)); ?>,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+    const teamChart = new Chart(teamCtx, {
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode($teamChartLabels); ?>,
+            datasets: [{
+                label: 'จำนวนผู้สมัครตามทีม',
+                data: <?php echo json_encode(array_map('count', $teamChartData)); ?>,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        });
+        }
+    });
+
+    // $(document).ready(function () {
+    //     var table = $("#index-event").DataTable({
+    //         paging: true,
+    //         ordering: false,
+    //         searching: true,
+    //         info: true,
+    //         className: "select-checkbox",
+
+    //         columnDefs: [
+    //             {
+    //                 width: "5%",
+    //                 targets: 0,
+    //             },
+    //             {
+    //                 width: "7%",
+    //                 targets: 1,
+    //             },
+    //             {
+    //                 width: "13%",
+    //                 targets: 2,
+    //             },
+    //             {
+    //                 width: "13%",
+    //                 targets: 3,
+    //             },
+    //             {
+    //                 width: "7%",
+    //                 targets: 4,
+    //             },
+
+    //         ], 
+    //     });
+    // });
     </script>
 
 

@@ -8,7 +8,7 @@ function isActive($data) {
     return $name === $data ? 'active' : '';
 }
 
-$sql = $conn->prepare("SELECT * FROM setting");
+$sql = $conn->prepare("SELECT * FROM setting WHERE name = 'btn-add_data' ORDER BY id");
 $sql->execute();
 $row = $sql->fetch(PDO::FETCH_ASSOC);
 
@@ -57,7 +57,7 @@ if(isset($_SESSION['id_city'])) {
                         <p>ตรวจสอบรายชื่อ</p>
                     </a>
                 </li>
-                <?php if(isset($row['name']) && $row['name'] == 'btn-add_data' && isset($row['IsActive']) && $row['IsActive'] == 1) { ?>
+                <?php if(isset($row['IsActive']) && $row['IsActive'] == 1) { ?>
                 <li class="nav-item ad-data" <?php echo isActive('form-create') ?>>
                     <a href="../manager/form-create" class="nav-link" id="active-link">
                         <i class="nav-icon fa-solid fa-user-plus"></i>

@@ -1,20 +1,41 @@
 <?php
+$Database = new Database();
+$conn = $Database->connect();
 function isActive($data)
 {
     $array = explode('/', $_SERVER['REQUEST_URI']);
-    $key = array_search("pages", $array);
+    $key = array_search("pages-ad", $array);
     $name = $array[$key + 1];
     return $name === $data ? 'active' : '';
 }
+
+$sql = $conn->prepare("SELECT * FROM setting WHERE name = 'btn-twd_event' ORDER BY id");
+$sql->execute();
+$event = $sql->fetch(PDO::FETCH_ASSOC);
+
+if (isset($_SESSION['team']['role'])) {
+    $role = $_SESSION['team']['role'];
+} else {
+    $role = 'default_status';
+}
+
 ?>
+<link rel="stylesheet" href="../../assets/css/sidebar.css">
 
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars fa-2x"></i></a>
         </li>
+        <li class="nav-item text-center">
+            <p class="nav-link" style="font-size: 20px; font-weight: bold; color: black; " disabled>
+                <?php echo isset($_SESSION['team']['role']) ? $_SESSION['team']['role'] : ''; ?>
+            </p>
+        </li>
     </ul>
+
 </nav>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-light-info elevation-4">
@@ -37,13 +58,25 @@ function isActive($data)
                         <p>รายชื่อนักกีฬา</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="../event/" class="nav-link <?php echo isActive('event') ?>">
-                        <i class="nav-icon fa-brands fa-elementor"></i>
-                        <p>สมัครอีเว้นท์</p>
-                    </a>
-                </li>
-
+                <div>
+                    <hr>
+                </div>
+                <?php if (isset($event['IsActive']) && $event['IsActive'] == 1) { ?>
+                    <li class="nav-item ad-data" <?php echo isActive('index') ?>>
+                        <a href="../event/" class="nav-link" id="active-link">
+                            <i class="nav-icon fa-solid fa-user-plus"></i>
+                            <p>สมัครอีเว้นท์</p>
+                        </a>
+                    </li>
+                <?php } else { ?>
+                    <li class="nav-item ad-data" <?php echo isActive('index') ?>>
+                        <a href="#" class="nav-link" style="pointer-events: none; cursor: default; color: gray;"
+                            onclick="return false;">
+                            <i class="nav-icon fa-solid fa-user-plus"></i>
+                            <p>สมัครอีเว้นท์</p>
+                        </a>
+                    </li>
+                <?php } ?>
                 <li class="nav-header">บัญชีของเรา</li>
                 <li class="nav-item">
                     <a id="logout" class="nav-link" onclick="confirmLogout()">
