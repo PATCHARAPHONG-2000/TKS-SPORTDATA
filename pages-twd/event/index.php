@@ -1,16 +1,19 @@
-<?php 
-    require_once('../authen.php'); 
-    $Database = new Database();
-    $conn = $Database->connect();
+<?php
+require_once('../authen.php');
+$Database = new Database();
+$conn = $Database->connect();
 
-    $per = $conn->prepare("SELECT * FROM event");
-    $per->execute();
+$per = $conn->prepare("SELECT * FROM event");
+$per->execute();
 
-    if (isset($_SESSION['team']['role'])) {
+$image = $conn->prepare("SELECT * FROM data_all");
+$image->execute();
+
+if (isset($_SESSION['team']['role'])) {
     $role = $_SESSION['team']['role'];
-    } else {
-        $role = 'default_status';
-    }
+} else {
+    $role = 'default_status';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>จัดการสมาชิก | AppzStory</title>
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+
     <!-- stylesheet -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
@@ -32,6 +36,16 @@
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
+    <style>
+        .image .overflow-auto::-webkit-scrollbar {
+            display: none;
+        }
+
+        .image {
+            border-radius: 30px;
+        }
+    </style>
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -43,6 +57,24 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
+                            <div class="card shadow">
+                                <div class="card-header border-0 pt-4">
+                                    <h4>
+                                        <i class="fas fa-users"></i>
+                                        รายชื่อแมตท์
+                                    </h4>
+                                </div>
+                                <div class="image p-3">
+                                    <div class="row d-flex flex-nowrap overflow-auto">
+                                        <?php while ($row = $image->fetch(PDO::FETCH_ASSOC)) { ?>
+                                            <a href="">
+                                                <img src="<?php echo $row['image_path']; ?>" alt="match" class="mr-3"
+                                                    style="width: 350px; height: 200px; border-radius: 30px;">
+                                            </a>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="card shadow">
                                 <div class="card-header border-0 pt-4">
                                     <h4>
@@ -84,54 +116,54 @@
                                             <?php
                                             $counter = 1;
                                             if ($per->rowCount() > 0) {
-                                                while ($person = $per->fetch(PDO::FETCH_ASSOC)) { 
+                                                while ($person = $per->fetch(PDO::FETCH_ASSOC)) {
                                                     if ($person["team"] === $role) {
-                                            ?>
-                                            <tr id="<?php echo $person["id"]; ?>">
-                                                <td class="align-middle"><input type="checkbox" class="checkbox"
-                                                        name="idc[]" value="<?php echo $person["id"]; ?>"></td>
-                                                <td class="align-middle">
-                                                    <?php echo $counter; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["firstname"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["lastname"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["status"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["age"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["class"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["weigth"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <img src="../../service/tksuploads/<?php echo $person["image"]; ?>"
-                                                        alt="Profile" style="max-width: 50px;">
-                                                </td>
-                                                <td class="align-middle">
-                                                    <a href="form-edit.php?id=<?php echo $person['id']; ?>"
-                                                        type="button" class="btn btn-warning">
-                                                        <i class="far fa-trash-alt"></i> แก้ไข
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <?php
-                                                    $counter++;
+                                                        ?>
+                                                        <tr id="<?php echo $person["id"]; ?>">
+                                                            <td class="align-middle"><input type="checkbox" class="checkbox"
+                                                                    name="idc[]" value="<?php echo $person["id"]; ?>"></td>
+                                                            <td class="align-middle">
+                                                                <?php echo $counter; ?>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <?php echo $person["firstname"]; ?>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <?php echo $person["lastname"]; ?>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <?php echo $person["status"]; ?>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <?php echo $person["age"]; ?>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <?php echo $person["class"]; ?>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <?php echo $person["weigth"]; ?>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <img src="../../service/tksuploads/<?php echo $person["image"]; ?>"
+                                                                    alt="Profile" style="max-width: 50px;">
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <a href="form-edit.php?id=<?php echo $person['id']; ?>"
+                                                                    type="button" class="btn btn-warning">
+                                                                    <i class="far fa-trash-alt"></i> แก้ไข
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        <?php
+                                                        $counter++;
                                                     }
                                                 }
                                             } else {
-                                            ?>
-                                            <tr>
-                                                <td colspan="7">ยังไม่รายชื่อ</td>
-                                            </tr>
-                                            <?php
+                                                ?>
+                                                <tr>
+                                                    <td colspan="7">ยังไม่รายชื่อ</td>
+                                                </tr>
+                                                <?php
                                             }
                                             ?>
                                         </tbody>
