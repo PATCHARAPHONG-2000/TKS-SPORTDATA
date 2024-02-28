@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2024 at 11:24 AM
+-- Generation Time: Feb 28, 2024 at 11:22 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -127,7 +127,8 @@ CREATE TABLE `event` (
   `team` varchar(255) NOT NULL,
   `license` varchar(255) DEFAULT NULL,
   `weigth` varchar(255) NOT NULL,
-  `image` varchar(255) DEFAULT NULL
+  `image` varchar(255) DEFAULT NULL,
+  `Match` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -156,6 +157,7 @@ CREATE TABLE `personnel` (
 
 CREATE TABLE `player` (
   `id` int(11) NOT NULL,
+  `ID_Number` varchar(255) NOT NULL,
   `firstname` varchar(255) DEFAULT NULL,
   `lastname` varchar(255) DEFAULT NULL,
   `team` varchar(255) NOT NULL,
@@ -163,29 +165,15 @@ CREATE TABLE `player` (
   `age` varchar(255) DEFAULT NULL,
   `license` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `IsActive` varchar(255) NOT NULL DEFAULT '0'
+  `IsActive` enum('0','1','') NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `player`
 --
 
-INSERT INTO `player` (`id`, `firstname`, `lastname`, `team`, `status`, `age`, `license`, `image`, `IsActive`) VALUES
-(13, 'wawda', 'awdad', 'TY', 'ชาย', '16', 'awdad', '../tksuploads/1708462991_111.jpg', '0'),
-(14, 'Patcharaphong', 'Padongyang', 'TY', 'ชาย', '16', 'TH223356', '../tksuploads/1708467445_Asset 2.png', '0'),
-(15, 'aaaaaaaaaaaaaaaaaaaaaaaaaaa', 'aaaaaaaaaaaaaaaaaaaaaaa', 'TY', 'ชาย', '16', 'adwa', '../tksuploads/1708467990_Dental News.png', '0'),
-(16, 'adawaw', 'adawd', 'TY', 'ชาย', '17', 'awdaw', '../tksuploads/1708468854_111.jpg', '0'),
-(17, 'awdawdawd', 'awdawd', 'TY', 'หญิง', '16', 'awdawdaw', '../tksuploads/1708468864_Dental News.png', '0'),
-(18, 'awdwadaaw', 'awdawdaw', 'TY', 'ชาย', '17', 'awdawd', '../tksuploads/1708468874_Dental News.png', '0'),
-(19, 'awdawdawd', 'awdawd', 'TY', 'ชาย', '18', 'awdawdawd', '../tksuploads/1708468883_111.jpg', '0'),
-(20, 'awdawdaw', 'awdawdd', 'TY', 'ชาย', '17', 'awdawdwa', '../tksuploads/1708468896_111.jpg', '0'),
-(21, 'awdawdgdhdrh', 'drhhfh', 'TY', 'ชาย', '18', 'fthfh', '../tksuploads/1708468906_111.jpg', '0'),
-(22, 'fththhf', 'hfthfth', 'TY', 'หญิง', '15', 'fthfthfth', '../tksuploads/1708468914_111.jpg', '0'),
-(23, 'sfhddhdfhtt', 'wetwgg', 'TY', 'หญิง', '12', 'efsetts', '../tksuploads/1708468926_111.jpg', '0'),
-(24, 'sersfsef', 'sefse', 'TY', 'หญิง', '17', 'sfsfsf', '../tksuploads/1708468934_111.jpg', '0'),
-(25, 'xccvv', 'bcfff', 'TKS', 'ชาย', '16', 'wdw', '../tksuploads/1708470116_123456.jpg', '0'),
-(26, 'zxvg', 'lkj', 'TKS', 'ชาย', '16', 'fth', '../tksuploads/1708470126_111.jpg', '0'),
-(27, 'fthnbn', 'retert', 'TKS', 'ชาย', '14', 'refjfgj', '../tksuploads/1708470139_111.jpg', '0');
+INSERT INTO `player` (`id`, `ID_Number`, `firstname`, `lastname`, `team`, `status`, `age`, `license`, `image`, `IsActive`) VALUES
+(88, 'TKS000001', 'asdasdasd', 'asdas', 'TY', 'หญิง', '16', 'sadgd', '../tksuploads/1709022788_images.jpg', '0');
 
 -- --------------------------------------------------------
 
@@ -206,8 +194,9 @@ CREATE TABLE `setting` (
 --
 
 INSERT INTO `setting` (`id`, `name`, `start_date`, `stop_date`, `IsActive`) VALUES
-(1, 'btn-add_data', '', '', '1'),
-(2, 'Start_date', '', '', '1');
+(1, 'btn-add_data', '', '', '0'),
+(2, 'Start_date', '', '', '1'),
+(3, 'btn-twd_event', '', '', '1');
 
 -- --------------------------------------------------------
 
@@ -257,7 +246,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `gender`, `team`, `email`, `tell`, `Role`, `password`) VALUES
-(23, '', '', '', '', 'plamemee2015@gmail.com', '0943268338', 'SUPERADMIN ', '$2y$10$QM3bKU8PWgN81Npm5NRrTOiEnPvFr7npGyKuSEq8ruMWfflH9WsWm'),
+(23, '', '', '', '', 'plamemee2015@gmail.com', '0943268338', 'SUPERADMIN TWD', '$2y$10$QM3bKU8PWgN81Npm5NRrTOiEnPvFr7npGyKuSEq8ruMWfflH9WsWm'),
 (24, 'Palm', 'Nee', 'Male', 'TY', 'enzoritono@gmail.com', '0943268338', 'TY', '$2y$10$i..2IS8bD9bc99MSnCn.qubQ66y3TTet1BcCZwm6SCVX3IpokqQNK'),
 (25, 'A', 'C', 'Male', 'TKS', 's62122519032@ssru.ac.th', '0943268331', 'TKS', '$2y$10$RuuUr6LwxYxPfcrSizdy.uRBpI7iD1eS.3yiz/ooggb5K77SxJ3ye');
 
@@ -517,7 +506,7 @@ ALTER TABLE `data_score`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `personnel`
@@ -529,13 +518,13 @@ ALTER TABLE `personnel`
 -- AUTO_INCREMENT for table `player`
 --
 ALTER TABLE `player`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `setting`
 --
 ALTER TABLE `setting`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sport`
