@@ -13,7 +13,7 @@ function respondError($message)
 function generateUniqueID($conn)
 {
     // กำหนดรหัสเริ่มต้นที่ 000001
-    $ID_Number = "TKS" . str_pad(1, 6, '0', STR_PAD_LEFT);
+    $ID_Number = "TKS" . str_pad(1, 4, '0', STR_PAD_LEFT);
 
     // ตรวจสอบว่ามีรหัสซ้ำกับที่มีในฐานข้อมูลหรือไม่
     $stmt = $conn->prepare("SELECT ID_Number FROM player ORDER BY ID_Number DESC LIMIT 1");
@@ -23,7 +23,7 @@ function generateUniqueID($conn)
     // หากมีรหัสล่าสุดแล้วให้เพิ่มไปอีก 1
     if ($lastID) {
         $lastIDNumber = intval(substr($lastID, 3)); // เอาเฉพาะตัวเลขหลัง "TKS"
-        $ID_Number = "TKS" . str_pad($lastIDNumber + 1, 6, '0', STR_PAD_LEFT);
+        $ID_Number = "TKS" . str_pad($lastIDNumber + 1, 4, '0', STR_PAD_LEFT);
     }
 
     return $ID_Number;

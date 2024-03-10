@@ -12,8 +12,10 @@ function respondError($message)
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    $age = $_POST['age'];
     $Class = $_POST['class'];
     $weigth = $_POST['weigth'];
+    $name_match = $_POST['name_match'];
     
     if(isset($_POST['ids']) && !empty($_POST['ids'])) {
         $ids = $_POST['ids'];
@@ -32,12 +34,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $lastname = $row['lastname'];
                     $status = $row['status'];
                     $role = $row['team'];
-                    $age = $row['age'];
                     $license = $row['license'];
                     $fileImage = $row['image'];
                     
-                    $stmt = $conn->prepare("INSERT INTO event (firstname, lastname, status, team, age, class, weigth, license, image) 
-                        VALUES (:firstname, :lastname, :status, :team, :age, :class, :weigth, :license, :image)");
+                    $stmt = $conn->prepare("INSERT INTO event (name_match, firstname, lastname, status, team, age, class, weigth, license, image) 
+                        VALUES (:name_match, :firstname, :lastname, :status, :team, :age, :class, :weigth, :license, :image)");
+                    $stmt->bindParam(':name_match', $name_match, PDO::PARAM_STR);
                     $stmt->bindParam(':firstname', $firstname, PDO::PARAM_STR);
                     $stmt->bindParam(':lastname', $lastname, PDO::PARAM_STR);
                     $stmt->bindParam(':status', $status, PDO::PARAM_STR);

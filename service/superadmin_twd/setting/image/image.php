@@ -29,10 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         respondError('กรุณาใส่รูปที่เป็น PNG , JPG เท่านั้น');
     }
 
-    if (isset($_SESSION['id_city']['province'])) {
-        $id_province = $_SESSION['id_city']['province'];
+    if (isset($_SESSION['team']['role'])) {
+    $role = $_SESSION['team']['role'];
     } else {
-        $id_province = 'default_status';
+        $role = 'default_status';
     }
 
     try {
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $eventsname = filter_input(INPUT_POST, 'eventsname', FILTER_SANITIZE_STRING);
 
             $stmt = $conn->prepare("INSERT INTO data_all (users, name,image) VALUES (:users, :name,:image)");
-            $stmt->bindParam(':users', $id_province);
+            $stmt->bindParam(':users', $role);
             $stmt->bindParam(':name', $eventsname);
             $stmt->bindParam(':image', $filePath);
             $stmt->execute();

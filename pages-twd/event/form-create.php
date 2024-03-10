@@ -10,6 +10,12 @@ $per->execute();
 $even = $conn->prepare("SELECT * FROM create_event");
 $even->execute();
 
+$id = $_GET['image_id'];
+$params = array(':id' => $id);
+$selectbyidUser = $conn->prepare("SELECT * FROM data_all WHERE id = :id");
+$selectbyidUser->execute($params);
+$image = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
+
 if (isset($_SESSION['team']['role'])) {
     $role = $_SESSION['team']['role'];
 } else {
@@ -66,16 +72,41 @@ if (isset($_SESSION['team']['role'])) {
                         <div class="col-12">
                             <div class="card shadow">
                                 <div class="card-header border-0 pt-4" style="float: left;">
-                                    <h4>
-                                        <i class="fa-solid fa-id-card-clip mr-2"></i>
-                                        เพิ่มนักกีฬา
-                                    </h4>
+                                    <div class="row">
+                                        <h4>
+                                            <i class="fa-solid fa-id-card-clip mr-2"></i>
+                                            <?php echo $image["name"] ?>
+                                        </h4>
+                                    </div>
                                     <a href="./" class="btn btn-info my-3 mr-auto">
                                         <i class="fas fa-list"></i>
                                         กลับหน้าหลัก
                                     </a>
                                     <div class="text-white mt-3">
                                         <div class="form-group">
+                                            <div class="mr-3">
+                                                <label for="age"
+                                                    style="color: black; font-size: 1.1rem;">รุ่นอายุ</label>
+                                                <select class="form-control" name="age" id="age" required
+                                                    onchange="fetchWeight()">
+                                                    <option value="" disabled selected>กรุณาเลือกอายุ</option>
+                                                    <?php
+                                                        $age_group = $conn->prepare("SELECT DISTINCT age_group FROM create_event WHERE age_group IS NOT NULL");
+                                                        $age_group->execute();
+
+                                                        while ($row = $age_group->fetch(PDO::FETCH_ASSOC)) {
+                                                            echo "<option value='{$row['age_group']}'>{$row['age_group']}</option>";
+                                                        }
+                                                        ?>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="weigth"
+                                                    style="color: black; font-size: 1.1rem;">รุ่นน้ำหนัก</label>
+                                                <select class="form-control" name="weigth" id="weigth" required>
+                                                    <option value="" disabled selected>กรุณาเลือกรุ่นน้ำหนัก</option>
+                                                </select>
+                                            </div>
                                             <div class="mr-3">
                                                 <label for="clas" style="color: black; font-size: 1.1rem;">คลาส</label>
                                                 <select class="form-control" name="clas" id="clas" required>
@@ -90,21 +121,7 @@ if (isset($_SESSION['team']['role'])) {
                                                         ?>
                                                 </select>
                                             </div>
-                                            <div class="mr-3">
-                                                <label for="weigth"
-                                                    style="color: black; font-size: 1.1rem;">รุ่นน้ำหนัก</label>
-                                                <select class="form-control" name="weigth" id="weigth" required>
-                                                    <option value="" disabled selected>กรุณาเลือกรุ่นน้ำหนัก</option>
-                                                    <?php
-                                                        $weigth = $conn->prepare("SELECT DISTINCT weigth FROM create_event WHERE weigth IS NOT NULL");
-                                                        $weigth->execute();
 
-                                                        while ($row = $weigth->fetch(PDO::FETCH_ASSOC)) {
-                                                            echo "<option value='{$row['weigth']}'>{$row['weigth']}</option>";
-                                                        }
-                                                        ?>
-                                                </select>
-                                            </div>
                                             <div class="id_save">
                                                 <a href="#" class="ml-3 btn btn-info mt-4 text-white" type="button"
                                                     id="save">
@@ -130,15 +147,15 @@ if (isset($_SESSION['team']['role'])) {
                                                 <th class="align-middle">เพศ</th>
                                                 <th class="align-middle">อายุ</th>
                                                 <th class="align-middle">รูป</th>
-                                                <th class="align-middle">สถานะ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $counter = 1;
                                             if ($per->rowCount() > 0) {
-                                                while ($person = $per->fetch(PDO::FETCH_ASSOC)) { 
+                                                while ($person = $per->fetch(PDO::FETCH_ASSOC)) {
                                                     if ($person["team"] === $role) {
+                                                        if ($person["IsActive"] == 0) {
                                             ?>
                                             <tr id="<?php echo $person["id"]; ?>">
                                                 <td class="align-middle"><input type="checkbox" class="checkbox"
@@ -162,19 +179,14 @@ if (isset($_SESSION['team']['role'])) {
                                                     <img src="../../service/tksuploads/<?php echo $person["image"]; ?>"
                                                         alt="Profile" style="max-width: 50px;">
                                                 </td>
-                                                <td class="align-middle">
-                                                    <div class="Active"
-                                                        style="background-color: <?php echo $person["IsActive"] ? 'green' : 'red'; ?>; width: 7rem; height: 2rem; display: flex; justify-content: center; align-items: center; border-radius: 20px; font-size: 18px; ">
-                                                        <?php echo $person["IsActive"] ? 'สมัครแล้ว' : 'ยังไม่สมัคร'; ?>
-                                                    </div>
-                                                </td>
                                             </tr>
                                             <?php
-                                                    $counter++;
+                                                            $counter++;
+                                                        }
                                                     }
                                                 }
                                             } else {
-                                                ?>
+                                            ?>
                                             <tr>
                                                 <td colspan="7">ยังไม่รายชื่อ</td>
                                             </tr>
@@ -199,13 +211,18 @@ if (isset($_SESSION['team']['role'])) {
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="../../assets/js/adminlte.min.js"></script>
-    <script src="../../assets/js/create-event.js"></script>
 
     <!-- datatables -->
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="../../assets/js/pages_twd/event/create-event.js"></script>
+    <script>
+    function getImageName() {
+        return "<?php echo $image['name']; ?>";
+    }
+    </script>
 
 </body>
 

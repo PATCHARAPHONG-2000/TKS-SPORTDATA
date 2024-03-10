@@ -19,16 +19,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         respondError('Invalid ID');
     }
 
-    // ตรวจสอบค่า class และ weigth
     $class = trim(filter_input(INPUT_POST, 'class'));
+    $age = trim(filter_input(INPUT_POST, 'age'));
     $weigth = trim(filter_input(INPUT_POST, 'weigth'));
-    if (empty($class) && empty($weigth)) {
-        respondError('Both class and weigth cannot be empty');
+
+    if (empty($class) && empty($weigth) && empty($age)) {
+        respondError('At least one field (class, age, weigth) must not be empty');
     }
 
-    // ทำการอัปเดตเฉพาะเมื่อมีค่า class หรือ weigth ไม่ว่างเปล่า
-    if (!empty($class) || !empty($weigth)) {
-        // เตรียมคำสั่ง SQL และพารามิเตอร์สำหรับการอัปเดต
+    if (!empty($class) || !empty($weigth) || !empty($age)) {
+        
         $sql = "UPDATE `event` SET ";
         $params = array();
         
@@ -45,11 +45,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $params[':weigth'] = $weigth;
         }
 
-        // เพิ่มเงื่อนไข WHERE เพื่ออัปเดตเฉพาะรายการที่ต้องการ
+        if (!empty($age)) {
+            if (!empty($class) || !empty($weigth)) {
+                $sql .= ", ";
+            }
+            $sql .= "`age` = :age";
+            $params[':age'] = $age;
+        }
+      
         $sql .= " WHERE `id` = :id";
         $params[':id'] = $id;
 
-        // เตรียมและ execute คำสั่ง SQL
         $stmt = $conn->prepare($sql);
         if ($stmt->execute($params)) {
             echo json_encode(array(
@@ -60,7 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             respondError('Failed to update the record');
         }
     } else {
-        // กรณีไม่มีการร้องขอการอัปเดต class หรือ weigth ไม่ต้องทำอะไร
         respondError('No data to update');
     }
 }

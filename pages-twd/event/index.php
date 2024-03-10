@@ -14,6 +14,7 @@ if (isset($_SESSION['team']['role'])) {
 } else {
     $role = 'default_status';
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,13 +38,13 @@ if (isset($_SESSION['team']['role'])) {
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
     <style>
-        .image .overflow-auto::-webkit-scrollbar {
-            display: none;
-        }
+    .image .overflow-auto::-webkit-scrollbar {
+        display: none;
+    }
 
-        .image {
-            border-radius: 30px;
-        }
+    .image {
+        border-radius: 30px;
+    }
     </style>
 
 </head>
@@ -66,11 +67,18 @@ if (isset($_SESSION['team']['role'])) {
                                 </div>
                                 <div class="image p-3">
                                     <div class="row d-flex flex-nowrap overflow-auto">
-                                        <?php while ($row = $image->fetch(PDO::FETCH_ASSOC)) { ?>
-                                            <a href="">
-                                                <img src="<?php echo $row['image_path']; ?>" alt="match" class="mr-3"
-                                                    style="width: 350px; height: 200px; border-radius: 30px;">
-                                            </a>
+                                        <?php 
+                                        if ($image->rowCount() > 0) {
+                                            while ($row = $image->fetch(PDO::FETCH_ASSOC)) { ?>
+                                        <a href="form-create?image_id=<?php echo $row['id']; ?>">
+                                            <img src="../../service/superadmin_twd/setting/uploads/<?php echo $row['image']; ?>"
+                                                alt="match" class="mr-3"
+                                                style="width: 350px; height: 200px; border-radius: 30px;">
+                                        </a>
+                                        <?php 
+                                            } 
+                                        } else { ?>
+                                        <p>No images found.</p>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -82,10 +90,6 @@ if (isset($_SESSION['team']['role'])) {
                                         รายชื่อนักกีฬาที่เข้าร่วมอีเว้นท์
                                     </h4>
                                     <div>
-                                        <a href="form-create.php" class="btn btn-primary mt-3 mr-3">
-                                            <i class="fas fa-plus"></i>
-                                            เพิ่มนักกีฬา
-                                        </a>
                                         <a href="#" class="btn btn-info mt-3 text-white delete-btn" type="button">
                                             <i class="nav-icon fa-solid fa-print"></i>
                                             ลบรายการที่เลือก
@@ -94,12 +98,12 @@ if (isset($_SESSION['team']['role'])) {
                                 </div>
 
                                 <div class="p-2">
-                                    <table id="index-event" class="table table table-striped table-hover">
+                                    <table id="index-event" class="table table-striped table-hover">
                                         <thead>
                                             <tr>
                                                 <th class="align-middle">
                                                     <input type="checkbox" id="selectAll" class="align-middle mt-3">
-                                                    <label class=" form-check-label "></label>
+                                                    <label class="form-check-label"></label>
                                                 </th>
                                                 <th class="align-middle">ลำดับ</th>
                                                 <th class="align-middle">ชื่อ</th>
@@ -119,56 +123,59 @@ if (isset($_SESSION['team']['role'])) {
                                                 while ($person = $per->fetch(PDO::FETCH_ASSOC)) {
                                                     if ($person["team"] === $role) {
                                                         ?>
-                                                        <tr id="<?php echo $person["id"]; ?>">
-                                                            <td class="align-middle"><input type="checkbox" class="checkbox"
-                                                                    name="idc[]" value="<?php echo $person["id"]; ?>"></td>
-                                                            <td class="align-middle">
-                                                                <?php echo $counter; ?>
-                                                            </td>
-                                                            <td class="align-middle">
-                                                                <?php echo $person["firstname"]; ?>
-                                                            </td>
-                                                            <td class="align-middle">
-                                                                <?php echo $person["lastname"]; ?>
-                                                            </td>
-                                                            <td class="align-middle">
-                                                                <?php echo $person["status"]; ?>
-                                                            </td>
-                                                            <td class="align-middle">
-                                                                <?php echo $person["age"]; ?>
-                                                            </td>
-                                                            <td class="align-middle">
-                                                                <?php echo $person["class"]; ?>
-                                                            </td>
-                                                            <td class="align-middle">
-                                                                <?php echo $person["weigth"]; ?>
-                                                            </td>
-                                                            <td class="align-middle">
-                                                                <img src="../../service/tksuploads/<?php echo $person["image"]; ?>"
-                                                                    alt="Profile" style="max-width: 50px;">
-                                                            </td>
-                                                            <td class="align-middle">
-                                                                <a href="form-edit.php?id=<?php echo $person['id']; ?>"
-                                                                    type="button" class="btn btn-warning">
-                                                                    <i class="far fa-trash-alt"></i> แก้ไข
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                        <?php
+                                            <tr id="<?php echo $person["id"]; ?>">
+                                                <td class="align-middle"><input type="checkbox" class="checkbox"
+                                                        name="idc[]" value="<?php echo $person["id"]; ?>"></td>
+                                                <td class="align-middle">
+                                                    <?php echo $counter; ?>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <?php echo $person["firstname"]; ?>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <?php echo $person["lastname"]; ?>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <?php echo $person["status"]; ?>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <?php echo $person["age"]; ?>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <?php echo $person["class"]; ?>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <?php echo $person["weigth"]; ?>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <img src="../../service/tksuploads/<?php echo $person["image"]; ?>"
+                                                        alt="Profile" style="max-width: 50px;">
+                                                </td>
+                                                <td class="align-middle">
+                                                    <a href="form-edit.php?id=<?php echo $person['id']; ?>"
+                                                        type="button" class="btn btn-warning">
+                                                        <i class="far fa-trash-alt"></i> แก้ไข
+                                                    </a>
+                                                    <button onclick="deletePerson(<?php echo $person['id']; ?>)"
+                                                        class="btn btn-danger ">
+                                                        <i class="far fa-trash-alt"></i> ลบ
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <?php
                                                         $counter++;
                                                     }
                                                 }
                                             } else {
-                                                ?>
-                                                <tr>
-                                                    <td colspan="7">ยังไม่รายชื่อ</td>
-                                                </tr>
-                                                <?php
-                                            }
+                                            ?>
+                                            <tr>
+                                                <td colspan="10">ยังไม่รายชื่อ</td>
+                                            </tr>
+                                            <?php
+                                                }
                                             ?>
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
                         </div>
@@ -184,12 +191,13 @@ if (isset($_SESSION['team']['role'])) {
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="../../assets/js/adminlte.min.js"></script>
+
     <!-- datatables -->
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="../../assets/js/index-event.js"></script>
+    <script src="../../assets/js/pages_twd/event/index-event.js"></script>
 
 </body>
 
