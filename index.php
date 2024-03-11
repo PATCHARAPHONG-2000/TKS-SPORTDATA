@@ -199,7 +199,7 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </section>
 
-        <section id="events" class="evests">
+        <section id="events" class="events">
             <div class="container">
                 <div class="section-title">
                     <span>Events</span>
@@ -209,29 +209,39 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                         <?php
-                    foreach($rows as $key => $row) {
-                      $class = ($key == 0) ? 'active' : '';
-                      echo '<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="'.$key.'" class="'.$class.'"></button>';
-                    }
-                      ?>
+                            foreach($rows as $key => $row) {
+                                $class = ($key == 0) ? 'active' : '';
+                                echo '<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="'.$key.'" class="'.$class.'"></button>';
+                            }
+                        ?>
                     </div>
                     <div class="carousel-inner">
                         <?php
-                      foreach($rows as $key => $row) {
-                        $class = ($key == 0) ? 'active' : '';
-                        $users = $row['users'];
+                        foreach($rows as $key => $row) {
+                            $class = ($key == 0) ? 'active' : '';
+                            $users = $row['users'];
+                            $imagePath = '';
+                            $targetPage = '';
 
-                        if(filter_var($users, FILTER_VALIDATE_EMAIL)) {
-                          $loginPage = 'login.php';
-                        } else {
-                          $loginPage = 'login_ad.php';
+                            // เช็ค users ว่าเป็น SUPERADMIN TWD หรือ SUPERADMIN AD
+                            if ($users === 'SUPERADMIN TWD') {
+                                $imagePath = 'service/superadmin_twd/setting/uploads/' . $row['image'];
+                                $targetPage = 'event_twd.php';
+                            } elseif ($users === 'SUPERADMIN AD') {
+                                $imagePath = 'service/superadmin_ad/setting/uploads/' . $row['image'];
+                                $targetPage = 'event_ad.php';
+                            }
+
+                            // ตรวจสอบว่ามีรูปใน $imagePath หรือไม่ ถ้าไม่มีให้แสดงข้อความว่า "No images found."
+                            if (!empty($imagePath) && file_exists($imagePath)) {
+                                echo '<div class="carousel-item '.$class.'">';
+                                echo '<a href="'.$targetPage.'"><img src="'.$imagePath.'" class="d-block w-100" alt="..."></a>';
+                                echo '</div>';
+                            } else {
+                                echo '<p>No images found.</p>';
+                            }
                         }
-
-                        echo '<div class="carousel-item '.$class.'">';
-                        echo '<a href="'.$loginPage.'"><img src="service/superadmin_ad/uploads/'.$row['image'].'" class="d-block w-100" alt="..."></a>';
-                        echo '</div>';
-                      }
-                      ?>
+                        ?>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                         data-bs-slide="prev">
@@ -244,6 +254,7 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
+            </div>
         </section>
 
         <!-- ======= Cta Section ======= -->
@@ -252,8 +263,8 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="text-center ">
                     <h3 class="text-uppercase">Taekwondo</h3>
-                    <p>Taekwondo is a Korean martial art, characterized by its emphasis on high,
-                        fast kicks and spinning kicks,
+                    <p>Taekwondo is a Korean martial art, characterized by its emphasis on high,<br>
+                        fast kicks and spinning kicks,<br>
                         and its focus on head-height kicks, jumping and spinning kicks, and fast kicking techniques.</p>
                 </div>
 
@@ -445,6 +456,8 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
     <script src="assets/vendor/php-email-form/validate.js"></script>
     <script src="assets/js/main.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=GTM-5B9B8LF4"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script> -->
 
 </body>
 

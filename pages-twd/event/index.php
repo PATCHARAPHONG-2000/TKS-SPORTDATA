@@ -6,7 +6,7 @@ $conn = $Database->connect();
 $per = $conn->prepare("SELECT * FROM event");
 $per->execute();
 
-$image = $conn->prepare("SELECT * FROM data_all");
+$image = $conn->prepare("SELECT * FROM data_all WHERE users = 'SUPERADMIN TWD' ");
 $image->execute();
 
 if (isset($_SESSION['team']['role'])) {
@@ -22,7 +22,7 @@ if (isset($_SESSION['team']['role'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>จัดการสมาชิก | AppzStory</title>
+    <title><?php echo isset($_SESSION['team']['role']) ? $_SESSION['team']['role'] : ''; ?> | TKS SPORTDATA</title>
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon.ico">
 
     <!-- stylesheet -->
@@ -69,15 +69,20 @@ if (isset($_SESSION['team']['role'])) {
                                     <div class="row d-flex flex-nowrap overflow-auto">
                                         <?php 
                                         if ($image->rowCount() > 0) {
-                                            while ($row = $image->fetch(PDO::FETCH_ASSOC)) { ?>
+                                            while ($row = $image->fetch(PDO::FETCH_ASSOC)) { 
+                                                // เช็คค่าของ IsActive ในฐานข้อมูล
+                                                if ($row['IsActive'] == 1) {
+                                        ?>
                                         <a href="form-create?image_id=<?php echo $row['id']; ?>">
                                             <img src="../../service/superadmin_twd/setting/uploads/<?php echo $row['image']; ?>"
                                                 alt="match" class="mr-3"
                                                 style="width: 350px; height: 200px; border-radius: 30px;">
                                         </a>
                                         <?php 
+                                                }
                                             } 
-                                        } else { ?>
+                                        } else { 
+                                        ?>
                                         <p>No images found.</p>
                                         <?php } ?>
                                     </div>

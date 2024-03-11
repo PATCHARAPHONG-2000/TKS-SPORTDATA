@@ -10,6 +10,12 @@ $selectById->bindParam(':id', $id);
 $selectById->execute();
 
 $info = $selectById->fetch(PDO::FETCH_ASSOC);
+
+if (isset($_SESSION['team']['role'])) {
+    $role = $_SESSION['team']['role'];
+} else {
+    $role = 'default_status';
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,8 +24,7 @@ $info = $selectById->fetch(PDO::FETCH_ASSOC);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo isset($_SESSION['id_city']['province']) ? $_SESSION['id_city']['province'] : ''; ?> | TKS
-        SPORTDATA</title>
+    <title><?php echo isset($_SESSION['team']['role']) ? $_SESSION['team']['role'] : ''; ?> | TKS SPORTDATA</title>
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon.ico">
     <!-- stylesheet -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">

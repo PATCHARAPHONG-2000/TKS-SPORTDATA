@@ -1,5 +1,11 @@
 <?php
 require_once('../authen.php');
+
+if (isset($_SESSION['team']['role'])) {
+    $role = $_SESSION['team']['role'];
+} else {
+    $role = 'default_status';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +13,7 @@ require_once('../authen.php');
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>จัดการผู้ดูแลระบบ | AppzStory</title>
+    <title><?php echo isset($_SESSION['team']['role']) ? $_SESSION['team']['role'] : ''; ?> | TKS SPORTDATA</title>
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon.ico">
     <!-- stylesheet -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">

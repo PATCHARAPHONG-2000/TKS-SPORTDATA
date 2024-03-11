@@ -38,7 +38,7 @@ function isActive($data)
         <nav class="mt-3 pb-3 mb-3 d-flex">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="../dashboard/" class="nav-link <?php echo isActive('dashboard') ?>" disabled>
+                    <a href="../dashboard/" class="nav-link <?php echo isActive('dashboard') ?>">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>หน้าหลัก</p>
                     </a>

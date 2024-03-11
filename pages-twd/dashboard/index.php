@@ -10,7 +10,7 @@ include_once('../../assets/php/pages-twd/dashboard/index.php');
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>หน้าหลัก | TKS SOFTVISION</title>
+    <title><?php echo isset($_SESSION['team']['role']) ? $_SESSION['team']['role'] : ''; ?> | TKS SPORTDATA</title>
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon.ico">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
@@ -23,13 +23,13 @@ include_once('../../assets/php/pages-twd/dashboard/index.php');
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
     <style>
-        .td {
-            width: 20%;
-        }
+    .td {
+        width: 20%;
+    }
 
-        .id {
-            width: 20px;
-        }
+    .id {
+        width: 20px;
+    }
     </style>
 </head>
 
@@ -66,28 +66,28 @@ include_once('../../assets/php/pages-twd/dashboard/index.php');
                                                                     continue;
                                                                 }
                                                                 ?>
-                                                                <tr id="<?php echo $person["id"]; ?>">
-                                                                    <td class="id align-middle">
-                                                                        <?php echo $counter; ?>
-                                                                    </td>
-                                                                    <td class="td align-middle"
-                                                                        style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                                                        <?php echo $person["firstname"]; ?>
-                                                                    </td>
-                                                                    <td class="td align-middle"
-                                                                        style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                                                        <?php echo $person["lastname"]; ?>
-                                                                    </td>
-                                                                    <td class="td align-middle">
-                                                                        <?php echo $person["team"]; ?>
-                                                                    </td>
-                                                                    <td class="td align-middle">
-                                                                        <img src="../../service/tksuploads/<?php echo $person["image"]; ?>"
-                                                                            alt="Profile"
-                                                                            style="width: 30px; height: 30px; border-radius: 50%;">
-                                                                    </td>
-                                                                </tr>
-                                                                <?php
+                                                        <tr id="<?php echo $person["id"]; ?>">
+                                                            <td class="id align-middle">
+                                                                <?php echo $counter; ?>
+                                                            </td>
+                                                            <td class="td align-middle"
+                                                                style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                                <?php echo $person["firstname"]; ?>
+                                                            </td>
+                                                            <td class="td align-middle"
+                                                                style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                                <?php echo $person["lastname"]; ?>
+                                                            </td>
+                                                            <td class="td align-middle">
+                                                                <?php echo $person["team"]; ?>
+                                                            </td>
+                                                            <td class="td align-middle">
+                                                                <img src="../../service/tksuploads/<?php echo $person["image"]; ?>"
+                                                                    alt="Profile"
+                                                                    style="width: 30px; height: 30px; border-radius: 50%;">
+                                                            </td>
+                                                        </tr>
+                                                        <?php
                                                                 $counter++;
                                                                 if ($counter > 20) {
                                                                     break;
@@ -96,10 +96,10 @@ include_once('../../assets/php/pages-twd/dashboard/index.php');
                                                         }
                                                         if ($isActiveCounter == 0) { // ตรวจสอบว่าไม่มีข้อมูลที่ IsActive เป็น 1
                                                             ?>
-                                                            <tr>
-                                                                <td colspan="5">ยังไม่มีรายชื่อนักกีฬาที่ได้เหรียญทอง</td>
-                                                            </tr>
-                                                            <?php
+                                                        <tr>
+                                                            <td colspan="5">ยังไม่มีรายชื่อนักกีฬาที่ได้เหรียญทอง</td>
+                                                        </tr>
+                                                        <?php
                                                         }
                                                         ?>
                                                     </tbody>
@@ -154,85 +154,85 @@ include_once('../../assets/php/pages-twd/dashboard/index.php');
     <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 
     <script>
-        const ctx = document.getElementById('myChart');
+    const ctx = document.getElementById('myChart');
 
-        const ageChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: <?php echo json_encode(array_keys($data_by_age)); ?>,
-                datasets: [{
-                    label: 'จำนวนผู้สมัครตามอายุ',
-                    data: <?php echo json_encode(array_map('count', $data_by_age)); ?>,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+    const ageChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode(array_keys($data_by_age)); ?>,
+            datasets: [{
+                label: 'จำนวนผู้สมัครตามอายุ',
+                data: <?php echo json_encode(array_map('count', $data_by_age)); ?>,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        });
+        }
+    });
 
-        const teamCtx = document.getElementById('teamChart');
+    const teamCtx = document.getElementById('teamChart');
 
-        const teamChart = new Chart(teamCtx, {
-            type: 'bar',
-            data: {
-                labels: <?php echo json_encode($teamChartLabels); ?>,
-                datasets: [{
-                    label: 'จำนวนผู้สมัครตามทีม',
-                    data: <?php echo json_encode(array_map('count', $teamChartData)); ?>,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+    const teamChart = new Chart(teamCtx, {
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode($teamChartLabels); ?>,
+            datasets: [{
+                label: 'จำนวนผู้สมัครตามทีม',
+                data: <?php echo json_encode(array_map('count', $teamChartData)); ?>,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        });
+        }
+    });
 
-        // $(document).ready(function () {
-        //     var table = $("#index-event").DataTable({
-        //         paging: true,
-        //         ordering: false,
-        //         searching: true,
-        //         info: true,
-        //         className: "select-checkbox",
+    // $(document).ready(function () {
+    //     var table = $("#index-event").DataTable({
+    //         paging: true,
+    //         ordering: false,
+    //         searching: true,
+    //         info: true,
+    //         className: "select-checkbox",
 
-        //         columnDefs: [
-        //             {
-        //                 width: "5%",
-        //                 targets: 0,
-        //             },
-        //             {
-        //                 width: "7%",
-        //                 targets: 1,
-        //             },
-        //             {
-        //                 width: "13%",
-        //                 targets: 2,
-        //             },
-        //             {
-        //                 width: "13%",
-        //                 targets: 3,
-        //             },
-        //             {
-        //                 width: "7%",
-        //                 targets: 4,
-        //             },
+    //         columnDefs: [
+    //             {
+    //                 width: "5%",
+    //                 targets: 0,
+    //             },
+    //             {
+    //                 width: "7%",
+    //                 targets: 1,
+    //             },
+    //             {
+    //                 width: "13%",
+    //                 targets: 2,
+    //             },
+    //             {
+    //                 width: "13%",
+    //                 targets: 3,
+    //             },
+    //             {
+    //                 width: "7%",
+    //                 targets: 4,
+    //             },
 
-        //         ],
-        //     });
-        // });
+    //         ],
+    //     });
+    // });
     </script>
 
 

@@ -19,7 +19,7 @@ $(function () {
     e.preventDefault();
     $.ajax({
       type: "POST",
-      url: "../../service/superadmin_ad/setting/image/image",
+      url: "../../service/superadmin_twd/setting/image/image",
       data: new FormData(this),
       contentType: false,
       processData: false,
@@ -31,7 +31,7 @@ $(function () {
         showConfirmButton: false,
         timer: 500,
       }).then((result) => {
-        location.assign("./image");
+        location.assign("./image-event.php");
       });
     });
   });
@@ -40,7 +40,7 @@ $(function () {
 $(function () {
   $.ajax({
     type: "GET",
-    url: "../../service/superadmin_ad/setting/image/index",
+    url: "../../service/superadmin_twd/setting/image/index",
   })
     .done(function (data) {
       let tableData = [];
@@ -58,7 +58,7 @@ $(function () {
                             } data-toggle="toggle" data-on="เผยแพร่" 
                             data-off="ปิด" data-onstyle="success" data-style="ios">`,
             `<div class="btn-group" role="group">
-                                <a href="../manager/form-edit-image.php?id=${item.id}" type="button" class="btn btn-warning text-white">
+                                <a href="./form-edit-image.php?id=${item.id}" type="button" class="btn btn-warning text-white">
                                     <i class="far fa-edit"></i> แก้ไข
                                 </a>
                                 <button type="button" class="btn btn-danger" id="delete" data-id="${item.id}" data-index="${index}">
@@ -134,7 +134,7 @@ $(function () {
 
           $.ajax({
             type: "POST",
-            url: "../../service/superadmin_ad/setting/image/image_create",
+            url: "../../service/superadmin_twd/setting/image/image_create",
             data: {
               imageon: imageon,
               isActive: isActive,
@@ -193,7 +193,7 @@ $(function () {
         if (result.isConfirmed) {
           $.ajax({
             type: "POST",
-            url: "../../service/superadmin_ad/setting/image/image_delete",
+            url: "../../service/superadmin_twd/setting/image/image_delete",
             data: {
               id: id,
             },
@@ -205,7 +205,7 @@ $(function () {
               timer: 500,
               timerProgressBar: true,
             }).then((result) => {
-              location.assign("./image");
+              location.assign("./image-event.php");
             });
           });
         }
