@@ -1,24 +1,24 @@
 <?php
-require_once('../authen.php');
+// require_once('../authen.php');
 
-include_once('../../assets/php/pages-twd/dashboard/index.php');
+// include_once('../../assets/php/pages-twd/dashboard/index.php');
+header('Location: ../manager/');
+
+
 ?>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo isset($_SESSION['team']['role']) ? $_SESSION['team']['role'] : ''; ?> | TKS SPORTDATA</title>
-    <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon.ico">
-
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon.ico"> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/adminlte.min.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
-
-    <!-- Datatables -->
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
@@ -94,7 +94,7 @@ include_once('../../assets/php/pages-twd/dashboard/index.php');
                                                                 }
                                                             }
                                                         }
-                                                        if ($isActiveCounter == 0) { // ตรวจสอบว่าไม่มีข้อมูลที่ IsActive เป็น 1
+                                                        if ($isActiveCounter == 0) {
                                                             ?>
                                                         <tr>
                                                             <td colspan="5">ยังไม่มีรายชื่อนักกีฬาที่ได้เหรียญทอง</td>
@@ -147,7 +147,6 @@ include_once('../../assets/php/pages-twd/dashboard/index.php');
     <script src="../../plugins/chart.js/Chart.min.js"></script>
     <script src="../../plugins/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.min.js"></script>
 
-    <!-- datatables -->
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
@@ -238,4 +237,4 @@ include_once('../../assets/php/pages-twd/dashboard/index.php');
 
 </body>
 
-</html>
+</html> -->

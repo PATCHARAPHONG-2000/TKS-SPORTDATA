@@ -71,21 +71,21 @@ $conn = $Database->connect();
                     <li><a class="nav-link scrollto " href="index#photo">Photo</a></li>
                     <li><a class="nav-link scrollto" href="index#contact">Contact</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link scrollto dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Login
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="login" style="color:black">TKS DATASPORT</a>
-                            <a class="dropdown-item" href="login_ad" style="color:black">AD Card</a>
+                            <a class="dropdown-item" href="login" style="color:black">TKS SPORTDATA</a>
+                            <a class="dropdown-item" href="login_ad" style="color:black">AD-CARD</a>
                         </div>
                     </li>
 
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav>
+            </nav><!-- .navbar -->
         </div>
-    </header>
+    </header><!-- End Header -->
 
     <main id="main">
 
@@ -95,9 +95,7 @@ $conn = $Database->connect();
                     <div class="col-12 col-md-8 col-lg-9 col-xl-7">
                         <div class="card " style="border-radius: 1rem;">
                             <div class="card-body  align-items-center">
-
                                 <form id="formRegister" autocomplete="off">
-
                                     <div class="row">
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
@@ -107,7 +105,6 @@ $conn = $Database->connect();
                                                     value="<?php echo isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : ''; ?>" />
                                             </div>
                                         </div>
-
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
                                                 <label for="lastName" class="form-label">Last Name</label>
@@ -127,7 +124,6 @@ $conn = $Database->connect();
                                                     value="<?php echo isset($_POST['team']) ? htmlspecialchars($_POST['team']) : ''; ?>" />
                                             </div>
                                         </div>
-
                                         <div class="col-md-6 mb-6  gender">
                                             <h6 class="form-label mb-2 pb-1 mt-2">Gender </h6>
                                             <div class="form-check form-check-inline mt-2">
@@ -154,7 +150,6 @@ $conn = $Database->connect();
                                                     value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" />
                                             </div>
                                         </div>
-
                                         <div class="col-md-6 mb-4 pb-2">
                                             <div class="form-outline">
                                                 <label for="tell" class="form-label">Phone Number</label>
@@ -163,7 +158,6 @@ $conn = $Database->connect();
                                                     required pattern="[0-9]{10}"
                                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                                                     value="<?php echo isset($_POST['tell']) ? htmlspecialchars($_POST['tell']) : ''; ?>" />
-
                                             </div>
                                         </div>
                                     </div>

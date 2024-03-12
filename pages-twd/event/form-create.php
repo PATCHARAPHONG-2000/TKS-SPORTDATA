@@ -57,6 +57,8 @@ if (isset($_SESSION['team']['role'])) {
         margin-top: auto;
         /* ย้ายปุ่มไปอยู่ด้านล่าง */
     }
+
+    /* style="display:none;" */
     </style>
 </head>
 
@@ -81,10 +83,28 @@ if (isset($_SESSION['team']['role'])) {
                                         กลับหน้าหลัก
                                     </a>
                                     <div class="text-white mt-3">
-                                        <div class="form-group">
+                                        <!-- <div class="form-group mb-5">
+                                            <div class="mr-3">
+                                                <label for="Sports_type"
+                                                    style="color: black; font-size: 1.0rem;">ประเภทกีฬา</label>
+                                                <select class="form-control" name="Sports_type" id="Sports_type"
+                                                    required onchange="Sports_type()">
+                                                    <option value="" disabled selected>กรุณาประเภทกีฬา</option>
+                                                    
+                                                        $List_event = $conn->prepare("SELECT DISTINCT List_event FROM create_event WHERE List_event IS NOT NULL");
+                                                        $List_event->execute();
+
+                                                        while ($row = $List_event->fetch(PDO::FETCH_ASSOC)) {
+                                                            echo "<option value='{$row['List_event']}'>{$row['List_event']}</option>";
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div> -->
+                                        <div class="form-group" id="fight">
                                             <div class="mr-3">
                                                 <label for="age"
-                                                    style="color: black; font-size: 1.1rem;">รุ่นอายุ</label>
+                                                    style="color: black; font-size: 1.0rem;">รุ่นอายุ</label>
                                                 <select class="form-control" name="age" id="age" required
                                                     onchange="fetchWeight()">
                                                     <option value="" disabled selected>กรุณาเลือกอายุ</option>
@@ -95,31 +115,24 @@ if (isset($_SESSION['team']['role'])) {
                                                         while ($row = $age_group->fetch(PDO::FETCH_ASSOC)) {
                                                             echo "<option value='{$row['age_group']}'>{$row['age_group']}</option>";
                                                         }
-                                                        ?>
+                                                    ?>
                                                 </select>
                                             </div>
                                             <div class="mr-3">
-                                                <label for="weigth"
-                                                    style="color: black; font-size: 1.1rem;">รุ่นน้ำหนัก</label>
-                                                <select class="form-control" name="weigth" id="weigth" required>
+                                                <label for="weight"
+                                                    style="color: black; font-size: 1.0rem;">รุ่นน้ำหนัก</label>
+                                                <select class="form-control" name="weight" id="weight" required
+                                                    onchange="fetchClass()">
                                                     <option value="" disabled selected>กรุณาเลือกรุ่นน้ำหนัก</option>
                                                 </select>
                                             </div>
-                                            <div class="mr-3">
-                                                <label for="clas" style="color: black; font-size: 1.1rem;">คลาส</label>
-                                                <select class="form-control" name="clas" id="clas" required>
+                                            <div class="mr-3" >
+                                                <label for="sp_class"
+                                                    style="color: black; font-size: 1.0rem;">คลาส</label>
+                                                <select class="form-control" name="sp_class" id="sp_class"  required>
                                                     <option value="" disabled selected>กรุณาเลือกคลาส</option>
-                                                    <?php
-                                                        $class = $conn->prepare("SELECT DISTINCT class FROM create_event WHERE class IS NOT NULL");
-                                                        $class->execute();
-
-                                                        while ($row = $class->fetch(PDO::FETCH_ASSOC)) {
-                                                            echo "<option value='{$row['class']}'>{$row['class']}</option>";
-                                                        }
-                                                        ?>
                                                 </select>
                                             </div>
-
                                             <div class="id_save">
                                                 <a href="#" class="ml-3 btn btn-info mt-4 text-white" type="button"
                                                     id="save">
@@ -216,9 +229,60 @@ if (isset($_SESSION['team']['role'])) {
     <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script src="../../assets/js/pages_twd/event/create-event.js"></script>
+
     <script>
     function getImageName() {
         return "<?php echo $image['name']; ?>";
+    }
+
+    function Sports_type() {
+        var selected_sport = document.getElementById("Sports_type").value;
+        var fight_div = document.getElementById("fight");
+        var fight_team_div = document.getElementById("fight-team");
+        var Poomsae_general_M_div = document.getElementById("Poomsae-general-M");
+        var Poomsae_general_F_div = document.getElementById("Poomsae-general-F");
+        var Poomsae_Mix_Doubles_div = document.getElementById("Poomsae-Mix-Doubles");
+        var Poomsae_team_M_div = document.getElementById("Poomsae-team-M");
+        var Poomsae_team_F_div = document.getElementById("Poomsae-team-F");
+        var Poomsae_free_sty_M_div = document.getElementById("Poomsae-free-sty-M");
+        var Poomsae_free_sty_F_div = document.getElementById("Poomsae-free-sty-F");
+        var Poomsae_free_sty_Mix_Doubles_div = document.getElementById(
+            "Poomsae-free-sty-Mix-Doubles"
+        );
+
+        fight_div.style.display = "none";
+        fight_team_div.style.display = "none";
+        Poomsae_general_M_div.style.display = "none";
+        Poomsae_general_F_div.style.display = "none";
+        Poomsae_Mix_Doubles_div.style.display = "none";
+        Poomsae_team_M_div.style.display = "none";
+        Poomsae_team_F_div.style.display = "none";
+        Poomsae_free_sty_M_div.style.display = "none";
+        Poomsae_free_sty_F_div.style.display = "none";
+        Poomsae_free_sty_Mix_Doubles_div.style.display = "none";
+
+        // แสดงเฉพาะองค์ประกอบที่ถูกเลือก
+        if (selected_sport == "ต่อสู้ (เดี่ยว)") {
+            fight_div.style.display = "flex";
+        } else if (selected_sport == "Fight-team") {
+            fight_team_div.style.display = "flex";
+        } else if (selected_sport == "Poomsae-general-M") {
+            Poomsae_general_M_div.style.display = "flex";
+        } else if (selected_sport == "Poomsae-general-F") {
+            Poomsae_general_F_div.style.display = "flex";
+        } else if (selected_sport == "Poomsae-Mix-Doubles") {
+            Poomsae_Mix_Doubles_div.style.display = "flex";
+        } else if (selected_sport == "Poomsae-team-M") {
+            Poomsae_team_M_div.style.display = "flex";
+        } else if (selected_sport == "Poomsae-team-F") {
+            Poomsae_team_F_div.style.display = "flex";
+        } else if (selected_sport == "Poomsae-free-sty-M") {
+            Poomsae_free_sty_M_div.style.display = "flex";
+        } else if (selected_sport == "Poomsae-free-sty-F") {
+            Poomsae_free_sty_F_div.style.display = "flex";
+        } else if (selected_sport == "Poomsae-free-sty-Mix-Doubles") {
+            Poomsae_free_sty_Mix_Doubles_div.style.display = "flex";
+        }
     }
     </script>
 

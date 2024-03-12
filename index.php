@@ -1,7 +1,6 @@
 <?php
 
-// require __DIR__ . '/wp-blog-header.php';
-require_once __DIR__.'/service/connect.php';
+require_once __DIR__ . '/service/connect.php';
 
 
 $Database = new Database();
@@ -19,21 +18,27 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
     <title>TKS SPORTDATA</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
+    <!-- Favicons -->
     <link href="assets/images/favicon.png" rel="icon">
     <link href="assets/images/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
+    <!-- Vendor CSS Files -->
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="assets/css/home.css" rel="stylesheet">
 
+    <!-- Template Main CSS File -->
+    <link href="assets/css/home.css" rel="stylesheet">
 </head>
 
 <body>
@@ -44,9 +49,8 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
             <div class="contact-info d-flex align-items-center">
             </div>
             <div class="social-links d-none d-md-block">
-                <a href="https://www.facebook.com/TKSsoft" target="_blank" class="facebook"><i
-                        class="bi bi-facebook"></i></a>
-                <a href="https://line.me/ti/p/_EFnRUO5tK" target="_blank" class="line"> <i class="bi bi-line"></i></a>
+                <a href="https://www.facebook.com/TKSsoft" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="https://line.me/ti/p/_EFnRUO5tK" class="line"> <i class="bi bi-line"></i></a>
                 <a href="login-score" class="karate"><img src="assets/images/karate-icon.png" alt=""
                         style="width: 15px; height:22px;"></a>
             </div>
@@ -65,13 +69,13 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                     <li><a class="nav-link scrollto " href="#photo">Photo</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link scrollto dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Login
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="login" style="color:black">TKS DATASPORT</a>
-                            <a class="dropdown-item" href="login_ad" style="color:black">AD Card</a>
+                            <a class="dropdown-item" href="login" style="color:black">TKS SPORTDATA</a>
+                            <a class="dropdown-item" href="login_ad" style="color:black">AD-CARD</a>
                         </div>
                     </li>
 
@@ -199,7 +203,7 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </section>
 
-        <section id="events" class="events">
+        <section id="events" class="evests">
             <div class="container">
                 <div class="section-title">
                     <span>Events</span>
@@ -209,39 +213,29 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                         <?php
-                            foreach($rows as $key => $row) {
-                                $class = ($key == 0) ? 'active' : '';
-                                echo '<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="'.$key.'" class="'.$class.'"></button>';
-                            }
-                        ?>
+            foreach ($rows as $key => $row) {
+              $class = ($key == 0) ? 'active' : '';
+              echo '<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="' . $key . '" class="' . $class . '"></button>';
+            }
+            ?>
                     </div>
                     <div class="carousel-inner">
                         <?php
-                        foreach($rows as $key => $row) {
-                            $class = ($key == 0) ? 'active' : '';
-                            $users = $row['users'];
-                            $imagePath = '';
-                            $targetPage = '';
+            foreach ($rows as $key => $row) {
+              $class = ($key == 0) ? 'active' : '';
+              $users = $row['users'];
 
-                            // เช็ค users ว่าเป็น SUPERADMIN TWD หรือ SUPERADMIN AD
-                            if ($users === 'SUPERADMIN TWD') {
-                                $imagePath = 'service/superadmin_twd/setting/uploads/' . $row['image'];
-                                $targetPage = 'event_twd.php';
-                            } elseif ($users === 'SUPERADMIN AD') {
-                                $imagePath = 'service/superadmin_ad/setting/uploads/' . $row['image'];
-                                $targetPage = 'event_ad.php';
-                            }
+              if (filter_var($users, FILTER_VALIDATE_EMAIL)) {
+                $loginPage = 'login.php';
+              } else {
+                $loginPage = 'login_ad.php';
+              }
 
-                            // ตรวจสอบว่ามีรูปใน $imagePath หรือไม่ ถ้าไม่มีให้แสดงข้อความว่า "No images found."
-                            if (!empty($imagePath) && file_exists($imagePath)) {
-                                echo '<div class="carousel-item '.$class.'">';
-                                echo '<a href="'.$targetPage.'"><img src="'.$imagePath.'" class="d-block w-100" alt="..."></a>';
-                                echo '</div>';
-                            } else {
-                                echo '<p>No images found.</p>';
-                            }
-                        }
-                        ?>
+              echo '<div class="carousel-item ' . $class . '">';
+              echo '<a href="' . $loginPage . '"><img src="service/superadmin/uploads/' . $row['image'] . '" class="d-block w-100" alt="..."></a>';
+              echo '</div>';
+            }
+            ?>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                         data-bs-slide="prev">
@@ -254,7 +248,6 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
-            </div>
         </section>
 
         <!-- ======= Cta Section ======= -->
@@ -263,8 +256,8 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="text-center ">
                     <h3 class="text-uppercase">Taekwondo</h3>
-                    <p>Taekwondo is a Korean martial art, characterized by its emphasis on high,<br>
-                        fast kicks and spinning kicks,<br>
+                    <p>Taekwondo is a Korean martial art, characterized by its emphasis on high,
+                        fast kicks and spinning kicks,
                         and its focus on head-height kicks, jumping and spinning kicks, and fast kicking techniques.</p>
                 </div>
 
@@ -426,8 +419,10 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                             <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#photo">Photo</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#contact">Contact</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="karate/">Score Karate</a></li>
                         </ul>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -456,8 +451,6 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
     <script src="assets/vendor/php-email-form/validate.js"></script>
     <script src="assets/js/main.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=GTM-5B9B8LF4"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script> -->
 
 </body>
 

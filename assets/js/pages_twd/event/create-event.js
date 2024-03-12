@@ -74,8 +74,8 @@ $(document).ready(function () {
       .get();
 
     let selectedAge = $("#age").val();
-    let selectedClass = $("#clas").val();
-    let selectedWeigth = $("#weigth").val();
+    let selectedClass = $("#sp_class").val();
+    let selectedWeigth = $("#weight").val();
 
     if (
       selectedAge &&
@@ -90,7 +90,7 @@ $(document).ready(function () {
         data: {
           ids: selectedIds,
           class: selectedClass,
-          weigth: selectedWeigth,
+          weight: selectedWeigth,
           age: selectedAge,
           name_match: params.selectedName,
         },
@@ -145,7 +145,7 @@ function fetchWeight() {
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       var weights = JSON.parse(this.responseText);
-      var weightDropdown = document.getElementById("weigth");
+      var weightDropdown = document.getElementById("weight");
       weightDropdown.innerHTML = ""; // Clear previous options
       weights.forEach(function (weight) {
         var option = document.createElement("option");
@@ -156,4 +156,26 @@ function fetchWeight() {
     }
   };
   xhr.send("age=" + age);
+}
+
+function fetchClass() {
+  var weight = document.getElementById("weight").value;
+  var age = document.getElementById("age").value; // เพิ่มการเก็บค่าอายุ
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "../../service/manager/fetch_class", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function () {
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+      var class_r = JSON.parse(this.responseText);
+      var classDropdown = document.getElementById("sp_class");
+      classDropdown.innerHTML = ""; // Clear previous options
+      class_r.forEach(function (sp_class) {
+        var option = document.createElement("option");
+        option.text = sp_class;
+        option.value = sp_class;
+        classDropdown.appendChild(option);
+      });
+    }
+  };
+  xhr.send("age=" + age); // ส่งค่าอายุไปด้วย
 }

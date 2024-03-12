@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $age = $_POST['age'];
     $Class = $_POST['class'];
-    $weigth = $_POST['weigth'];
+    $weight = $_POST['weight'];
     $name_match = $_POST['name_match'];
     
     if(isset($_POST['ids']) && !empty($_POST['ids'])) {
@@ -37,8 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $license = $row['license'];
                     $fileImage = $row['image'];
                     
-                    $stmt = $conn->prepare("INSERT INTO event (name_match, firstname, lastname, status, team, age, class, weigth, license, image) 
-                        VALUES (:name_match, :firstname, :lastname, :status, :team, :age, :class, :weigth, :license, :image)");
+                    $stmt = $conn->prepare("INSERT INTO event (name_match, firstname, lastname, status, team, age, class, weight, license, image) 
+                        VALUES (:name_match, :firstname, :lastname, :status, :team, :age, :class, :weight, :license, :image)");
                     $stmt->bindParam(':name_match', $name_match, PDO::PARAM_STR);
                     $stmt->bindParam(':firstname', $firstname, PDO::PARAM_STR);
                     $stmt->bindParam(':lastname', $lastname, PDO::PARAM_STR);
@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $stmt->bindParam(':team', $role, PDO::PARAM_STR);
                     $stmt->bindParam(':age', $age, PDO::PARAM_STR);
                     $stmt->bindParam(':class', $Class, PDO::PARAM_STR);
-                    $stmt->bindParam(':weigth', $weigth, PDO::PARAM_STR);
+                    $stmt->bindParam(':weight', $weight, PDO::PARAM_STR);
                     $stmt->bindParam(':license', $license, PDO::PARAM_STR);
                     $stmt->bindParam(':image', $fileImage, PDO::PARAM_STR);
 
