@@ -64,16 +64,15 @@ if (isset($_SESSION['team']['role'])) {
                 <?php if (isset($event['IsActive']) && $event['IsActive'] == 1) { ?>
                     <li class="nav-item ad-data" <?php echo isActive('index') ?>>
                         <a href="../event/" class="nav-link" id="active-link">
-                            <i class="nav-icon fa-solid fa-user-plus"></i>
-                            <p>สมัครอีเว้นท์</p>
+                            <i class="nav-icon fa-brands fa-elementor fa-xl "></i>
+                            <p>สมัครแมตท์</p>
                         </a>
                     </li>
                 <?php } else { ?>
                     <li class="nav-item ad-data" <?php echo isActive('index') ?>>
-                        <a href="#" class="nav-link" style="pointer-events: none; cursor: default; color: gray;"
-                            onclick="return false;">
-                            <i class="nav-icon fa-solid fa-user-plus"></i>
-                            <p>สมัครอีเว้นท์</p>
+                        <a href="#" class="nav-link" style="pointer-events: none; cursor: default; color: gray;" onclick="return false;">
+                            <i class="nav-icon fa-brands fa-elementor fa-xl"></i>
+                            <p>สมัครแมตท์</p>
                         </a>
                     </li>
                 <?php } ?>

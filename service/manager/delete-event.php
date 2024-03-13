@@ -14,13 +14,11 @@ function respondError($message)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['ids']) && !empty($_POST['ids'])) {
         $ids = $_POST['ids'];
-
-        // Convert string to array
-        $idsArray = explode(',', $ids);
+        $idsArray = is_array($ids) ? $ids : explode(',', $ids);
 
         if (!empty($idsArray)) {
             // Prepare SQL statement to select license from event table
-            $sql = "SELECT license FROM event WHERE id IN (".implode(',', array_fill(0, count($idsArray), '?')).")";
+            $sql = "SELECT license FROM event WHERE id IN (" . implode(',', array_fill(0, count($idsArray), '?')) . ")";
             $stmt = $conn->prepare($sql);
             $stmt->execute($idsArray);
             $eventLicenses = $stmt->fetchAll(PDO::FETCH_COLUMN);
@@ -62,4 +60,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     respondError('Invalid request method');
 }
-?>

@@ -11,11 +11,13 @@ function respondError($message)
     exit();
 }
 
-if (isset($_POST['age']) && !empty($_POST['age'])) {
+if (isset($_POST['age']) && !empty($_POST['age']) && isset($_POST['gender']) && !empty($_POST['gender'])) {
     $age = $_POST['age'];
+    $gender = $_POST['gender'];
 
-    $statement = $conn->prepare("SELECT DISTINCT weight FROM create_event WHERE age_group = :age");
+    $statement = $conn->prepare("SELECT DISTINCT weight FROM create_event WHERE age_group = :age AND gender = :gender");
     $statement->bindParam(':age', $age);
+    $statement->bindParam(':gender', $gender);
     $statement->execute();
 
     $weights = [];
@@ -29,4 +31,3 @@ if (isset($_POST['age']) && !empty($_POST['age'])) {
 } else {
     echo json_encode([]);
 }
-?>

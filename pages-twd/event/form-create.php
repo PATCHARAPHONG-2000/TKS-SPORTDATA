@@ -1,14 +1,10 @@
 <?php
-
 require_once('../authen.php');
 $Database = new Database();
 $conn = $Database->connect();
 
 $per = $conn->prepare("SELECT * FROM player");
 $per->execute();
-
-$even = $conn->prepare("SELECT * FROM create_event");
-$even->execute();
 
 $id = $_GET['image_id'];
 $params = array(':id' => $id);
@@ -44,21 +40,20 @@ if (isset($_SESSION['team']['role'])) {
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
     <style>
-    .card-header {
-        display: flex;
-        flex-direction: column;
-    }
+        .card-header {
+            display: flex;
+            flex-direction: column;
+        }
 
-    .form-group {
-        display: flex;
-    }
+        .form-group {
+            display: flex;
+        }
 
-    .id_save {
-        margin-top: auto;
-        /* ย้ายปุ่มไปอยู่ด้านล่าง */
-    }
+        .id_save {
+            margin-top: auto;
+        }
 
-    /* style="display:none;" */
+        /* style="display:none;" */
     </style>
 </head>
 
@@ -83,59 +78,113 @@ if (isset($_SESSION['team']['role'])) {
                                         กลับหน้าหลัก
                                     </a>
                                     <div class="text-white mt-3">
-                                        <!-- <div class="form-group mb-5">
+                                        <div class="form-group mb-5">
                                             <div class="mr-3">
-                                                <label for="Sports_type"
-                                                    style="color: black; font-size: 1.0rem;">ประเภทกีฬา</label>
-                                                <select class="form-control" name="Sports_type" id="Sports_type"
-                                                    required onchange="Sports_type()">
+                                                <label for="List_event" style="color: black; font-size: 1.0rem;">ประเภทกีฬา</label>
+                                                <select class="form-control" name="List_event" id="List_event" required onchange="List_event()">
                                                     <option value="" disabled selected>กรุณาประเภทกีฬา</option>
-                                                    
-                                                        $List_event = $conn->prepare("SELECT DISTINCT List_event FROM create_event WHERE List_event IS NOT NULL");
-                                                        $List_event->execute();
-
-                                                        while ($row = $List_event->fetch(PDO::FETCH_ASSOC)) {
-                                                            echo "<option value='{$row['List_event']}'>{$row['List_event']}</option>";
-                                                        }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div> -->
-                                        <div class="form-group" id="fight">
-                                            <div class="mr-3">
-                                                <label for="age"
-                                                    style="color: black; font-size: 1.0rem;">รุ่นอายุ</label>
-                                                <select class="form-control" name="age" id="age" required
-                                                    onchange="fetchWeight()">
-                                                    <option value="" disabled selected>กรุณาเลือกอายุ</option>
                                                     <?php
-                                                        $age_group = $conn->prepare("SELECT DISTINCT age_group FROM create_event WHERE age_group IS NOT NULL");
-                                                        $age_group->execute();
+                                                    $List_event = $conn->prepare("SELECT DISTINCT List_event FROM create_event WHERE List_event IS NOT NULL");
+                                                    $List_event->execute();
 
-                                                        while ($row = $age_group->fetch(PDO::FETCH_ASSOC)) {
-                                                            echo "<option value='{$row['age_group']}'>{$row['age_group']}</option>";
-                                                        }
+                                                    while ($row = $List_event->fetch(PDO::FETCH_ASSOC)) {
+                                                        echo "<option value='{$row['List_event']}'>{$row['List_event']}</option>";
+                                                    }
                                                     ?>
                                                 </select>
                                             </div>
+                                        </div>
+                                        <div class="form-group" id="fight" style="display:none;">
                                             <div class="mr-3">
-                                                <label for="weight"
-                                                    style="color: black; font-size: 1.0rem;">รุ่นน้ำหนัก</label>
-                                                <select class="form-control" name="weight" id="weight" required
-                                                    onchange="fetchClass()">
+                                                <label for="gender" style="color: black; font-size: 1.0rem;">เพศ</label>
+                                                <select class="form-control" name="gender" id="gender" required onchange="fetcstatus(), selectgender()">
+                                                    <option value="" disabled selected>กรุณาเลือกเพศ</option>
+                                                    <option value="ชาย">ชาย</option>
+                                                    <option value="หญิง">หญิง</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="age" style="color: black; font-size: 1.0rem;">รุ่นอายุ</label>
+                                                <select class="form-control" name="age" id="age" required onchange="fetchWeight()">
+                                                    <option value="" disabled selected>กรุณาเลือกอายุ</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="weight" style="color: black; font-size: 1.0rem;">รุ่นน้ำหนัก</label>
+                                                <select class="form-control" name="weight" id="weight" required onchange="fetchClass()">
                                                     <option value="" disabled selected>กรุณาเลือกรุ่นน้ำหนัก</option>
                                                 </select>
                                             </div>
-                                            <div class="mr-3" >
-                                                <label for="sp_class"
-                                                    style="color: black; font-size: 1.0rem;">คลาส</label>
-                                                <select class="form-control" name="sp_class" id="sp_class"  required>
+                                            <div class="mr-3">
+                                                <label for="sp_class" style="color: black; font-size: 1.0rem;">คลาส</label>
+                                                <select class="form-control" name="sp_class" id="sp_class" required>
                                                     <option value="" disabled selected>กรุณาเลือกคลาส</option>
                                                 </select>
                                             </div>
                                             <div class="id_save">
-                                                <a href="#" class="ml-3 btn btn-info mt-4 text-white" type="button"
-                                                    id="save">
+                                                <a href="#" class="ml-3 btn btn-info mt-4 text-white" type="button" id="save">
+                                                    <i class="nav-icon fa-solid fa-print"></i>
+                                                    บันทึก
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="fight-team" style="display:none;">
+                                            <div class="mr-3">
+                                                <label for="team_gender" style="color: black; font-size: 1.0rem;">เพศ</label>
+                                                <select class="form-control" name="team_gender" id="team_gender" required onchange="fetcstatus_team(), selectgender()">
+                                                    <option value="" disabled selected>กรุณาเลือกเพศ</option>
+                                                    <option value="ชาย">ชาย</option>
+                                                    <option value="หญิง">หญิง</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="team_age" style="color: black; font-size: 1.0rem;">รุ่นอายุ</label>
+                                                <select class="form-control" name="team_age" id="team_age" required onchange="fetchWeight_team()">
+                                                    <option value="" disabled selected>กรุณาเลือกอายุ</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="team_weight" style="color: black; font-size: 1.0rem;">น้ำหนักรวม</label>
+                                                <select class="form-control" name="team_weight" id="team_weight" required>
+                                                    <option value="" disabled selected>กรุณาเลือกน้ำหนักรวม</option>
+                                                </select>
+                                            </div>
+                                            <div class="id_save">
+                                                <a href="#" class="ml-3 btn btn-info mt-4 text-white" type="button" id="team_save">
+                                                    <i class="nav-icon fa-solid fa-print"></i>
+                                                    บันทึก
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="Poomse-Solo" style="display:none;">
+                                            <div class="mr-3">
+                                                <label for="Poomse_gender" style="color: black; font-size: 1.0rem;">เพศ</label>
+                                                <select class="form-control" name="Poomse_gender" id="Poomse_gender" required onchange="fetcstatus_Poomse(), selectgender()">
+                                                    <option value="" disabled selected>กรุณาเลือกเพศ</option>
+                                                    <option value="ชาย">ชาย</option>
+                                                    <option value="หญิง">หญิง</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="Poomse_age" style="color: black; font-size: 1.0rem;">รุ่นอายุ</label>
+                                                <select class="form-control" name="Poomse_age" id="Poomse_age" required onchange="fetchWeight_Poomse()">
+                                                    <option value="" disabled selected>กรุณาเลือกอายุ</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="Poomse_colorse" style="color: black; font-size: 1.0rem;">สายสี</label>
+                                                <select class="form-control" name="Poomse_colorse" id="Poomse_colorse" required onchange="fetchcolorse_Poomse()">
+                                                    <option value="" disabled selected>กรุณาเลือกสายสี</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="Poomse_pattern" style="color: black; font-size: 1.0rem;">Pattern</label>
+                                                <select class="form-control" name="Poomse_pattern" id="Poomse_pattern" required>
+                                                    <option value="" disabled selected>กรุณาเลือก Pattern</option>
+                                                </select>
+                                            </div>
+                                            <div class="id_save">
+                                                <a href="#" class="ml-3 btn btn-info mt-4 text-white" type="button" id="Poomse_save">
                                                     <i class="nav-icon fa-solid fa-print"></i>
                                                     บันทึก
                                                 </a>
@@ -145,12 +194,12 @@ if (isset($_SESSION['team']['role'])) {
                                 </div>
 
                                 <div class="p-2">
-                                    <table id="form-create-event" class="table table table-striped table-hover">
+                                    <table id="form-create-event" class="table table-striped table-hover">
                                         <thead>
                                             <tr>
                                                 <th class="align-middle">
                                                     <input type="checkbox" id="select_all" class="align-middle mt-3">
-                                                    <label class=" form-check-label "></label>
+                                                    <label class="form-check-label"></label>
                                                 </th>
                                                 <th class="align-middle">ลำดับ</th>
                                                 <th class="align-middle">ชื่อ</th>
@@ -168,45 +217,42 @@ if (isset($_SESSION['team']['role'])) {
                                                     if ($person["team"] === $role) {
                                                         if ($person["IsActive"] == 0) {
                                             ?>
-                                            <tr id="<?php echo $person["id"]; ?>">
-                                                <td class="align-middle"><input type="checkbox" class="checkbox"
-                                                        name="idc[]" value="<?php echo $person["id"]; ?>"></td>
-                                                <td class="align-middle">
-                                                    <?php echo $counter; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["firstname"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["lastname"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["status"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["age"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <img src="../../service/tksuploads/<?php echo $person["image"]; ?>"
-                                                        alt="Profile" style="max-width: 50px;">
-                                                </td>
-                                            </tr>
-                                            <?php
+                                                            <tr id="<?php echo $person["id"]; ?>">
+                                                                <td class="align-middle"><input type="checkbox" class="checkbox" name="idc[]" value="<?php echo $person["id"]; ?>"></td>
+                                                                <td class="align-middle">
+                                                                    <?php echo $counter; ?>
+                                                                </td>
+                                                                <td class="align-middle">
+                                                                    <?php echo $person["firstname"]; ?>
+                                                                </td>
+                                                                <td class="align-middle">
+                                                                    <?php echo $person["lastname"]; ?>
+                                                                </td>
+                                                                <td class="align-middle">
+                                                                    <?php echo $person["status"]; ?>
+                                                                </td>
+                                                                <td class="align-middle">
+                                                                    <?php echo $person["age"]; ?>
+                                                                </td>
+                                                                <td class="align-middle">
+                                                                    <img src="../../service/tksuploads/<?php echo $person["image"]; ?>" alt="Profile" style="max-width: 50px;">
+                                                                </td>
+                                                            </tr>
+                                                <?php
                                                             $counter++;
                                                         }
                                                     }
                                                 }
                                             } else {
-                                            ?>
-                                            <tr>
-                                                <td colspan="7">ยังไม่รายชื่อ</td>
-                                            </tr>
+                                                ?>
+                                                <tr>
+                                                    <td colspan="8">ยังไม่รายชื่อ</td>
+                                                </tr>
                                             <?php
                                             }
                                             ?>
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
                         </div>
@@ -228,62 +274,12 @@ if (isset($_SESSION['team']['role'])) {
     <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="../../assets/js/pages_twd/event/create-event.js"></script>
+    <script src="../../assets/js/pages_twd/event/create.js"></script>
 
     <script>
-    function getImageName() {
-        return "<?php echo $image['name']; ?>";
-    }
-
-    function Sports_type() {
-        var selected_sport = document.getElementById("Sports_type").value;
-        var fight_div = document.getElementById("fight");
-        var fight_team_div = document.getElementById("fight-team");
-        var Poomsae_general_M_div = document.getElementById("Poomsae-general-M");
-        var Poomsae_general_F_div = document.getElementById("Poomsae-general-F");
-        var Poomsae_Mix_Doubles_div = document.getElementById("Poomsae-Mix-Doubles");
-        var Poomsae_team_M_div = document.getElementById("Poomsae-team-M");
-        var Poomsae_team_F_div = document.getElementById("Poomsae-team-F");
-        var Poomsae_free_sty_M_div = document.getElementById("Poomsae-free-sty-M");
-        var Poomsae_free_sty_F_div = document.getElementById("Poomsae-free-sty-F");
-        var Poomsae_free_sty_Mix_Doubles_div = document.getElementById(
-            "Poomsae-free-sty-Mix-Doubles"
-        );
-
-        fight_div.style.display = "none";
-        fight_team_div.style.display = "none";
-        Poomsae_general_M_div.style.display = "none";
-        Poomsae_general_F_div.style.display = "none";
-        Poomsae_Mix_Doubles_div.style.display = "none";
-        Poomsae_team_M_div.style.display = "none";
-        Poomsae_team_F_div.style.display = "none";
-        Poomsae_free_sty_M_div.style.display = "none";
-        Poomsae_free_sty_F_div.style.display = "none";
-        Poomsae_free_sty_Mix_Doubles_div.style.display = "none";
-
-        // แสดงเฉพาะองค์ประกอบที่ถูกเลือก
-        if (selected_sport == "ต่อสู้ (เดี่ยว)") {
-            fight_div.style.display = "flex";
-        } else if (selected_sport == "Fight-team") {
-            fight_team_div.style.display = "flex";
-        } else if (selected_sport == "Poomsae-general-M") {
-            Poomsae_general_M_div.style.display = "flex";
-        } else if (selected_sport == "Poomsae-general-F") {
-            Poomsae_general_F_div.style.display = "flex";
-        } else if (selected_sport == "Poomsae-Mix-Doubles") {
-            Poomsae_Mix_Doubles_div.style.display = "flex";
-        } else if (selected_sport == "Poomsae-team-M") {
-            Poomsae_team_M_div.style.display = "flex";
-        } else if (selected_sport == "Poomsae-team-F") {
-            Poomsae_team_F_div.style.display = "flex";
-        } else if (selected_sport == "Poomsae-free-sty-M") {
-            Poomsae_free_sty_M_div.style.display = "flex";
-        } else if (selected_sport == "Poomsae-free-sty-F") {
-            Poomsae_free_sty_F_div.style.display = "flex";
-        } else if (selected_sport == "Poomsae-free-sty-Mix-Doubles") {
-            Poomsae_free_sty_Mix_Doubles_div.style.display = "flex";
+        function getImageName() {
+            return "<?php echo $image['name']; ?>";
         }
-    }
     </script>
 
 </body>

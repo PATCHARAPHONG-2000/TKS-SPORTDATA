@@ -7,37 +7,33 @@ $(document).ready(function () {
     className: "select-checkbox",
     columnDefs: [
       { width: "5%", targets: 0 },
-      { width: "7%", targets: 1 },
-      { width: "13%", targets: 2 },
-      { width: "13%", targets: 3 },
-      { width: "7%", targets: 4 },
-      { width: "7%", targets: 5 },
-      { width: "7%", targets: 6 },
-      { width: "16%", targets: 7 },
-      { width: "13%", targets: 8 },
-      { width: "15%", targets: 9 },
+      { width: "5%", targets: 1 },
+      { width: "10%", targets: 2 },
+      { width: "10%", targets: 3 },
+      { width: "5%", targets: 4 },
+      { width: "10%", targets: 5 },
+      { width: "10%", targets: 6 },
+      { width: "5%", targets: 7 },
+      { width: "10%", targets: 8 },
+      { width: "10%", targets: 9 },
     ],
     initComplete: function () {
-      var column7 = this.api().column(7);
-      $(column7.header()).html('<label for="positionFilter">ตำแหน่ง: </label>');
+      var column6 = this.api().column(6); // เปลี่ยนจาก column7 เป็น column6
+      $(column6.header()).html('<label for="positionFilter">ตำแหน่ง: </label>');
       var select1 = $(
         '<select id="positionFilter" class="dashbordadmin-province-select form-control custom-select"><option value="">ทั้งหมด</option></select>'
       )
-        .appendTo($(column7.header()))
+        .appendTo($(column6.header()))
         .on("change", function () {
           var val = $.fn.dataTable.util.escapeRegex($(this).val());
-          column7.search(val ? "^" + val + "$" : "", true, false).draw();
+          column6.search(val ? "^" + val + "$" : "", true, false).draw();
         });
-      column7
+      column6
         .data()
         .unique()
         .each(function (d) {
           select1.append('<option value="' + d + '">' + d + "</option>");
         });
-      select1.on("change", function () {
-        var val = $.fn.dataTable.util.escapeRegex($(this).val());
-        column7.search(val ? "^" + val + "$" : "", true, false).draw();
-      });
     },
   });
 
