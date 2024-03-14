@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-require_once '../connect.php';
+require_once '../../connect.php';
 
 $Database = new Database();
 $conn = $Database->connect();
@@ -28,10 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (!empty($class) || !empty($weigth) || !empty($age)) {
-        
+
         $sql = "UPDATE `event` SET ";
         $params = array();
-        
+
         if (!empty($class)) {
             $sql .= "`class` = :class";
             $params[':class'] = $class;
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sql .= "`age` = :age";
             $params[':age'] = $age;
         }
-      
+
         $sql .= " WHERE `id` = :id";
         $params[':id'] = $id;
 
@@ -69,4 +69,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         respondError('No data to update');
     }
 }
-?>

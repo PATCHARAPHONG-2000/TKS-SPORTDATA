@@ -60,9 +60,7 @@ if (isset($_SESSION['team']['role'])) {
                                             <div class="col-md-6 px-1 px-md-5">
                                                 <div class="form-group">
                                                     <label for="firstname">ชื่อ</label>
-                                                    <input type="text" class="form-control" name="firstname"
-                                                        id="firstname" placeholder="ชื่อ"
-                                                        value="<?php echo $rowe['firstname'] ?>">
+                                                    <input type="text" class="form-control" name="firstname" id="firstname" placeholder="ชื่อ" value="<?php echo $rowe['firstname'] ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="permission">เพศ</label>
@@ -92,24 +90,17 @@ if (isset($_SESSION['team']['role'])) {
                                             <div class="col-md-6 px-1 px-md-5">
                                                 <div class="form-group">
                                                     <label for="lastname">นามสกุล</label>
-                                                    <input type="text" class="form-control" name="lastname"
-                                                        id="lastname" placeholder="นามสกุล"
-                                                        value="<?php echo $rowe['lastname'] ?>">
+                                                    <input type="text" class="form-control" name="lastname" id="lastname" placeholder="นามสกุล" value="<?php echo $rowe['lastname'] ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="license">License Number</label>
-                                                    <input type="text" class="form-control" name="license" id="license"
-                                                        placeholder="License Number"
-                                                        value="<?php echo $rowe['license'] ?>">
+                                                    <input type="text" class="form-control" name="license" id="license" placeholder="License Number" value="<?php echo $rowe['license'] ?>">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="customFile">รูปโปรไฟล์ <span
-                                                            style="color: red;">*</span></label>
+                                                    <label for="customFile">รูปโปรไฟล์ <span style="color: red;">*</span></label>
                                                     <div class="custom-file mb-2">
-                                                        <input name="image" type="file" class="custom-file-input"
-                                                            id="customFile" accept="image/*">
-                                                        <label class="custom-file-label"
-                                                            for="customFile">เลือกรูปภาพ</label>
+                                                        <input name="image" type="file" class="custom-file-input" id="customFile" accept="image/*">
+                                                        <label class="custom-file-label" for="customFile">เลือกรูปภาพ</label>
                                                     </div>
                                                     <p for="" style="font-size: 12px; color: red;" class="mt-2 mb-1">*
                                                         ขนาดไฟล์ภาพไม่เกิน 5 MB</p>
@@ -118,8 +109,7 @@ if (isset($_SESSION['team']['role'])) {
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary btn-block mx-auto w-50"
-                                            name="submit">บันทึกข้อมูล</button>
+                                        <button type="submit" class="btn btn-primary btn-block mx-auto w-50" name="submit">บันทึกข้อมูล</button>
                                     </div>
                                 </form>
                             </div>
@@ -137,81 +127,81 @@ if (isset($_SESSION['team']['role'])) {
     <script src="../../assets/js/adminlte.min.js"></script>
 
     <script>
-    const fileInput = document.getElementById('customFile');
-    const customFileLabel = $(fileInput).next('.custom-file-label');
+        const fileInput = document.getElementById('customFile');
+        const customFileLabel = $(fileInput).next('.custom-file-label');
 
-    fileInput.addEventListener('change', (event) => {
-        const file = event.target.files[0];
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
 
-        if (!file) {
-            resetFileInput();
-            return;
-        }
-        const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB
+            if (!file) {
+                resetFileInput();
+                return;
+            }
+            const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB
 
-        // Check image size
-        if (file.size > maxSizeInBytes) {
-            showFileSizeExceedWarning();
-            resetFileInput();
-            return;
-        }
+            // Check image size
+            if (file.size > maxSizeInBytes) {
+                showFileSizeExceedWarning();
+                resetFileInput();
+                return;
+            }
 
-        // เมื่อไฟล์ถูกต้อง อัปเดตป้ายกำกับด้วยชื่อไฟล์
-        const fileName = file.name;
-        customFileLabel.html(fileName);
-    });
-
-    function resetFileInput() {
-        fileInput.value = '';
-        customFileLabel.html('');
-    }
-
-    function showFileSizeExceedWarning() {
-        Swal.fire({
-            title: "ขนาดไฟล์เกิน",
-            text: "ขนาดไฟล์ภาพของคุณเกิน 5 MB กรุณาเลือกใหม่",
-            icon: "warning",
+            // เมื่อไฟล์ถูกต้อง อัปเดตป้ายกำกับด้วยชื่อไฟล์
+            const fileName = file.name;
+            customFileLabel.html(fileName);
         });
-    }
 
+        function resetFileInput() {
+            fileInput.value = '';
+            customFileLabel.html('');
+        }
 
-    $(function() {
-        $("#formData").submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: '../../service/manager/update.php',
-                data: new FormData($('#formData')[0]),
-                processData: false,
-                contentType: false,
-                success: function(resp) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'อัพเดทข้อมูลเรียบร้อยแล้ว',
-                        showConfirmButton: false,
-                        timer: 1000
-                    }).then((result) => {
-                        location.assign('./index');
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.log('XHR:', xhr);
-                    console.log('Status:', status);
-                    console.log('Error:', error);
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Update failed. Please try again.',
-                        showConfirmButton: false,
-                        timer: 1000
-                    }).then((result) => {
-                        location.assign('./index');
-                    });
-                }
+        function showFileSizeExceedWarning() {
+            Swal.fire({
+                title: "ขนาดไฟล์เกิน",
+                text: "ขนาดไฟล์ภาพของคุณเกิน 5 MB กรุณาเลือกใหม่",
+                icon: "warning",
             });
+        }
 
+
+        $(function() {
+            $("#formData").submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '../../service/pages-twd/update',
+                    data: new FormData($('#formData')[0]),
+                    processData: false,
+                    contentType: false,
+                    success: function(resp) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'อัพเดทข้อมูลเรียบร้อยแล้ว',
+                            showConfirmButton: false,
+                            timer: 1000
+                        }).then((result) => {
+                            location.assign('./index');
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('XHR:', xhr);
+                        console.log('Status:', status);
+                        console.log('Error:', error);
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Update failed. Please try again.',
+                            showConfirmButton: false,
+                            timer: 1000
+                        }).then((result) => {
+                            location.assign('./index');
+                        });
+                    }
+                });
+
+            });
         });
-    });
     </script>
 
 </body>

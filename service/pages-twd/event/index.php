@@ -1,18 +1,11 @@
 <?php
 header('Content-Type: application/json');
-
-$response = [
-    'status' => false,
-    'message' => 'An error occurred',
-    'response' => []
-];
-
-require_once '../connect.php'; // ปรับเส้นทางตามความเหมาะสม
+require_once '../../connect.php'; // ปรับเส้นทางตามความเหมาะสม
 
 $Database = new Database();
 $connect = $Database->connect();
 
-if ($connect) { 
+if ($connect) {
     if (isset($_SESSION['team'])) {
         $userStatus = $_SESSION['team']['role']; // เช็ค session สำหรับสถานะผู้ใช้
 
@@ -25,7 +18,7 @@ if ($connect) {
             $data = array();
             foreach ($stmt->fetchAll() as $row) {
                 $data[] = [
-                    'id' => $row['id'], 
+                    'id' => $row['id'],
                     'firstname' => $row['firstname'],
                     'lastname' => $row['lastname'],
                     'team' => $row['team'],
@@ -37,7 +30,7 @@ if ($connect) {
                     'image' => $row['image'],
                 ];
             }
-            echo json_encode ( [
+            echo json_encode([
                 'status' => true,
                 'message' => 'Get Data Manager Success',
                 'response' => $data

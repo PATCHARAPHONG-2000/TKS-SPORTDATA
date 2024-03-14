@@ -71,185 +71,185 @@ if (isset($_SESSION['team']['role'])) {
     <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 
     <script>
-    $(function() {
-        $.ajax({
-            type: "GET",
-            url: "../../service/manager/index.php"
-        }).done(function(data) {
-            let tableData = [];
+        $(function() {
+            $.ajax({
+                type: "GET",
+                url: "../../service/pages-twd/index"
+            }).done(function(data) {
+                let tableData = [];
 
-            data.response.forEach(function(item, index) {
-                if (item.firstname !== null && item.lastname !== null) {
-                    let editLink = createEditLink(item.id);
-                    let deleteButton = createDeleteButton(item.id);
-                    tableData.push([
-                        ++index,
-                        item.firstname,
-                        item.lastname,
-                        item.status,
-                        item.age,
-                        `<img src="../../service/tksuploads/${item.image}" alt="Image" style="max-width: 50px;">`,
-                        `<div class="btn-group" role="group">
+                data.response.forEach(function(item, index) {
+                    if (item.firstname !== null && item.lastname !== null) {
+                        let editLink = createEditLink(item.id);
+                        let deleteButton = createDeleteButton(item.id);
+                        tableData.push([
+                            ++index,
+                            item.firstname,
+                            item.lastname,
+                            item.status,
+                            item.age,
+                            `<img src="../../service/tksuploads/${item.image}" alt="Image" style="max-width: 50px;">`,
+                            `<div class="btn-group" role="group">
                                 ${editLink}
                                 ${deleteButton}
                                 <a href="info.php?id=${item.id}" class="btn btn-info">
                                     <i class="fas fa-search"></i> ดูข้อมูล
                                 </a>
                             </div>`
-                    ]);
-                }
+                        ]);
+                    }
+                });
+                initDataTables(tableData);
+            }).fail(function() {
+                Swal.fire({
+                    text: 'ไม่สามารถเรียกดูข้อมูลได้',
+                    icon: 'error',
+                    confirmButtonText: 'ตกลง',
+                }).then(function() {
+                    location.assign('../dashboard');
+                });
             });
-            initDataTables(tableData);
-        }).fail(function() {
-            Swal.fire({
-                text: 'ไม่สามารถเรียกดูข้อมูลได้',
-                icon: 'error',
-                confirmButtonText: 'ตกลง',
-            }).then(function() {
-                location.assign('../dashboard');
-            });
-        });
 
-        function createEditLink(id) {
-            return `<a href="form-edit.php?id=${id}" type="button" class="btn btn-warning text-white">
+            function createEditLink(id) {
+                return `<a href="form-edit.php?id=${id}" type="button" class="btn btn-warning text-white">
                 <i class="far fa-edit"></i> แก้ไข
                 </a>`;
-        }
+            }
 
-        function createDeleteButton(id) {
-            let deleteButton = `
+            function createDeleteButton(id) {
+                let deleteButton = `
                 <button type="button" class="btn btn-danger" id="delete" data-id="${id}">
                     <i class="far fa-trash-alt"></i> ลบ
                 </button>`;
-            return deleteButton;
-        }
+                return deleteButton;
+            }
 
-        function initDataTables(tableData) {
-            $('#logs').DataTable({
-                data: tableData,
-                "ordering": false,
-                columns: [{
-                        title: "ลำดับ",
-                        className: "align-middle"
-                    },
-                    {
-                        title: "ชื่อ",
-                        className: "align-middle"
-                    },
-                    {
-                        title: "นามสกุล",
-                        className: "align-middle"
-                    },
-                    {
-                        title: "เพศ",
-                        className: "align-middle"
-                    },
-                    {
-                        title: "อายุ",
-                        className: "align-middle"
-                    },
-                    {
-                        title: "image",
-                        className: "align-middle"
-                    },
-                    {
-                        title: "จัดการ",
-                        className: "align-middle"
-                    }
-                ],
+            function initDataTables(tableData) {
+                $('#logs').DataTable({
+                    data: tableData,
+                    "ordering": false,
+                    columns: [{
+                            title: "ลำดับ",
+                            className: "align-middle"
+                        },
+                        {
+                            title: "ชื่อ",
+                            className: "align-middle"
+                        },
+                        {
+                            title: "นามสกุล",
+                            className: "align-middle"
+                        },
+                        {
+                            title: "เพศ",
+                            className: "align-middle"
+                        },
+                        {
+                            title: "อายุ",
+                            className: "align-middle"
+                        },
+                        {
+                            title: "image",
+                            className: "align-middle"
+                        },
+                        {
+                            title: "จัดการ",
+                            className: "align-middle"
+                        }
+                    ],
 
-                columnDefs: [{
-                        width: '10%',
-                        targets: 0
-                    },
-                    {
-                        width: '20%',
-                        targets: 1
-                    },
-                    {
-                        width: '20%',
-                        targets: 2
-                    },
-                    {
-                        width: '10%',
-                        targets: 3
-                    },
-                    {
-                        width: '10%',
-                        targets: 4
-                    },
-                    {
-                        width: '15%',
-                        targets: 5
-                    },
-                    {
-                        width: '20%',
-                        targets: 6
-                    },
-                ],
+                    columnDefs: [{
+                            width: '10%',
+                            targets: 0
+                        },
+                        {
+                            width: '20%',
+                            targets: 1
+                        },
+                        {
+                            width: '20%',
+                            targets: 2
+                        },
+                        {
+                            width: '10%',
+                            targets: 3
+                        },
+                        {
+                            width: '10%',
+                            targets: 4
+                        },
+                        {
+                            width: '15%',
+                            targets: 5
+                        },
+                        {
+                            width: '20%',
+                            targets: 6
+                        },
+                    ],
 
-                responsive: {
-                    details: {
-                        display: $.fn.dataTable.Responsive.display.modal({
-                            header: function(row) {
-                                var data = row.data();
-                                return 'ผู้ใช้งาน: ' + data[1];
-                            }
-                        }),
-                        renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-                            tableClass: 'table'
-                        })
-                    }
-                },
-                language: {
-                    "lengthMenu": "แสดงข้อมูล _MENU_ แถว",
-                    "zeroRecords": "ไม่พบข้อมูลที่ต้องการ",
-                    "info": "แสดงหน้า _PAGE_ จาก _PAGES_",
-                    "infoEmpty": "ไม่พบข้อมูลที่ต้องการ",
-                    "infoFiltered": "(filtered from _MAX_ total records)",
-                    "search": 'ค้นหา',
-                    "paginate": {
-                        "previous": "ก่อนหน้านี้",
-                        "next": "หน้าต่อไป"
-                    }
-                }
-            });
-
-            $(document).on('click', '#delete', function() {
-                let id = $(this).data('id');
-                let index = $(this).data('index');
-                Swal.fire({
-                    text: "คุณแน่ใจหรือไม่...ที่จะลบรายการนี้?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'ใช่! ลบเลย',
-                    cancelButtonText: 'ยกเลิก'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            type: "POST",
-                            url: "../../service/manager/delete.php",
-                            data: {
-                                id: id
-                            },
-                        }).done(function() {
-                            Swal.fire({
-                                text: 'รายการของคุณถูกลบเรียบร้อย',
-                                icon: 'success',
-                                confirmButtonText: 'ตกลง',
-                                timer: 500,
-                                timerProgressBar: true,
-                            }).then((result) => {
-                                location.assign('./');
+                    responsive: {
+                        details: {
+                            display: $.fn.dataTable.Responsive.display.modal({
+                                header: function(row) {
+                                    var data = row.data();
+                                    return 'ผู้ใช้งาน: ' + data[1];
+                                }
+                            }),
+                            renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                                tableClass: 'table'
                             })
-                        });
+                        }
+                    },
+                    language: {
+                        "lengthMenu": "แสดงข้อมูล _MENU_ แถว",
+                        "zeroRecords": "ไม่พบข้อมูลที่ต้องการ",
+                        "info": "แสดงหน้า _PAGE_ จาก _PAGES_",
+                        "infoEmpty": "ไม่พบข้อมูลที่ต้องการ",
+                        "infoFiltered": "(filtered from _MAX_ total records)",
+                        "search": 'ค้นหา',
+                        "paginate": {
+                            "previous": "ก่อนหน้านี้",
+                            "next": "หน้าต่อไป"
+                        }
                     }
                 });
-            });
-        }
+
+                $(document).on('click', '#delete', function() {
+                    let id = $(this).data('id');
+                    let index = $(this).data('index');
+                    Swal.fire({
+                        text: "คุณแน่ใจหรือไม่...ที่จะลบรายการนี้?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'ใช่! ลบเลย',
+                        cancelButtonText: 'ยกเลิก'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                type: "POST",
+                                url: "../../service/pages-twd/delete",
+                                data: {
+                                    id: id
+                                },
+                            }).done(function() {
+                                Swal.fire({
+                                    text: 'รายการของคุณถูกลบเรียบร้อย',
+                                    icon: 'success',
+                                    confirmButtonText: 'ตกลง',
+                                    timer: 500,
+                                    timerProgressBar: true,
+                                }).then((result) => {
+                                    location.assign('./');
+                                })
+                            });
+                        }
+                    });
+                });
+            }
 
 
-    });
+        });
     </script>
 </body>
 

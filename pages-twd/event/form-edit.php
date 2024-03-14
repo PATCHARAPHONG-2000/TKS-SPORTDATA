@@ -55,22 +55,20 @@ if (isset($_SESSION['team']['role'])) {
                                     </a>
                                 </div>
                                 <form id="formData">
-                                    <input type="hidden" name="id"
-                                        value="<?php echo isset($_GET['id']) ? htmlspecialchars($_GET['id']) : ''; ?>">
+                                    <input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? htmlspecialchars($_GET['id']) : ''; ?>">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6 mb-2">
                                                 <div class="mr-3">
                                                     <label for="age">รุ่นอายุ</label>
-                                                    <select class="form-control" name="age" id="age" required
-                                                        onchange="fetchWeight()">
+                                                    <select class="form-control" name="age" id="age" required onchange="fetchWeight()">
                                                         <?php
-                                                            $age_group = $conn->prepare("SELECT DISTINCT age_group FROM create_event WHERE age_group IS NOT NULL");
-                                                            $age_group->execute();
-                                                            while ($row = $age_group->fetch(PDO::FETCH_ASSOC)) {
-                                                                $selected = ($row['age_group'] == $e_event['age_group']) ? 'selected' : '';
-                                                                echo "<option value='{$row['age_group']}' $selected>{$row['age_group']}</option>";
-                                                            }
+                                                        $age_group = $conn->prepare("SELECT DISTINCT age_group FROM create_event WHERE age_group IS NOT NULL");
+                                                        $age_group->execute();
+                                                        while ($row = $age_group->fetch(PDO::FETCH_ASSOC)) {
+                                                            $selected = ($row['age_group'] == $e_event['age_group']) ? 'selected' : '';
+                                                            echo "<option value='{$row['age_group']}' $selected>{$row['age_group']}</option>";
+                                                        }
                                                         ?>
                                                     </select>
                                                 </div>
@@ -78,15 +76,14 @@ if (isset($_SESSION['team']['role'])) {
                                             <div class="col-md-6">
                                                 <div class="mr-3">
                                                     <label for="weigth">รุ่นน้ำหนัก</label>
-                                                    <select class="form-control" name="weigth" id="weigth" required
-                                                        disabled>
+                                                    <select class="form-control" name="weigth" id="weigth" required disabled>
                                                         <?php
-                                                            $query_weigth = $conn->prepare("SELECT DISTINCT weigth FROM create_event WHERE weigth IS NOT NULL");
-                                                            $query_weigth->execute();
-                                                            while ($row = $query_weigth->fetch(PDO::FETCH_ASSOC)) {
-                                                                $selected = ($row['weigth'] == $e_event['weigth']) ? 'selected' : '';
-                                                                echo "<option value='{$row['weigth']}' $selected>{$row['weigth']}</option>";
-                                                            }
+                                                        $query_weigth = $conn->prepare("SELECT DISTINCT weigth FROM create_event WHERE weigth IS NOT NULL");
+                                                        $query_weigth->execute();
+                                                        while ($row = $query_weigth->fetch(PDO::FETCH_ASSOC)) {
+                                                            $selected = ($row['weigth'] == $e_event['weigth']) ? 'selected' : '';
+                                                            echo "<option value='{$row['weigth']}' $selected>{$row['weigth']}</option>";
+                                                        }
                                                         ?>
                                                     </select>
                                                 </div>
@@ -97,12 +94,12 @@ if (isset($_SESSION['team']['role'])) {
                                                     <label for="class">คลาส</label>
                                                     <select class="form-control" name="class" id="class" required>
                                                         <?php
-                                                            $query_class = $conn->prepare("SELECT DISTINCT class FROM create_event WHERE class IS NOT NULL");
-                                                            $query_class->execute();
-                                                            while ($row = $query_class->fetch(PDO::FETCH_ASSOC)) {
-                                                                $selected = ($row['class'] == $e_event['class']) ? 'selected' : '';
-                                                                echo "<option value='{$row['class']}' $selected>{$row['class']}</option>";
-                                                            }
+                                                        $query_class = $conn->prepare("SELECT DISTINCT class FROM create_event WHERE class IS NOT NULL");
+                                                        $query_class->execute();
+                                                        while ($row = $query_class->fetch(PDO::FETCH_ASSOC)) {
+                                                            $selected = ($row['class'] == $e_event['class']) ? 'selected' : '';
+                                                            echo "<option value='{$row['class']}' $selected>{$row['class']}</option>";
+                                                        }
                                                         ?>
                                                     </select>
                                                 </div>
@@ -110,8 +107,7 @@ if (isset($_SESSION['team']['role'])) {
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary btn-block mx-auto w-50"
-                                            name="submit">บันทึกข้อมูล</button>
+                                        <button type="submit" class="btn btn-primary btn-block mx-auto w-50" name="submit">บันทึกข้อมูล</button>
                                     </div>
                                 </form>
 
@@ -130,68 +126,66 @@ if (isset($_SESSION['team']['role'])) {
     <script src="../../assets/js/adminlte.min.js"></script>
 
     <script>
-    $(function() {
-        $("#formData").submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: '../../service/manager/update-event.php',
-                data: new FormData($('#formData')[0]),
-                processData: false,
-                contentType: false,
-                success: function(resp) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'อัพเดทข้อมูลเรียบร้อยแล้ว',
-                        showConfirmButton: false,
-                        timer: 1000
-                    }).then((result) => {
-                        location.assign('./index');
-                    });
-                },
-                error: function(xhr, status, error) {
-                    // Handle AJAX request errors
-                    console.log('XHR:', xhr);
-                    console.log('Status:', status);
-                    console.log('Error:', error);
+        $(function() {
+            $("#formData").submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '../../service/manager/update-event.php',
+                    data: new FormData($('#formData')[0]),
+                    processData: false,
+                    contentType: false,
+                    success: function(resp) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'อัพเดทข้อมูลเรียบร้อยแล้ว',
+                            showConfirmButton: false,
+                            timer: 1000
+                        }).then((result) => {
+                            location.assign('./index');
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle AJAX request errors
+                        console.log('XHR:', xhr);
+                        console.log('Status:', status);
+                        console.log('Error:', error);
 
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Update failed. Please try again.',
-                        showConfirmButton: false,
-                        timer: 1000
-                    }).then((result) => {
-                        location.assign('./index');
-                    });
-                }
-            });
-
-        });
-    });
-
-    function fetchWeight() {
-        var age = document.getElementById("age").value;
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../service/manager/fetch_weight", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function() {
-            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                var weights = JSON.parse(this.responseText);
-                var weightDropdown = document.getElementById("weigth");
-                weightDropdown.innerHTML = ""; // Clear previous options
-                weights.forEach(function(weight) {
-                    var option = document.createElement("option");
-                    option.text = weight;
-                    option.value = weight;
-                    weightDropdown.appendChild(option);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Update failed. Please try again.',
+                            showConfirmButton: false,
+                            timer: 1000
+                        }).then((result) => {
+                            location.assign('./index');
+                        });
+                    }
                 });
-                // ปลดล็อกการเลือกรุ่นน้ำหนัก
-                weightDropdown.disabled = false;
-            }
-        };
-        // ส่งค่าอายุไปยังสคริปต์ที่ดึงข้อมูลรุ่นน้ำหนัก
-        xhr.send("age=" + age);
-    }
+
+            });
+        });
+
+        function fetchWeight() {
+            var age = document.getElementById("age").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "../../service/pages-twd/fetch_weight", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    var weights = JSON.parse(this.responseText);
+                    var weightDropdown = document.getElementById("weigth");
+                    weightDropdown.innerHTML = ""; // Clear previous options
+                    weights.forEach(function(weight) {
+                        var option = document.createElement("option");
+                        option.text = weight;
+                        option.value = weight;
+                        weightDropdown.appendChild(option);
+                    });
+                    weightDropdown.disabled = false;
+                }
+            };
+            xhr.send("age=" + age);
+        }
     </script>
 
 </body>

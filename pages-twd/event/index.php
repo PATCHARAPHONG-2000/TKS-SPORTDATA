@@ -111,9 +111,11 @@ if (isset($_SESSION['team']['role'])) {
                                                 <th class="align-middle">ชื่อ</th>
                                                 <th class="align-middle">นามสกุล</th>
                                                 <th class="align-middle">เพศ</th>
-                                                <th class="align-middle">อายุ</th>
+                                                <th class="align-middle">รุ่นอายุ</th>
                                                 <th class="align-middle">รุ่นน้ำหนัก</th>
                                                 <th class="align-middle">คลาส</th>
+                                                <th class="align-middle">สายสี</th>
+                                                <th class="align-middle">Pattern</th>
                                                 <th class="align-middle">รูป</th>
                                                 <th class="align-middle">จัดการ</th>
                                             </tr>
@@ -140,13 +142,19 @@ if (isset($_SESSION['team']['role'])) {
                                                                 <?php echo $person["status"]; ?>
                                                             </td>
                                                             <td class="align-middle">
-                                                                <?php echo $person["age"]; ?>
+                                                                <?php echo !empty($person["age"]) ? $person["age"] : '-'; ?>
                                                             </td>
                                                             <td class="align-middle">
-                                                                <?php echo $person["weight"]; ?>
+                                                                <?php echo !empty($person["weight"]) ? $person["weight"] : '-'; ?>
                                                             </td>
                                                             <td class="align-middle">
-                                                                <?php echo $person["class"]; ?>
+                                                                <?php echo !empty($person["class"]) ? $person["class"] : '-'; ?>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <?php echo !empty($person["colorse"]) ? $person["colorse"] : '-'; ?>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <?php echo !empty($person["pattern"]) ? $person["pattern"] : '-'; ?>
                                                             </td>
                                                             <td class="align-middle">
                                                                 <img src="../../service/tksuploads/<?php echo $person["image"]; ?>" alt="Profile" style="max-width: 50px;">

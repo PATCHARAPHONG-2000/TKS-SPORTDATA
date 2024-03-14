@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-require_once '../connect.php';
+require_once '../../../connect.php';
 
 $Database = new Database();
 $conn = $Database->connect();
@@ -11,16 +11,16 @@ function respondError($message)
     exit();
 }
 
-if (isset($_POST['Poomse_gender']) && !empty($_POST['Poomse_gender']) && isset($_POST['List_event']) && !empty($_POST['List_event'])) {
-    $Poomse_gender = $_POST['Poomse_gender'];
+if (isset($_POST['gender']) && !empty($_POST['gender']) && isset($_POST['List_event']) && !empty($_POST['List_event'])) {
+    $gender = $_POST['gender'];
     $List_event = $_POST['List_event'];
 
-    if ($Poomse_gender !== 'ชาย' && $Poomse_gender !== 'หญิง') {
-        respondError('Invalid Poomse_gender.');
+    if ($gender !== 'ชาย' && $gender !== 'หญิง') {
+        respondError('Invalid gender.');
     }
 
     $statement = $conn->prepare("SELECT DISTINCT age_group FROM create_event WHERE gender = :gender AND List_event = :List_event");
-    $statement->bindParam(':gender', $Poomse_gender);
+    $statement->bindParam(':gender', $gender);
     $statement->bindParam(':List_event', $List_event);
     $statement->execute();
 

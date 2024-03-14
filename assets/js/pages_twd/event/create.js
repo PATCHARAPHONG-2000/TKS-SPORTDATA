@@ -11,13 +11,34 @@ $(document).ready(function () {
     className: "select-checkbox",
 
     columnDefs: [
-      { width: "5%", targets: 0 },
-      { width: "10%", targets: 1 },
-      { width: "20%", targets: 2 },
-      { width: "20%", targets: 3 },
-      { width: "7%", targets: 4 },
-      { width: "7%", targets: 5 },
-      { width: "15%", targets: 6 },
+      {
+        width: "5%",
+        targets: 0,
+      },
+      {
+        width: "10%",
+        targets: 1,
+      },
+      {
+        width: "20%",
+        targets: 2,
+      },
+      {
+        width: "20%",
+        targets: 3,
+      },
+      {
+        width: "7%",
+        targets: 4,
+      },
+      {
+        width: "7%",
+        targets: 5,
+      },
+      {
+        width: "15%",
+        targets: 6,
+      },
     ],
   });
 
@@ -25,9 +46,9 @@ $(document).ready(function () {
     $(".checkbox").prop("checked", this.checked);
 
     if (this.checked) {
-      $("#save").prop("disabled", false);
+      $("#save, #team_save, #Poomse_save").prop("disabled", false);
     } else {
-      $("#save").prop("disabled", true);
+      $("#save, #team_save, #Poomse_save").prop("disabled", true);
     }
   });
 
@@ -39,9 +60,9 @@ $(document).ready(function () {
     }
 
     if ($(".checkbox:checked").length > 0) {
-      $("#save").prop("disabled", false);
+      $("#save, #team_save, #Poomse_save").prop("disabled", false);
     } else {
-      $("#save").prop("disabled", true);
+      $("#save, #team_save, #Poomse_save").prop("disabled", true);
     }
   });
 
@@ -65,7 +86,7 @@ $(document).ready(function () {
     ) {
       $.ajax({
         type: "POST",
-        url: "../../service/manager/create-event",
+        url: "../../service/pages-twd/event/create",
         data: {
           ids: selectedIds,
           class: selectedClass,
@@ -94,13 +115,128 @@ $(document).ready(function () {
             confirmButtonText: "ตกลง",
             timerProgressBar: true,
           }).then((result) => {
-            location.assign("./");
+            location.reload();
           });
         },
       });
     } else {
       Swal.fire({
         text: "กรุณาเลือกคลาสและรุ่นน้ำหนักและรายชื่อนักกีฬา?",
+        icon: "question",
+        confirmButtonText: "ตกลง",
+      });
+    }
+  });
+
+  $("#team_save").on("click", function () {
+    let selectedIds = $(".checkbox:checked")
+      .map(function () {
+        return $(this).val();
+      })
+      .get();
+
+    let selectedAge = $("#team_age").val();
+    let selectedWeight = $("#team_weight").val();
+
+    if (selectedAge && selectedWeight && selectedIds.length > 0) {
+      $.ajax({
+        type: "POST",
+        url: "../../service/pages-twd/event/create-team",
+        data: {
+          ids: selectedIds,
+          team_age: selectedAge,
+          team_weight: selectedWeight,
+          name_match: params.selectedName,
+        },
+        success: function (response) {
+          console.log(response);
+          Swal.fire({
+            text: "รายการทีมของคุณถูกบันทึกเรียบร้อย",
+            icon: "success",
+            // timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            // location.reload();
+          });
+        },
+        error: function (xhr, status, error) {
+          console.error(error);
+          Swal.fire({
+            text: "เกิดข้อผิดพลาดในการส่งข้อมูล",
+            icon: "error",
+            // timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            // location.reload();
+          });
+        },
+      });
+    } else {
+      Swal.fire({
+        text: "กรุณาเลือกรุ่นอายุและน้ำหนักทีม และเลือกนักกีฬาในทีมของคุณ?",
+        icon: "question",
+        confirmButtonText: "ตกลง",
+      });
+    }
+  });
+
+  $("#Poomse_save").on("click", function () {
+    let selectedIds = $(".checkbox:checked")
+      .map(function () {
+        return $(this).val();
+      })
+      .get();
+
+    let selectedAge = $("#Poomse_age").val();
+    let selectedColor = $("#Poomse_colorse").val();
+    let selectedPattern = $("#Poomse_pattern").val();
+
+    if (
+      selectedAge &&
+      selectedColor &&
+      selectedPattern &&
+      selectedIds.length > 0
+    ) {
+      $.ajax({
+        type: "POST",
+        url: "../../service/pages-twd/event/create-poomse",
+        data: {
+          ids: selectedIds,
+          Poomse_age: selectedAge,
+          Poomse_colorse: selectedColor,
+          Poomse_pattern: selectedPattern,
+          name_match: params.selectedName,
+        },
+        success: function (response) {
+          console.log(response);
+          Swal.fire({
+            text: "รายการ Poomse ของคุณถูกบันทึกเรียบร้อย",
+            icon: "success",
+            // timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            // location.reload();
+          });
+        },
+        error: function (xhr, status, error) {
+          console.error(error);
+          Swal.fire({
+            text: "เกิดข้อผิดพลาดในการส่งข้อมูล",
+            icon: "error",
+            // timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            // location.assign("./");
+          });
+        },
+      });
+    } else {
+      Swal.fire({
+        text: "กรุณาเลือกรุ่นอายุ, สายสี และ Pattern ของ Poomse และเลือกนักกีฬา?",
         icon: "question",
         confirmButtonText: "ตกลง",
       });
@@ -120,7 +256,11 @@ function fetcstatus() {
   var gender = document.getElementById("gender").value;
   var List_event = document.getElementById("List_event").value;
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "../../service/manager/fetch_status", true);
+  xhr.open(
+    "POST",
+    "../../service/pages-twd/event/fetchdata/fetch_status",
+    true
+  );
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -146,7 +286,11 @@ function fetchWeight() {
   var age = document.getElementById("age").value;
   var gender = document.getElementById("gender").value;
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "../../service/manager/fetch_weight", true);
+  xhr.open(
+    "POST",
+    "../../service/pages-twd/event/fetchdata/fetch_weight",
+    true
+  );
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -170,7 +314,7 @@ function fetchClass() {
   var weight = document.getElementById("weight").value;
   var age = document.getElementById("age").value; // เพิ่มการเก็บค่าอายุ
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "../../service/manager/fetch_class", true);
+  xhr.open("POST", "../../service/pages-twd/event/fetchdata/fetch_class", true);
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -193,7 +337,11 @@ function fetcstatus_team() {
   var team_gender = document.getElementById("team_gender").value;
   var List_event = document.getElementById("List_event").value;
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "../../service/manager/fetch_status_team", true);
+  xhr.open(
+    "POST",
+    "../../service/pages-twd/event/fetchdata/fetch_status_team",
+    true
+  );
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -219,7 +367,11 @@ function fetchWeight_team() {
   var team_age = document.getElementById("team_age").value;
   var team_gender = document.getElementById("team_gender").value;
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "../../service/manager/fetch_weight_team", true); // เพิ่ม .php ให้ถูกต้อง
+  xhr.open(
+    "POST",
+    "../../service/pages-twd/event/fetchdata/fetch_weight_team",
+    true
+  ); // เพิ่ม .php ให้ถูกต้อง
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -243,7 +395,11 @@ function fetcstatus_Poomse() {
   var gender = document.getElementById("Poomse_gender").value;
   var List_event = document.getElementById("List_event").value; // ต้องกำหนด id ใน HTML
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "../../service/manager/fetch_status", true);
+  xhr.open(
+    "POST",
+    "../../service/pages-twd/event/fetchdata/fetch_status",
+    true
+  );
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -269,7 +425,11 @@ function fetchWeight_Poomse() {
   var age = document.getElementById("Poomse_age").value;
   var gender = document.getElementById("Poomse_gender").value;
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "../../service/manager/fetch_weight", true);
+  xhr.open(
+    "POST",
+    "../../service/pages-twd/event/fetchdata/fetch_weight",
+    true
+  );
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -289,11 +449,11 @@ function fetchWeight_Poomse() {
   xhr.send("age=" + age + "&gender=" + gender);
 }
 
-function fetchClass() {
+function fetchcolorse_Poomse() {
   var weight = document.getElementById("Poomse_weight").value;
   var age = document.getElementById("Poomse_age").value; // เพิ่มการเก็บค่าอายุ
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "../../service/manager/fetch_class", true);
+  xhr.open("POST", "../../service/pages-twd/event/fetchdata/fetch_class", true);
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -316,7 +476,11 @@ function fetcstatus_Poomse() {
   var Poomse_gender = document.getElementById("Poomse_gender").value;
   var List_event = document.getElementById("List_event").value; // ต้องกำหนด id ใน HTML
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "../../service/manager/fetch_status_poomse", true);
+  xhr.open(
+    "POST",
+    "../../service/pages-twd/event/fetchdata/fetch_status_poomse",
+    true
+  );
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -342,7 +506,11 @@ function fetchWeight_Poomse() {
   var Poomse_age = document.getElementById("Poomse_age").value;
   var Poomse_gender = document.getElementById("Poomse_gender").value;
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "../../service/manager/fetch_weight_poomse", true);
+  xhr.open(
+    "POST",
+    "../../service/pages-twd/event/fetchdata/fetch_weight_poomse",
+    true
+  );
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -366,7 +534,11 @@ function fetchcolorse_Poomse() {
   var Poomse_colorse = document.getElementById("Poomse_colorse").value;
   var Poomse_age = document.getElementById("Poomse_age").value; // เพิ่มการเก็บค่าอายุ
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "../../service/manager/fetch_colorse_poomse", true);
+  xhr.open(
+    "POST",
+    "../../service/pages-twd/event/fetchdata/fetch_colorse_poomse",
+    true
+  );
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
