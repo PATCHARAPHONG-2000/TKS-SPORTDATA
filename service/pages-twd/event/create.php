@@ -12,10 +12,11 @@ function respondError($message)
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $age = $_POST['age'];
+    $name_match = $_POST['name_match'];
+    $type_Name = $_POST['Type_Name'];
+    $age_group = $_POST['age_group'];
     $Class = $_POST['class'];
     $weight = $_POST['weight'];
-    $name_match = $_POST['name_match'];
 
     if (isset($_POST['ids']) && !empty($_POST['ids'])) {
         $ids = $_POST['ids'];
@@ -30,21 +31,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($rows) {
                 foreach ($rows as $row) {
 
+                    $ID_Number = $row['ID_Number'];
                     $firstname = $row['firstname'];
                     $lastname = $row['lastname'];
-                    $status = $row['status'];
+                    $gender = $row['status'];
+                    $age = $row['age'];
                     $role = $row['team'];
                     $license = $row['license'];
                     $fileImage = $row['image'];
 
-                    $stmt = $conn->prepare("INSERT INTO event (name_match, firstname, lastname, status, team, age, class, weight, license, image) 
-                        VALUES (:name_match, :firstname, :lastname, :status, :team, :age, :class, :weight, :license, :image)");
+                    $stmt = $conn->prepare("INSERT INTO event (name_match, ID_Number, firstname, lastname, gender, team, age, type_Name, age_group, class, weight, license, image) 
+                        VALUES (:name_match, :ID_Number, :firstname, :lastname, :gender, :team, :age, :type_Name, :age_group, :class, :weight, :license, :image)");
                     $stmt->bindParam(':name_match', $name_match, PDO::PARAM_STR);
+                    $stmt->bindParam(':ID_Number', $ID_Number, PDO::PARAM_STR);
                     $stmt->bindParam(':firstname', $firstname, PDO::PARAM_STR);
                     $stmt->bindParam(':lastname', $lastname, PDO::PARAM_STR);
-                    $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+                    $stmt->bindParam(':gender', $gender, PDO::PARAM_STR);
                     $stmt->bindParam(':team', $role, PDO::PARAM_STR);
                     $stmt->bindParam(':age', $age, PDO::PARAM_STR);
+                    $stmt->bindParam(':type_Name', $type_Name, PDO::PARAM_STR);
+                    $stmt->bindParam(':age_group', $age_group, PDO::PARAM_STR);
                     $stmt->bindParam(':class', $Class, PDO::PARAM_STR);
                     $stmt->bindParam(':weight', $weight, PDO::PARAM_STR);
                     $stmt->bindParam(':license', $license, PDO::PARAM_STR);
@@ -53,14 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (!$stmt->execute()) {
                         respondError('Error executing SQL statement');
                     }
-                }
-
-                $updateSql = "UPDATE player SET IsActive = 1 WHERE id IN ($placeholders)";
-                $updateStmt = $conn->prepare($updateSql);
-                $updateStmt->execute($ids);
-
-                if ($updateStmt->rowCount() === 0) {
-                    respondError('Error updating IsActive column in player table');
                 }
 
                 echo json_encode([

@@ -81,7 +81,7 @@ if (isset($_SESSION['team']['role'])) {
                                         <div class="form-group mb-5">
                                             <div class="mr-3">
                                                 <label for="List_event" style="color: black; font-size: 1.0rem;">ประเภทกีฬา</label>
-                                                <select class="form-control" name="List_event" id="List_event" required onchange="List_event()">
+                                                <select class="form-control" name="List_event" id="List_event" required onchange="List_event(), fetcstatus_Poomse_doubles()">
                                                     <option value="" disabled selected>กรุณาประเภทกีฬา</option>
                                                     <?php
                                                     $List_event = $conn->prepare("SELECT DISTINCT List_event FROM create_event WHERE List_event IS NOT NULL");
@@ -190,6 +190,114 @@ if (isset($_SESSION['team']['role'])) {
                                                 </a>
                                             </div>
                                         </div>
+                                        <div class="form-group" id="Poomse-doubles" style="display:none;">
+                                            <div class="mr-3">
+                                                <label for="Poomse_age_doubles" style="color: black; font-size: 1.0rem;">รุ่นอายุ</label>
+                                                <select class="form-control" name="Poomse_age_doubles" id="Poomse_age_doubles" required>
+                                                    <option value="" disabled selected>กรุณาเลือกอายุ</option>
+                                                </select>
+                                            </div>
+                                            <div class="id_save">
+                                                <a href="#" class="ml-3 btn btn-info mt-4 text-white" type="button" id="Poomse_save_doubles">
+                                                    <i class="nav-icon fa-solid fa-print"></i>
+                                                    บันทึก
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="Poomse-team" style="display:none;">
+                                            <div class="mr-3">
+                                                <label for="Poomse_gender_team" style="color: black; font-size: 1.0rem;">เพศ</label>
+                                                <select class="form-control" name="Poomse_gender_team" id="Poomse_gender_team" required onchange="fetcstatus_Poomse_team(), selectgender()">
+                                                    <option value="" disabled selected>กรุณาเลือกเพศ</option>
+                                                    <option value="ชาย">ชาย</option>
+                                                    <option value="หญิง">หญิง</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="Poomse_age_team" style="color: black; font-size: 1.0rem;">รุ่นอายุ</label>
+                                                <select class="form-control" name="Poomse_age_team" id="Poomse_age_team" required onchange="fetchWeight_Poomse_team()">
+                                                    <option value="" disabled selected>กรุณาเลือกอายุ</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="Poomse_colorse_team" style="color: black; font-size: 1.0rem;">สายสี</label>
+                                                <select class="form-control" name="Poomse_colorse_team" id="Poomse_colorse_team" required>
+                                                    <option value="" disabled selected>กรุณาเลือกสายสี</option>
+                                                </select>
+                                            </div>
+                                            <div class="id_save">
+                                                <a href="#" class="ml-3 btn btn-info mt-4 text-white" type="button" id="Poomse_save_team">
+                                                    <i class="nav-icon fa-solid fa-print"></i>
+                                                    บันทึก
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="Kiakpa" style="display:none;">
+                                            <div class="mr-3">
+                                                <label for="Kiakpa_gender" style="color: black; font-size: 1.0rem;">เพศ</label>
+                                                <select class="form-control" name="Kiakpa_gender" id="Kiakpa_gender" required onchange="fetcstatus_Kiakpa(), selectgender()">
+                                                    <option value="" disabled selected>กรุณาเลือกเพศ</option>
+                                                    <option value="ชาย">ชาย</option>
+                                                    <option value="หญิง">หญิง</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="Kiakpa_type" style="color: black; font-size: 1.0rem;">ชนิดกีฬา</label>
+                                                <select class="form-control" name="Kiakpa_type" id="Kiakpa_type" required onchange="fetcstatus_Kiakpa_type()">
+                                                    <option value="" disabled selected>กรุณาเลือกชนิดกีฬา</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="Kiakpa_age" style="color: black; font-size: 1.0rem;">รุ่นอายุ</label>
+                                                <select class="form-control" name="Kiakpa_age" id="Kiakpa_age" required">
+                                                    <option value="" disabled selected>กรุณาเลือกอายุ</option>
+                                                </select>
+                                            </div>
+                                            <div class="id_save">
+                                                <a href="#" class="ml-3 btn btn-info mt-4 text-white" type="button" id="Kiakpa_save">
+                                                    <i class="nav-icon fa-solid fa-print"></i>
+                                                    บันทึก
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="Dance_battle" style="display:none;">
+                                            <div class="mr-3">
+                                                <label for="Dance_battle_gender" style="color: black; font-size: 1.0rem;">เพศ</label>
+                                                <select class="form-control" name="Dance_battle_gender" id="Dance_battle_gender" required onchange="fetc_Dance_battle_age(), selectgender()">
+                                                    <option value="" disabled selected>กรุณาเลือกเพศ</option>
+                                                    <option value="ชาย">ชาย</option>
+                                                    <option value="หญิง">หญิง</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="Dancebattleage" style="color: black; font-size: 1.0rem;">รุ่นอายุ</label>
+                                                <select class="form-control" name="Dancebattleage" id="Dancebattleage" required>
+                                                    <option value="" disabled selected>กรุณาเลือกอายุ</option>
+                                                </select>
+                                            </div>
+                                            <div class="id_save">
+                                                <a href="#" class="ml-3 btn btn-info mt-4 text-white" type="button" id="Dance_battle_save">
+                                                    <i class="nav-icon fa-solid fa-print"></i>
+                                                    บันทึก
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="Dance_battle_team" style="display:none;">
+                                            <div class="mr-3">
+                                                <label for="DanceBattle_gender_team" style="color: black; font-size: 1.0rem;">เพศ</label>
+                                                <select class="form-control" name="DanceBattle_gender_team" id="DanceBattle_gender_team" required onchange="selectgender()">
+                                                    <option value="" disabled selected>กรุณาเลือกเพศ</option>
+                                                    <option value="ชาย">ชาย</option>
+                                                    <option value="หญิง">หญิง</option>
+                                                </select>
+                                            </div>
+                                            <div class="id_save">
+                                                <a href="#" class="ml-3 btn btn-info mt-4 text-white" type="button" id="DanceBattle_save_team">
+                                                    <i class="nav-icon fa-solid fa-print"></i>
+                                                    บันทึก
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -198,8 +306,8 @@ if (isset($_SESSION['team']['role'])) {
                                         <thead>
                                             <tr>
                                                 <th class="align-middle">
-                                                    <input type="checkbox" id="select_all" class="align-middle mt-3">
-                                                    <label class="form-check-label"></label>
+                                                    <!-- <input type="checkbox" id="select_all" class="align-middle mt-3">
+                                                    <label class="form-check-label"></label> -->
                                                 </th>
                                                 <th class="align-middle">ลำดับ</th>
                                                 <th class="align-middle">ชื่อ</th>
@@ -215,38 +323,36 @@ if (isset($_SESSION['team']['role'])) {
                                             if ($per->rowCount() > 0) {
                                                 while ($person = $per->fetch(PDO::FETCH_ASSOC)) {
                                                     if ($person["team"] === $role) {
-                                                        if ($person["IsActive"] == 0) {
                                             ?>
-                                                            <tr id="<?php echo $person["id"]; ?>">
-                                                                <td class="align-middle"><input type="checkbox" class="checkbox" name="idc[]" value="<?php echo $person["id"]; ?>"></td>
-                                                                <td class="align-middle">
-                                                                    <?php echo $counter; ?>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                    <?php echo $person["firstname"]; ?>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                    <?php echo $person["lastname"]; ?>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                    <?php echo $person["status"]; ?>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                    <?php echo $person["age"]; ?>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                    <img src="../../service/tksuploads/<?php echo $person["image"]; ?>" alt="Profile" style="max-width: 50px;">
-                                                                </td>
-                                                            </tr>
+                                                        <tr id="<?php echo $person["id"]; ?>">
+                                                            <td class="align-middle"><input type="checkbox" class="checkbox" name="idc[]" value="<?php echo $person["id"]; ?>"></td>
+                                                            <td class="align-middle">
+                                                                <?php echo $counter; ?>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <?php echo $person["firstname"]; ?>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <?php echo $person["lastname"]; ?>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <?php echo $person["status"]; ?>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <?php echo $person["age"]; ?>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <img src="../../service/tksuploads/<?php echo $person["image"]; ?>" alt="Profile" style="max-width: 50px;">
+                                                            </td>
+                                                        </tr>
                                                 <?php
-                                                            $counter++;
-                                                        }
+                                                        $counter++;
                                                     }
                                                 }
                                             } else {
                                                 ?>
                                                 <tr>
-                                                    <td colspan="8">ยังไม่รายชื่อ</td>
+                                                    <td colspan="6">ยังไม่รายชื่อ</td>
                                                 </tr>
                                             <?php
                                             }

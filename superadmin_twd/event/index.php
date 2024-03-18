@@ -1,16 +1,9 @@
-<?php 
-    require_once('../authen.php'); 
-    $Database = new Database();
-    $conn = $Database->connect();
+<?php
+require_once('../authen.php');
 
-    $per = $conn->prepare("SELECT * FROM event");
-    $per->execute();
+$per = $conn->prepare("SELECT * FROM event");
+$per->execute();
 
-    if (isset($_SESSION['team']['role'])) {
-    $role = $_SESSION['team']['role'];
-    } else {
-        $role = 'default_status';
-    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,14 +43,25 @@
                                         รายชื่อนักกีฬาที่เข้าร่วมอีเว้นท์
                                     </h4>
                                     <div>
-                                        <a href="form-create.php" class="btn btn-primary mt-3 mr-3">
+                                        <a href="excel" class="btn btn-primary mt-3 mr-3">
                                             <i class="fas fa-plus"></i>
-                                            เพิ่มนักกีฬา
+                                            โหลดข้อมูล
                                         </a>
-                                        <a href="#" class="btn btn-info mt-3 text-white delete-btn" type="button">
-                                            <i class="nav-icon fa-solid fa-print"></i>
-                                            ลบรายการที่เลือก
-                                        </a>
+                                        <!-- <div class="form-group mb-5 pt-5">
+                                            <div class="mr-3">
+                                                <label for="name_match" style="color: black; font-size: 1.0rem;">ชื่อ-แมตท์</label>
+                                                <select class="form-control" name="name_match" id="name_match" required onchange="showAthletes()">
+                                                    <option value="" disabled selected>กรุณาเลือกชื่อแมตท์</option>
+                                                    <?php
+                                                    $name = $conn->prepare("SELECT DISTINCT name_match FROM event");
+                                                    $name->execute();
+                                                    while ($row = $name->fetch(PDO::FETCH_ASSOC)) {
+                                                        echo "<option value='{$row['name_match']}'>{$row['name_match']}</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div> -->
                                     </div>
                                 </div>
 
@@ -65,16 +69,12 @@
                                     <table id="index-event" class="table table table-striped table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="align-middle">
-                                                    <input type="checkbox" id="selectAll" class="align-middle mt-3">
-                                                    <label class=" form-check-label "></label>
-                                                </th>
                                                 <th class="align-middle">ลำดับ</th>
                                                 <th class="align-middle">ชื่อ</th>
                                                 <th class="align-middle">นามสกุล</th>
                                                 <th class="align-middle">เพศ</th>
-                                                <th class="align-middle">อายุ</th>
-                                                <th class="align-middle">คลาส</th>
+                                                <th class="align-middle">ชนิดกีฬา</th>
+                                                <th class="align-middle">รุ่นอายุ</th>
                                                 <th class="align-middle">รุ่นน้ำหนัก</th>
                                                 <th class="align-middle">รูป</th>
                                                 <th class="align-middle">จัดการ</th>
@@ -84,53 +84,47 @@
                                             <?php
                                             $counter = 1;
                                             if ($per->rowCount() > 0) {
-                                                while ($person = $per->fetch(PDO::FETCH_ASSOC)) { 
-                                                    if ($person["team"] === $role) {
+                                                while ($person = $per->fetch(PDO::FETCH_ASSOC)) {
                                             ?>
-                                            <tr id="<?php echo $person["id"]; ?>">
-                                                <td class="align-middle"><input type="checkbox" class="checkbox"
-                                                        name="idc[]" value="<?php echo $person["id"]; ?>"></td>
-                                                <td class="align-middle">
-                                                    <?php echo $counter; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["firstname"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["lastname"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["status"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["age"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["class"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <?php echo $person["weigth"]; ?>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <img src="../../service/tksuploads/<?php echo $person["image"]; ?>"
-                                                        alt="Profile" style="max-width: 50px;">
-                                                </td>
-                                                <td class="align-middle">
-                                                    <a href="form-edit.php?id=<?php echo $person['id']; ?>"
-                                                        type="button" class="btn btn-warning">
-                                                        <i class="far fa-trash-alt"></i> แก้ไข
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <?php
+                                                    <tr id="<?php echo $person["id"]; ?>">
+                                                        <td class="align-middle">
+                                                            <?php echo $counter; ?>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <?php echo $person["firstname"]; ?>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <?php echo $person["lastname"]; ?>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <?php echo $person["gender"]; ?>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <?php echo $person["type_name"]; ?>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <?php echo isset($person["age_group"]) ? $person["age_group"] : '-'; ?>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <?php echo isset($person["weight"]) ? $person["weight"] : '-'; ?>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <img src="../../service/tksuploads/<?php echo $person["image"]; ?>" alt="Profile" style="max-width: 50px;">
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <a href="info?id=<?php echo $person['id']; ?>" class="btn btn-info">
+                                                                <i class="fas fa-search"></i> ดูข้อมูล
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                <?php
                                                     $counter++;
-                                                    }
                                                 }
                                             } else {
-                                            ?>
-                                            <tr>
-                                                <td colspan="7">ยังไม่รายชื่อ</td>
-                                            </tr>
+                                                ?>
+                                                <tr>
+                                                    <td colspan="7">ยังไม่รายชื่อ</td>
+                                                </tr>
                                             <?php
                                             }
                                             ?>
@@ -157,8 +151,7 @@
     <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="../../assets/js/index-event.js"></script>
-
+    <script src="../../assets/js/superadmin_twd/event/index.js"></script>
 </body>
 
 </html>

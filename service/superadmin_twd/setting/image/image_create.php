@@ -12,21 +12,23 @@ function respondError($message)
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $imageon = filter_input(INPUT_POST, 'imageon', FILTER_SANITIZE_STRING);
-    $isActive = filter_input(INPUT_POST, 'isActive', FILTER_SANITIZE_NUMBER_INT);
+    // ตรวจสอบว่ามีการส่งค่า imageon และ isActive มา
+    if (isset($_POST['imageon']) && isset($_POST['isActive'])) {
+        // รับค่า imageon และ isActive
+        $imageon = $_POST['imageon'];
+        $isActive = $_POST['isActive'];
 
-    // ตรวจสอบว่า imageon และ isActive มีค่า
-    if ($imageon !== null && $isActive !== null) {
         // SQL query ในการอัปเดตข้อมูล
         $sql = "UPDATE data_all SET IsActive = :isActive WHERE id = :image";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':image', $imageon, PDO::PARAM_INT);
         $stmt->bindParam(':isActive', $isActive, PDO::PARAM_INT);
 
+        // ทำการ execute query
         $result = $stmt->execute();
 
         if ($result) {
-            // ตอบกลับด้วย JSON
+            // ตอบกลับด้วย JSON เมื่อสำเร็จ
             echo json_encode([
                 'status' => true,
                 'message' => 'Data updated successfully'
@@ -36,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             respondError('Error updating data');
         }
     } else {
-        // ถ้า imageon หรือ isActive ไม่ได้รับค่า
+        // ถ้าไม่มีการส่งค่า imageon หรือ isActive มา
         respondError('Invalid imageon or isActive');
     }
 } else {
@@ -47,4 +49,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'message' => 'Invalid request'
     ]);
 }
-?>

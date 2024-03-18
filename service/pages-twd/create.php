@@ -49,11 +49,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         respondError('Error uploading image');
     }
 
-    $firstname =$_POST['firstname'];
-    $lastname = $_POST['lastname']; 
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
     $status = $_POST['status'] ?? '';
-    $age = $_POST['age']; 
-    $license = $_POST['license']; 
+    $age = $_POST['age'];
+    $license = $_POST['license'];
 
     if ($status === 'male') {
         $status = 'ชาย';
@@ -96,4 +96,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     respondError('Invalid request method');
 }
-?>

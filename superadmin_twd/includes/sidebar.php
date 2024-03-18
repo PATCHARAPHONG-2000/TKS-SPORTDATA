@@ -9,14 +9,14 @@ function isActive($data)
 ?>
 
 <style>
-.nav-link[disabled] {
-    pointer-events: none;
-    /* ปิดการใช้งานการคลิก */
-    color: gray;
-    /* เปลี่ยนสีของข้อความ */
-    cursor: not-allowed;
-    /* เปลี่ยนเคอร์เซอร์เมาส์ */
-}
+    .nav-link[disabled] {
+        pointer-events: none;
+        /* ปิดการใช้งานการคลิก */
+        color: gray;
+        /* เปลี่ยนสีของข้อความ */
+        cursor: not-allowed;
+        /* เปลี่ยนเคอร์เซอร์เมาส์ */
+    }
 </style>
 
 <!-- Navbar -->
@@ -41,6 +41,12 @@ function isActive($data)
                     <a href="../dashboard/" class="nav-link <?php echo isActive('dashboard') ?>">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>หน้าหลัก</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../event/" class="nav-link <?php echo isActive('dashboard') ?>">
+                        <i class="nav-icon fas fa-users-rectangle"></i>
+                        <p>รายชื่อนักกีฬาที่สมัคร</p>
                     </a>
                 </li>
                 <div>
@@ -77,19 +83,19 @@ function isActive($data)
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://kit.fontawesome.com/86e67b6ecc.js" crossorigin="anonymous"></script>
 <script>
-function confirmLogout() {
-    Swal.fire({
-        title: 'ต้องการออกจากระบบหรือไม่?',
-        text: 'หากคุณออกจากระบบ คุณจะต้องเข้าสู่ระบบใหม่เพื่อเข้าถึงบัญชีของคุณ',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = '../logout.php';
-        }
-    });
-}
+    function confirmLogout() {
+        Swal.fire({
+            title: 'ต้องการออกจากระบบหรือไม่?',
+            text: 'หากคุณออกจากระบบ คุณจะต้องเข้าสู่ระบบใหม่เพื่อเข้าถึงบัญชีของคุณ',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '../logout.php';
+            }
+        });
+    }
 </script>

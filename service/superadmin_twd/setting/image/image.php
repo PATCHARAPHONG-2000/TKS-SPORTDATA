@@ -15,7 +15,6 @@ function respondError($message)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $uploadDir = "../uploads/";
 
-    // Ensure the upload directory exists
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0755, true);
     }
@@ -23,14 +22,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newFileName = time() . '_' . basename($_FILES['image']['name']);
     $filePath = $uploadDir . $newFileName;
 
-    // Check if the file is an image
+
     $check = getimagesize($_FILES['image']['tmp_name']);
     if (!$check || !in_array($check['mime'], ['image/jpeg', 'image/png'])) {
         respondError('กรุณาใส่รูปที่เป็น PNG , JPG เท่านั้น');
     }
 
     if (isset($_SESSION['team']['role'])) {
-    $role = $_SESSION['team']['role'];
+        $role = $_SESSION['team']['role'];
     } else {
         $role = 'default_status';
     }
@@ -38,9 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $conn->beginTransaction();
 
-        // Move the uploaded file to the specified directory
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $filePath)) {
-            $eventsname = filter_input(INPUT_POST, 'eventsname', FILTER_SANITIZE_STRING);
+            $eventsname = filter_input(INPUT_POST, 'eventsname');
 
             $stmt = $conn->prepare("INSERT INTO data_all (users, name,image) VALUES (:users, :name,:image)");
             $stmt->bindParam(':users', $role);
@@ -52,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo json_encode([
                 'status' => true,
                 'message' => 'Registration successful',
-                'file_path' => $filePath  // Include the file path in the response
+                'file_path' => $filePath
             ]);
             exit();
         } else {
@@ -65,4 +63,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     respondError('Invalid request method');
 }
-?>

@@ -46,36 +46,48 @@ if (isset($_SESSION['team']['role'])) {
     <div class="sidebar mt-3 pb-3 mb-3 d-flex">
         <nav class="mt-3 pb-3 mb-3 d-flex">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
                 <li class="nav-item">
-                    <a href="../dashboard/" class="nav-link <?php echo isActive('dashboard') ?>">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <a href="../dashboard/" class="nav-link <?php echo isActive('../dashboard') ?>">
+                        <i class="nav-icon fas fa-home"></i>
                         <p>หน้าหลัก</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../manager/" class="nav-link <?php echo isActive('manager') ?>">
-                        <i class="nav-icon fa-solid fa-user"></i>
+                    <a href="../manager/" class="nav-link <?php echo isActive('../manager') ?>">
+                        <i class="nav-icon fa-solid fa-users"></i>
                         <p>รายชื่อนักกีฬา</p>
                     </a>
                 </li>
+
                 <div>
                     <hr>
                 </div>
+
+                <li class="nav-header">รายการแมตท์</li>
                 <?php if (isset($event['IsActive']) && $event['IsActive'] == 1) { ?>
                     <li class="nav-item ad-data" <?php echo isActive('index') ?>>
-                        <a href="../event/" class="nav-link" id="active-link">
+                        <a href="../event/" class="nav-link <?php echo isActive('../event/') ?>" id="active-link">
                             <i class="nav-icon fa-brands fa-elementor fa-xl "></i>
                             <p>สมัครแมตท์</p>
                         </a>
                     </li>
                 <?php } else { ?>
                     <li class="nav-item ad-data" <?php echo isActive('index') ?>>
-                        <a href="#" class="nav-link" style="pointer-events: none; cursor: default; color: gray;" onclick="return false;">
+                        <a href="#" class="nav-link <?php echo isActive('../event/') ?>" style="pointer-events: none; cursor: default; color: gray;" onclick="return false;">
                             <i class="nav-icon fa-brands fa-elementor fa-xl"></i>
                             <p>สมัครแมตท์</p>
                         </a>
                     </li>
                 <?php } ?>
+                <li class="nav-item">
+                    <a href="../../assets/PDF/ระเบียบการแข่งขัน อุตรดิตถ์ 2566.pdf" target="_blank" class="nav-link <?php echo isActive('../manager') ?>">
+                        <i class="nav-icon fa-solid fa-feather"></i>
+                        <p>ระเบียบการแข่งขัน</p>
+                    </a>
+                </li>
+
+
                 <li class="nav-header">บัญชีของเรา</li>
                 <li class="nav-item">
                     <a id="logout" class="nav-link" onclick="confirmLogout()">

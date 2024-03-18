@@ -128,4 +128,3 @@ function getOldImageName($id, $conn)
 
     return ''; // Return empty if no old image or an error occurred fetching data
 }
-?>

@@ -51,8 +51,7 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
             <div class="social-links d-none d-md-block">
                 <a href="https://www.facebook.com/TKSsoft" class="facebook"><i class="bi bi-facebook"></i></a>
                 <a href="https://line.me/ti/p/_EFnRUO5tK" class="line"> <i class="bi bi-line"></i></a>
-                <a href="login-score" class="karate"><img src="assets/images/karate-icon.png" alt=""
-                        style="width: 15px; height:22px;"></a>
+                <a href="login-score" class="karate"><img src="assets/images/karate-icon.png" alt="" style="width: 15px; height:22px;"></a>
             </div>
         </div>
     </section>
@@ -69,13 +68,12 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                     <li><a class="nav-link scrollto " href="#photo">Photo</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Login
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="login" style="color:black">TKS SPORTDATA</a>
-                            <a class="dropdown-item" href="login_ad" style="color:black">AD-CARD</a>
+                            <a class="dropdown-item" href="login" style="color:black">TKS DATASPORT</a>
+                            <a class="dropdown-item" href="login_ad" style="color:black">AD Card</a>
                         </div>
                     </li>
 
@@ -109,23 +107,17 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                     <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right">
                         <h3>TKS SPORTDATA - Your Technology Partner for Taekwondo Competitions</h3>
                         <p class="fst-italic">
-                            We provide cutting-edge technology solutions and support for Taekwondo competitions
-                            worldwide.
+                            We provide cutting-edge technology solutions and support for Taekwondo competitions worldwide.
                         </p>
                         <ul>
-                            <li><i class="bi bi-check-circle"></i> Our expertise ensures seamless competition
-                                management.</li>
-                            <li><i class="bi bi-check-circle"></i> We strive for excellence, enhancing the Taekwondo
-                                experience.</li>
-                            <li><i class="bi bi-check-circle"></i> Leveraging technology, we deliver efficiency and
-                                innovation in
+                            <li><i class="bi bi-check-circle"></i> Our expertise ensures seamless competition management.</li>
+                            <li><i class="bi bi-check-circle"></i> We strive for excellence, enhancing the Taekwondo experience.</li>
+                            <li><i class="bi bi-check-circle"></i> Leveraging technology, we deliver efficiency and innovation in
                                 every aspect of Taekwondo competitions.</li>
                         </ul>
                         <p>
-                            At TKS SPORTDATA, we are dedicated to advancing Taekwondo through technology. Our mission is
-                            to foster a
-                            growing community and elevate the sport to new heights. Join us in shaping a brighter future
-                            for Taekwondo
+                            At TKS SPORTDATA, we are dedicated to advancing Taekwondo through technology. Our mission is to foster a
+                            growing community and elevate the sport to new heights. Join us in shaping a brighter future for Taekwondo
                             in the tech-savvy world.
                         </p>
                     </div>
@@ -142,8 +134,7 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                         <div class="box">
                             <span>01</span>
                             <h4>Taekwondo Excellence</h4>
-                            <p>At TKS SPORTDATA, we are passionate about Taekwondo and dedicated to enhancing the
-                                sport's experience.
+                            <p>At TKS SPORTDATA, we are passionate about Taekwondo and dedicated to enhancing the sport's experience.
                                 Our technology solutions ensure seamless Taekwondo competition management.</p>
                         </div>
                     </div>
@@ -151,8 +142,7 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                         <div class="box">
                             <span>02</span>
                             <h4>Innovative Solutions</h4>
-                            <p>We leverage cutting-edge technology to deliver efficiency and innovation to every aspect
-                                of Taekwondo
+                            <p>We leverage cutting-edge technology to deliver efficiency and innovation to every aspect of Taekwondo
                                 competitions. Our mission is to elevate Taekwondo to new heights.</p>
                         </div>
                     </div>
@@ -160,8 +150,7 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                         <div class="box">
                             <span>03</span>
                             <h4>About TKS SPORTDATA</h4>
-                            <p>TKS SPORTDATA is your technology partner for Taekwondo competitions worldwide. Join us in
-                                shaping a
+                            <p>TKS SPORTDATA is your technology partner for Taekwondo competitions worldwide. Join us in shaping a
                                 brighter future for Taekwondo in the tech-savvy world.</p>
                         </div>
                     </div>
@@ -211,39 +200,39 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                     <p></p>
                 </div>
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <?php
-            foreach ($rows as $key => $row) {
-              $class = ($key == 0) ? 'active' : '';
-              echo '<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="' . $key . '" class="' . $class . '"></button>';
-            }
-            ?>
-                    </div>
                     <div class="carousel-inner">
-                        <?php
-            foreach ($rows as $key => $row) {
-              $class = ($key == 0) ? 'active' : '';
-              $users = $row['users'];
 
-              if (filter_var($users, FILTER_VALIDATE_EMAIL)) {
-                $loginPage = 'login.php';
-              } else {
-                $loginPage = 'login_ad.php';
-              }
+                        <div class="carousel-inner">
+                            <?php foreach ($rows as $key => $row) {
+                                $users = $row['users'];
+                                $imageSrc = "service/superadmin_twd/setting/uploads/" . $row['image'];
 
-              echo '<div class="carousel-item ' . $class . '">';
-              echo '<a href="' . $loginPage . '"><img src="service/superadmin/uploads/' . $row['image'] . '" class="d-block w-100" alt="..."></a>';
-              echo '</div>';
-            }
-            ?>
+                                // เช็คเงื่อนไขของ users
+                                if (filter_var($users, FILTER_VALIDATE_EMAIL)) {
+                                    // กรณีเป็นอีเมล
+                                    echo '<div class="carousel-item' . (($key == 0) ? ' active' : '') . '">';
+                                    echo '<a href="check_ad/"><img src="' . $imageSrc . '" class="d-block w-100" alt="..."></a>';
+                                    echo '</div>';
+                                } else if ($users == "SUPERADMIN TWD") {
+                                    // กรณีเป็น SUPERADMIN TWD
+                                    echo '<div class="carousel-item' . (($key == 0) ? ' active' : '') . '">';
+                                    echo '<a href="check_twd/"><img src="' . $imageSrc . '" class="d-block w-100" alt="..."></a>';
+                                    echo '</div>';
+                                } else {
+                                    // กรณีอื่นๆ (ไม่ใช่อีเมลและไม่ใช่ SUPERADMIN TWD)
+                                    echo '<div class="carousel-item' . (($key == 0) ? ' active' : '') . '">';
+                                    echo '<img src="path/to/placeholder-image.jpg" class="d-block w-100" alt="...">';
+                                    echo '</div>';
+                                }
+                            } ?>
+
+                        </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="prev">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="next">
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
@@ -276,68 +265,56 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                 <div class="row photo-container" data-aos="fade-up" data-aos-delay="150">
 
                     <div class="col-lg-4 col-md-6 photo-item ">
-                        <a href="assets/images/BK/BK1.jpg" data-gallery="photoGallery" class="photo-lightbox" title=""
-                            target="_blank">
+                        <a href="assets/images/BK/BK1.jpg" data-gallery="photoGallery" class="photo-lightbox" title="" target="_blank">
                             <img src="assets/images/BK/BK1.jpg" class="img-fluid" alt="">
                         </a>
                         <div class="photo-info">
-                            <a href="photo-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
+                            <a href="photo-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 photo-item ">
-                        <a href="assets/images/BK/BK2.jpg" data-gallery="photoGallery" class="photo-lightbox" title=""
-                            target="_blank">
+                        <a href="assets/images/BK/BK2.jpg" data-gallery="photoGallery" class="photo-lightbox" title="" target="_blank">
                             <img src="assets/images/BK/BK2.jpg" class="img-fluid" alt="">
                         </a>
                         <div class="photo-info">
-                            <a href="photo-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
+                            <a href="photo-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 photo-item ">
-                        <a href="assets/images/BK/BK3.jpg" data-gallery="photoGallery" class="photo-lightbox" title=""
-                            target="_blank">
+                        <a href="assets/images/BK/BK3.jpg" data-gallery="photoGallery" class="photo-lightbox" title="" target="_blank">
                             <img src="assets/images/BK/BK3.jpg" class="img-fluid" alt="">
                         </a>
                         <div class="photo-info">
-                            <a href="photo-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
+                            <a href="photo-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 photo-item ">
-                        <a href="assets/images/BK/BK4.jpg" data-gallery="photoGallery" class="photo-lightbox" title=""
-                            target="_blank">
+                        <a href="assets/images/BK/BK4.jpg" data-gallery="photoGallery" class="photo-lightbox" title="" target="_blank">
                             <img src="assets/images/BK/BK4.jpg" class="img-fluid" alt="">
                         </a>
                         <div class="photo-info">
-                            <a href="photo-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
+                            <a href="photo-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 photo-item ">
-                        <a href="assets/images/BK/BK5.jpg" data-gallery="photoGallery" class="photo-lightbox" title=""
-                            target="_blank">
+                        <a href="assets/images/BK/BK5.jpg" data-gallery="photoGallery" class="photo-lightbox" title="" target="_blank">
                             <img src="assets/images/BK/BK5.jpg" class="img-fluid" alt="">
                         </a>
                         <div class="photo-info">
-                            <a href="photo-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
+                            <a href="photo-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 photo-item ">
-                        <a href="assets/images/BK/BK6.jpg" data-gallery="photoGallery" class="photo-lightbox" title=""
-                            target="_blank">
+                        <a href="assets/images/BK/BK6.jpg" data-gallery="photoGallery" class="photo-lightbox" title="" target="_blank">
                             <img src="assets/images/BK/BK6.jpg" class="img-fluid" alt="">
                         </a>
                         <div class="photo-info">
-                            <a href="photo-details.html" class="details-link" title="More Details"><i
-                                    class="bx bx-link"></i></a>
+                            <a href="photo-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                         </div>
                     </div>
 
@@ -383,9 +360,7 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="row" data-aos="fade-up">
                     <div class="col-lg-6 ">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247916.2454293916!2d100.56335233496515!3d13.857557459309652!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e282b2c819c249%3A0x95fd72e3742fe795!2zNTIg4LiL4Lit4LiiIOC4o-C4suC4oeC4reC4tOC4meC4l-C4o-C4siA3IOC5geC4guC4p-C4h-C4reC4meC4uOC4quC4suC4p-C4o-C4teC4ouC5jCDguYDguILguJXguJrguLLguIfguYDguILguJkg4LiB4Lij4Li44LiH4LmA4LiX4Lie4Lih4Lir4Liy4LiZ4LiE4LijIDEwMjIw!5e0!3m2!1sth!2sth!4v1696500738744!5m2!1sth!2sth"
-                            frameborder="0" style="border:0; width: 100%; height: 384px;" allowfullscreen="" "
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247916.2454293916!2d100.56335233496515!3d13.857557459309652!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e282b2c819c249%3A0x95fd72e3742fe795!2zNTIg4LiL4Lit4LiiIOC4o-C4suC4oeC4reC4tOC4meC4l-C4o-C4siA3IOC5geC4guC4p-C4h-C4reC4meC4uOC4quC4suC4p-C4o-C4teC4ouC5jCDguYDguILguJXguJrguLLguIfguYDguILguJkg4LiB4Lij4Li44LiH4LmA4LiX4Lie4Lih4Lir4Liy4LiZ4LiE4LijIDEwMjIw!5e0!3m2!1sth!2sth!4v1696500738744!5m2!1sth!2sth" frameborder="0" style="border:0; width: 100%; height: 384px;" allowfullscreen="" "
               referrerpolicy=" no-referrer-when-downgrade">
                         </iframe>
                     </div>
@@ -404,8 +379,7 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                         <div class="footer-info">
                             <h3>TKS SPORTDATA</h3>
                             <p>
-                                Anusawari Sub-district <br> Bang Khen District <br> Bangkok 10220, Thailand.
-                                <br><br><br>
+                                Anusawari Sub-district <br> Bang Khen District <br> Bangkok 10220, Thailand. <br><br><br>
                                 <strong>Phone :</strong> 084-083-8587<br>
                                 <strong>Email :</strong> tks.softvision.thai@gmail.com<br>
                             </p>
@@ -439,8 +413,7 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </footer>
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <div id="preloader"></div>
 
     <script src="assets/vendor/aos/aos.js"></script>

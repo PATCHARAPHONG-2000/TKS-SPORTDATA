@@ -2,9 +2,9 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 28, 2024 at 11:22 AM
--- Server version: 10.4.32-MariaDB
+-- Host: localhost
+-- Generation Time: Mar 18, 2024 at 02:46 PM
+-- Server version: 10.6.15-MariaDB
 -- PHP Version: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `tks_database`
+-- Database: `tkssport_tks_database`
 --
 
 -- --------------------------------------------------------
@@ -37,7 +37,7 @@ CREATE TABLE `backup` (
   `image` varchar(255) NOT NULL,
   `create_time` datetime NOT NULL DEFAULT current_timestamp(),
   `IsActive` int(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -47,27 +47,325 @@ CREATE TABLE `backup` (
 
 CREATE TABLE `create_event` (
   `id` int(11) NOT NULL,
-  `class` varchar(255) DEFAULT NULL,
-  `weigth` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `List_event` varchar(255) DEFAULT NULL,
+  `Kiakpa_type` varchar(255) DEFAULT NULL,
+  `age_group` varchar(255) DEFAULT NULL,
+  `gender` varchar(255) NOT NULL,
+  `weight` varchar(255) DEFAULT NULL,
+  `sp_class` varchar(255) DEFAULT NULL,
+  `colorse` varchar(255) DEFAULT NULL,
+  `pattern` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `create_event`
 --
 
-INSERT INTO `create_event` (`id`, `class`, `weigth`) VALUES
-(23, 'A', NULL),
-(24, 'B', NULL),
-(25, 'C', NULL),
-(26, 'D', NULL),
-(27, 'E', NULL),
-(28, 'F', NULL),
-(29, NULL, 'รุ่นไม่เกิน 45 กก'),
-(30, NULL, 'รุ่นไม่เกิน 48 กก'),
-(31, NULL, 'รุ่นไม่เกิน 51 กก'),
-(32, NULL, 'รุ่นไม่เกิน 55 กก'),
-(33, NULL, 'รุ่นไม่เกิน 59 กก'),
-(34, NULL, 'รุ่นไม่เกิน 63 กก');
+INSERT INTO `create_event` (`id`, `List_event`, `Kiakpa_type`, `age_group`, `gender`, `weight`, `sp_class`, `colorse`, `pattern`) VALUES
+(1, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุไม่เกิน 6 ปี', 'ชาย', 'นํ้าหนักไม่เกิน 18 กก.', 'B', NULL, NULL),
+(2, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุไม่เกิน 6 ปี', 'ชาย', 'นํ้าหนักเกิน 18 - 20 กก.', 'C', NULL, NULL),
+(3, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุไม่เกิน 6 ปี', 'ชาย', 'นํ้าหนักเกิน 20 - 22 กก.', NULL, NULL, NULL),
+(4, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุไม่เกิน 6 ปี', 'ชาย', 'นํ้าหนักเกิน 22 - 24 กก.', NULL, NULL, NULL),
+(5, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุไม่เกิน 6 ปี', 'ชาย', 'นํ้าหนักเกิน 24 - 27 กก.', NULL, NULL, NULL),
+(6, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุไม่เกิน 6 ปี', 'ชาย', 'นํ้าหนักเกิน 27 กก. ขึ้นไป', NULL, NULL, NULL),
+(7, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุไม่เกิน 6 ปี', 'หญิง', 'นํ้าหนักไม่เกิน 18 กก.', 'B', NULL, NULL),
+(8, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุไม่เกิน 6 ปี', 'หญิง', 'นํ้าหนักเกิน 18 - 20 กก.', 'C', NULL, NULL),
+(9, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุไม่เกิน 6 ปี', 'หญิง', 'นํ้าหนักเกิน 20 - 22 กก.', NULL, NULL, NULL),
+(10, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุไม่เกิน 6 ปี', 'หญิง', 'นํ้าหนักเกิน 22 - 24 กก.', NULL, NULL, NULL),
+(11, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุไม่เกิน 6 ปี', 'หญิง', 'นํ้าหนักเกิน 24 - 27 กก.', NULL, NULL, NULL),
+(12, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุไม่เกิน 6 ปี', 'หญิง', 'นํ้าหนักเกิน 27 กก. ขึ้นไป', NULL, NULL, NULL),
+(13, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 7-8 ปี', 'ชาย', 'นํ้าหนักไม่เกิน 20 กก.', 'A', NULL, NULL),
+(14, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 7-8 ปี', 'ชาย', 'นํ้าหนักเกิน 20 - 22 กก.', 'B', NULL, NULL),
+(15, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 7-8 ปี', 'ชาย', 'นํ้าหนักเกิน 22 - 24 กก.', 'C', NULL, NULL),
+(16, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 7-8 ปี', 'ชาย', 'นํ้าหนักเกิน 24 - 27 กก.', NULL, NULL, NULL),
+(17, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 7-8 ปี', 'ชาย', 'นํ้าหนักเกิน 27 - 30 กก.', NULL, NULL, NULL),
+(18, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 7-8 ปี', 'ชาย', 'นํ้าหนักเกิน 30 - 34 กก.', NULL, NULL, NULL),
+(19, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 7-8 ปี', 'ชาย', 'นํ้าหนักเกิน 34 กก. ขึ้นไป', NULL, NULL, NULL),
+(20, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 7-8 ปี', 'หญิง', 'นํ้าหนักไม่เกิน 20 กก.', 'A', NULL, NULL),
+(21, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 7-8 ปี', 'หญิง', 'นํ้าหนักเกิน 20 - 22 กก.', 'B', NULL, NULL),
+(22, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 7-8 ปี', 'หญิง', 'นํ้าหนักเกิน 22 - 24 กก.', 'C', NULL, NULL),
+(23, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 7-8 ปี', 'หญิง', 'นํ้าหนักเกิน 24 - 27 กก.', NULL, NULL, NULL),
+(24, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 7-8 ปี', 'หญิง', 'นํ้าหนักเกิน 27 - 30 กก.', NULL, NULL, NULL),
+(25, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 7-8 ปี', 'หญิง', 'นํ้าหนักเกิน 30 - 34 กก.', NULL, NULL, NULL),
+(26, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 7-8 ปี', 'หญิง', 'นํ้าหนักเกิน 34 กก. ขึ้นไป', NULL, NULL, NULL),
+(27, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'ชาย', 'นํ้าหนักไม่เกิน 23 กก.', 'A', NULL, NULL),
+(28, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'ชาย', 'นํ้าหนักเกิน 23 - 25 กก.', 'B', NULL, NULL),
+(29, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'ชาย', 'นํ้าหนักเกิน 25 - 27 กก.', 'C', NULL, NULL),
+(30, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'ชาย', 'นํ้าหนักเกิน 27 - 29 กก.', NULL, NULL, NULL),
+(31, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'ชาย', 'นํ้าหนักเกิน 29 - 32 กก.', NULL, NULL, NULL),
+(32, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'ชาย', 'นํ้าหนักเกิน 32 - 36 กก.', NULL, NULL, NULL),
+(33, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'ชาย', 'นํ้าหนักเกิน 36 - 40 กก.', NULL, NULL, NULL),
+(34, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'ชาย', 'นํ้าหนักเกิน 40 กก. ขึ้นไป', NULL, NULL, NULL),
+(35, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'หญิง', 'นํ้าหนักไม่เกิน 23 กก.', 'A', NULL, NULL),
+(36, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'หญิง', 'นํ้าหนักเกิน 23 - 25 กก.', 'B', NULL, NULL),
+(37, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'หญิง', 'นํ้าหนักเกิน 25 - 27 กก.', 'C', NULL, NULL),
+(38, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'หญิง', 'นํ้าหนักเกิน 27 - 29 กก.', NULL, NULL, NULL),
+(39, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'หญิง', 'นํ้าหนักเกิน 29 - 32 กก.', NULL, NULL, NULL),
+(40, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'หญิง', 'นํ้าหนักเกิน 32 - 36 กก.', NULL, NULL, NULL),
+(41, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'หญิง', 'นํ้าหนักเกิน 36 - 40 กก.', NULL, NULL, NULL),
+(42, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 9-10 ปี', 'หญิง', 'นํ้าหนักเกิน 40 กก. ขึ้นไป', NULL, NULL, NULL),
+(43, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'ชาย', 'นํ้าหนักไม่เกิน 25 กก.', 'A', NULL, NULL),
+(44, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'ชาย', 'นํ้าหนักเกิน 25 - 28 กก.', 'B', NULL, NULL),
+(45, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'ชาย', 'นํ้าหนักเกิน 28 - 31 กก.', 'C', NULL, NULL),
+(46, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'ชาย', 'นํ้าหนักเกิน 31 - 34 กก.', NULL, NULL, NULL),
+(47, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'ชาย', 'นํ้าหนักเกิน 34 - 38 กก.', NULL, NULL, NULL),
+(48, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'ชาย', 'นํ้าหนักเกิน 38 - 42 กก.', NULL, NULL, NULL),
+(49, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'ชาย', 'นํ้าหนักเกิน 42 - 46 กก.', NULL, NULL, NULL),
+(50, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'ชาย', 'นํ้าหนักเกิน 46 กก. ขึ้นไป', NULL, NULL, NULL),
+(51, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'หญิง', 'นํ้าหนักไม่เกิน 25 กก.', 'A', NULL, NULL),
+(52, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'หญิง', 'นํ้าหนักเกิน 25 - 28 กก.', 'B', NULL, NULL),
+(53, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'หญิง', 'นํ้าหนักเกิน 28 - 31 กก.', 'C', NULL, NULL),
+(54, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'หญิง', 'นํ้าหนักเกิน 31 - 34 กก.', NULL, NULL, NULL),
+(55, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'หญิง', 'นํ้าหนักเกิน 34 - 38 กก.', NULL, NULL, NULL),
+(56, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'หญิง', 'นํ้าหนักเกิน 38 - 42 กก.', NULL, NULL, NULL),
+(57, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'หญิง', 'นํ้าหนักเกิน 42 - 46 กก.', NULL, NULL, NULL),
+(58, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 11-12 ปี', 'หญิง', 'นํ้าหนักเกิน 46 กก. ขึ้นไป', NULL, NULL, NULL),
+(59, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'ชาย', 'นํ้าหนักไม่เกิน 33กก.', 'A', NULL, NULL),
+(60, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'ชาย', 'นํ้าหนักเกิน 33 - 37 กก.', 'B', NULL, NULL),
+(61, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'ชาย', 'นํ้าหนักเกิน 37 - 41 กก.', NULL, NULL, NULL),
+(62, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'ชาย', 'นํ้าหนักเกิน 41 - 45 กก.', NULL, NULL, NULL),
+(63, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'ชาย', 'นํ้าหนักเกิน 45 - 49 กก.', NULL, NULL, NULL),
+(64, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'ชาย', 'นํ้าหนักเกิน 49 - 53 กก.', NULL, NULL, NULL),
+(65, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'ชาย', 'นํ้าหนักเกิน 53 - 57 กก.', NULL, NULL, NULL),
+(66, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'ชาย', 'นํ้าหนักเกิน 57 - 61 กก.', NULL, NULL, NULL),
+(67, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'ชาย', 'นํ้าหนักเกิน 61 - 65 กก.', NULL, NULL, NULL),
+(68, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'ชาย', 'นํ้าหนักเกิน 65 กก. ขึ้นไป', NULL, NULL, NULL),
+(69, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'หญิง', 'นํ้าหนักไม่เกิน 29กก.', 'A', NULL, NULL),
+(70, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'หญิง', 'นํ้าหนักเกิน 29 - 33 กก.', 'B', NULL, NULL),
+(71, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'หญิง', 'นํ้าหนักเกิน 33 - 37 กก.', NULL, NULL, NULL),
+(72, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'หญิง', 'นํ้าหนักเกิน 37 - 41 กก.', NULL, NULL, NULL),
+(73, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'หญิง', 'นํ้าหนักเกิน 41 - 44 กก.', NULL, NULL, NULL),
+(74, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'หญิง', 'นํ้าหนักเกิน 44 - 47 กก.', NULL, NULL, NULL),
+(75, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'หญิง', 'นํ้าหนักเกิน 47 - 51 กก.', NULL, NULL, NULL),
+(76, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'หญิง', 'นํ้าหนักเกิน 51 - 55 กก.', NULL, NULL, NULL),
+(77, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'หญิง', 'นํ้าหนักเกิน 55 - 59 กก.', NULL, NULL, NULL),
+(78, 'ต่อสู้ (เดี่ยว)', '', 'รุ่นยุวชนอายุ 12-14 ปี', 'หญิง', 'นํ้าหนักเกิน 59 กก. ขึ้นไป', NULL, NULL, NULL),
+(79, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'ชาย', 'นํ้าหนักไม่เกิน 45 กก.', 'A', NULL, NULL),
+(80, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'ชาย', 'นํ้าหนักเกิน 45 - 48 กก.', NULL, NULL, NULL),
+(81, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'ชาย', 'นํ้าหนักเกิน 48 - 51 กก.', NULL, NULL, NULL),
+(82, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'ชาย', 'นํ้าหนักเกิน 51 - 55 กก.', NULL, NULL, NULL),
+(83, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'ชาย', 'นํ้าหนักเกิน 55 - 59 กก.', NULL, NULL, NULL),
+(84, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'ชาย', 'นํ้าหนักเกิน 59 - 63 กก.', NULL, NULL, NULL),
+(85, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'ชาย', 'นํ้าหนักเกิน 63 - 68 กก.', NULL, NULL, NULL),
+(86, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'ชาย', 'นํ้าหนักเกิน 68 - 73 กก.', NULL, NULL, NULL),
+(87, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'ชาย', 'นํ้าหนักเกิน 73 -78 กก.', NULL, NULL, NULL),
+(88, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'ชาย', 'นํ้าหนักเกิน 78 กก. ขึ้นไป', NULL, NULL, NULL),
+(89, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'หญิง', 'นํ้าหนักไม่เกิน 42 กก.', 'A', NULL, NULL),
+(90, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'หญิง', 'นํ้าหนักเกิน 42 -44 กก.', NULL, NULL, NULL),
+(91, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'หญิง', 'นํ้าหนักเกิน 44 -46 กก.', NULL, NULL, NULL),
+(92, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'หญิง', 'นํ้าหนักเกิน 46 -49 กก.', NULL, NULL, NULL),
+(93, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'หญิง', 'นํ้าหนักเกิน 49 -52 กก.', NULL, NULL, NULL),
+(94, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'หญิง', 'นํ้าหนักเกิน 52 -55 กก.', NULL, NULL, NULL),
+(95, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'หญิง', 'นํ้าหนักเกิน 55 -59 กก.', NULL, NULL, NULL),
+(96, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'หญิง', 'นํ้าหนักเกิน 59 -63 กก.', NULL, NULL, NULL),
+(97, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'หญิง', 'นํ้าหนักเกิน 63 -68 กก.', NULL, NULL, NULL),
+(98, 'ต่อสู้ (เดี่ยว)', '', 'รุ่น Junior อายุ 15-17 ปี', 'หญิง', 'นํ้าหนักเกิน 68 กก. ขึ้นไป', NULL, NULL, NULL),
+(99, 'ต่อสู้ ทีม', '', 'รุ่นยุวชนอายุไม่เกิน 8 ปี ', 'ชาย', 'ไม่เกิน 70 กก.', NULL, NULL, NULL),
+(100, 'ต่อสู้ ทีม', '', 'รุ่นยุวชนอายุไม่เกิน 8 ปี ', 'หญิง', 'ไม่เกิน 70 กก.', NULL, NULL, NULL),
+(101, 'ต่อสู้ ทีม', '', 'รุ่นยุวชนอายุไม่เกิน 10 ปี', 'ชาย', 'ไม่เกิน 80 กก.', NULL, NULL, NULL),
+(102, 'ต่อสู้ ทีม', '', 'รุ่นยุวชนอายุไม่เกิน 10 ปี', 'หญิง', 'ไม่เกิน 80 กก.', NULL, NULL, NULL),
+(103, 'ต่อสู้ ทีม', '', 'รุ่นยุวชนอายุไม่เกิน 12 ปี ', 'ชาย', 'ไม่เกิน 105 กก.', NULL, NULL, NULL),
+(104, 'ต่อสู้ ทีม', '', 'รุ่นยุวชนอายุไม่เกิน 12 ปี ', 'หญิง', 'ไม่เกิน 105 กก.', NULL, NULL, NULL),
+(105, 'ต่อสู้ ทีม', '', 'รุ่นยุวชนอายุไม่เกิน 14 ปี', 'ชาย', 'ไม่เกิน 130 กก.', NULL, NULL, NULL),
+(106, 'ต่อสู้ ทีม', '', 'รุ่นยุวชนอายุไม่เกิน 14 ปี', 'หญิง', 'ไม่เกิน 125 กก.', NULL, NULL, NULL),
+(107, 'ต่อสู้ ทีม', '', 'รุ่นเยาวชนอายุไม่เกิน 18 ปี', 'ชาย', 'ไม่เกิน 160 กก.', NULL, NULL, NULL),
+(108, 'ต่อสู้ ทีม', '', 'รุ่นเยาวชนอายุไม่เกิน 18 ปี', 'หญิง', 'ไม่เกิน 140 กก.', NULL, NULL, NULL),
+(109, 'พุมเซ่', '', 'ไม่เกิน 6 ปี', 'ชาย', NULL, NULL, 'ขาว', '6 Blocks'),
+(110, 'พุมเซ่', '', '7 – 8 ปี', 'ชาย', NULL, NULL, 'ขาว', '6 Blocks'),
+(111, 'พุมเซ่', '', '9 – 10 ปี', 'ชาย', NULL, NULL, 'ขาว', '6 Blocks'),
+(112, 'พุมเซ่', '', '11 – 12 ปี', 'ชาย', NULL, NULL, 'ขาว', '6 Blocks'),
+(113, 'พุมเซ่', '', '13 – 14 ปี', 'ชาย', NULL, NULL, 'ขาว', '6 Blocks'),
+(114, 'พุมเซ่', '', '15 – 17 ปี', 'ชาย', NULL, NULL, 'ขาว', '6 Blocks'),
+(115, 'พุมเซ่', '', '18 – 30 ปี', 'ชาย', NULL, NULL, 'ขาว', '6 Blocks'),
+(116, 'พุมเซ่', '', '30 – 40 ปี', 'ชาย', NULL, NULL, 'ขาว', '6 Blocks'),
+(117, 'พุมเซ่', '', '40 – 50 ปี', 'ชาย', NULL, NULL, 'ขาว', '6 Blocks'),
+(118, 'พุมเซ่', '', '50 ปี ขึ้นไป', 'ชาย', NULL, NULL, 'ขาว', '6 Blocks'),
+(119, 'พุมเซ่', '', 'ไม่เกิน 6 ปี', 'ชาย', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(120, 'พุมเซ่', '', '7 – 8 ปี', 'ชาย', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(121, 'พุมเซ่', '', '9 – 10 ปี', 'ชาย', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(122, 'พุมเซ่', '', '11 – 12 ปี', 'ชาย', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(123, 'พุมเซ่', '', '13 – 14 ปี', 'ชาย', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(124, 'พุมเซ่', '', '15 – 17 ปี', 'ชาย', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(125, 'พุมเซ่', '', '18 – 30 ปี', 'ชาย', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(126, 'พุมเซ่', '', '30 – 40 ปี', 'ชาย', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(127, 'พุมเซ่', '', '40 – 50 ปี', 'ชาย', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(128, 'พุมเซ่', '', '50 ปี ขึ้นไป', 'ชาย', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(129, 'พุมเซ่', '', 'ไม่เกิน 6 ปี', 'ชาย', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(130, 'พุมเซ่', '', '7 – 8 ปี', 'ชาย', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(131, 'พุมเซ่', '', '9 – 10 ปี', 'ชาย', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(132, 'พุมเซ่', '', '11 – 12 ปี', 'ชาย', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(133, 'พุมเซ่', '', '13 – 14 ปี', 'ชาย', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(134, 'พุมเซ่', '', '15 – 17 ปี', 'ชาย', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(135, 'พุมเซ่', '', '18 – 30 ปี', 'ชาย', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(136, 'พุมเซ่', '', '30 – 40 ปี', 'ชาย', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(137, 'พุมเซ่', '', '40 – 50 ปี', 'ชาย', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(138, 'พุมเซ่', '', '50 ปี ขึ้นไป', 'ชาย', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(139, 'พุมเซ่', '', 'ไม่เกิน 6 ปี', 'ชาย', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(140, 'พุมเซ่', '', '7 – 8 ปี', 'ชาย', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(141, 'พุมเซ่', '', '9 – 10 ปี', 'ชาย', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(142, 'พุมเซ่', '', '11 – 12 ปี', 'ชาย', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(143, 'พุมเซ่', '', '13 – 14 ปี', 'ชาย', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(144, 'พุมเซ่', '', '15 – 17 ปี', 'ชาย', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(145, 'พุมเซ่', '', '18 – 30 ปี', 'ชาย', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(146, 'พุมเซ่', '', '30 – 40 ปี', 'ชาย', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(147, 'พุมเซ่', '', '40 – 50 ปี', 'ชาย', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(148, 'พุมเซ่', '', '50 ปี ขึ้นไป', 'ชาย', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(149, 'พุมเซ่', '', 'ไม่เกิน 6 ปี', 'ชาย', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(150, 'พุมเซ่', '', '7 – 8 ปี', 'ชาย', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(151, 'พุมเซ่', '', '9 – 10 ปี', 'ชาย', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(152, 'พุมเซ่', '', '11 – 12 ปี', 'ชาย', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(153, 'พุมเซ่', '', '13 – 14 ปี', 'ชาย', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(154, 'พุมเซ่', '', '15 – 17 ปี', 'ชาย', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(155, 'พุมเซ่', '', '18 – 30 ปี', 'ชาย', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(156, 'พุมเซ่', '', '30 – 40 ปี', 'ชาย', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(157, 'พุมเซ่', '', '40 – 50 ปี', 'ชาย', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(158, 'พุมเซ่', '', '50 ปี ขึ้นไป', 'ชาย', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(159, 'พุมเซ่', '', 'ไม่เกิน 6 ปี', 'ชาย', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(160, 'พุมเซ่', '', '7 – 8 ปี', 'ชาย', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(161, 'พุมเซ่', '', '9 – 10 ปี', 'ชาย', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(162, 'พุมเซ่', '', '11 – 12 ปี', 'ชาย', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(163, 'พุมเซ่', '', '13 – 14 ปี', 'ชาย', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(164, 'พุมเซ่', '', '15 – 17 ปี', 'ชาย', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(165, 'พุมเซ่', '', '18 – 30 ปี', 'ชาย', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(166, 'พุมเซ่', '', '30 – 40 ปี', 'ชาย', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(167, 'พุมเซ่', '', '40 – 50 ปี', 'ชาย', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(168, 'พุมเซ่', '', '50 ปี ขึ้นไป', 'ชาย', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(169, 'พุมเซ่', '', 'ไม่เกิน 6 ปี', 'ชาย', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(170, 'พุมเซ่', '', '7 – 8 ปี', 'ชาย', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(171, 'พุมเซ่', '', '9 – 10 ปี', 'ชาย', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(172, 'พุมเซ่', '', '11 – 12 ปี', 'ชาย', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(173, 'พุมเซ่', '', '13 – 14 ปี', 'ชาย', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(174, 'พุมเซ่', '', '15 – 17 ปี', 'ชาย', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(175, 'พุมเซ่', '', '18 – 30 ปี', 'ชาย', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(176, 'พุมเซ่', '', '30 – 40 ปี', 'ชาย', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(177, 'พุมเซ่', '', '40 – 50 ปี', 'ชาย', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(178, 'พุมเซ่', '', '50 ปี ขึ้นไป', 'ชาย', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(179, 'พุมเซ่', '', 'ไม่เกิน 6 ปี', 'หญิง', NULL, NULL, 'ขาว', '6 Blocks'),
+(180, 'พุมเซ่', '', '7 – 8 ปี', 'หญิง', NULL, NULL, 'ขาว', '6 Blocks'),
+(181, 'พุมเซ่', '', '9 – 10 ปี', 'หญิง', NULL, NULL, 'ขาว', '6 Blocks'),
+(182, 'พุมเซ่', '', '11 – 12 ปี', 'หญิง', NULL, NULL, 'ขาว', '6 Blocks'),
+(183, 'พุมเซ่', '', '13 – 14 ปี', 'หญิง', NULL, NULL, 'ขาว', '6 Blocks'),
+(184, 'พุมเซ่', '', '15 – 17 ปี', 'หญิง', NULL, NULL, 'ขาว', '6 Blocks'),
+(185, 'พุมเซ่', '', '18 – 30 ปี', 'หญิง', NULL, NULL, 'ขาว', '6 Blocks'),
+(186, 'พุมเซ่', '', '30 – 40 ปี', 'หญิง', NULL, NULL, 'ขาว', '6 Blocks'),
+(187, 'พุมเซ่', '', '40 – 50 ปี', 'หญิง', NULL, NULL, 'ขาว', '6 Blocks'),
+(188, 'พุมเซ่', '', '50 ปี ขึ้นไป', 'หญิง', NULL, NULL, 'ขาว', '6 Blocks'),
+(189, 'พุมเซ่', '', 'ไม่เกิน 6 ปี', 'หญิง', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(190, 'พุมเซ่', '', '7 – 8 ปี', 'หญิง', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(191, 'พุมเซ่', '', '9 – 10 ปี', 'หญิง', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(192, 'พุมเซ่', '', '11 – 12 ปี', 'หญิง', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(193, 'พุมเซ่', '', '13 – 14 ปี', 'หญิง', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(194, 'พุมเซ่', '', '15 – 17 ปี', 'หญิง', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(195, 'พุมเซ่', '', '18 – 30 ปี', 'หญิง', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(196, 'พุมเซ่', '', '30 – 40 ปี', 'หญิง', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(197, 'พุมเซ่', '', '40 – 50 ปี', 'หญิง', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(198, 'พุมเซ่', '', '50 ปี ขึ้นไป', 'หญิง', NULL, NULL, 'เหลือง', 'Pattern 1'),
+(199, 'พุมเซ่', '', 'ไม่เกิน 6 ปี', 'หญิง', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(200, 'พุมเซ่', '', '7 – 8 ปี', 'หญิง', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(201, 'พุมเซ่', '', '9 – 10 ปี', 'หญิง', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(202, 'พุมเซ่', '', '11 – 12 ปี', 'หญิง', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(203, 'พุมเซ่', '', '13 – 14 ปี', 'หญิง', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(204, 'พุมเซ่', '', '15 – 17 ปี', 'หญิง', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(205, 'พุมเซ่', '', '18 – 30 ปี', 'หญิง', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(206, 'พุมเซ่', '', '30 – 40 ปี', 'หญิง', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(207, 'พุมเซ่', '', '40 – 50 ปี', 'หญิง', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(208, 'พุมเซ่', '', '50 ปี ขึ้นไป', 'หญิง', NULL, NULL, 'เขียว', 'Pattern 2-3'),
+(209, 'พุมเซ่', '', 'ไม่เกิน 6 ปี', 'หญิง', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(210, 'พุมเซ่', '', '7 – 8 ปี', 'หญิง', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(211, 'พุมเซ่', '', '9 – 10 ปี', 'หญิง', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(212, 'พุมเซ่', '', '11 – 12 ปี', 'หญิง', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(213, 'พุมเซ่', '', '13 – 14 ปี', 'หญิง', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(214, 'พุมเซ่', '', '15 – 17 ปี', 'หญิง', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(215, 'พุมเซ่', '', '18 – 30 ปี', 'หญิง', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(216, 'พุมเซ่', '', '30 – 40 ปี', 'หญิง', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(217, 'พุมเซ่', '', '40 – 50 ปี', 'หญิง', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(218, 'พุมเซ่', '', '50 ปี ขึ้นไป', 'หญิง', NULL, NULL, 'ฟ้า', 'Pattern 4-5'),
+(219, 'พุมเซ่', '', 'ไม่เกิน 6 ปี', 'หญิง', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(220, 'พุมเซ่', '', '7 – 8 ปี', 'หญิง', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(221, 'พุมเซ่', '', '9 – 10 ปี', 'หญิง', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(222, 'พุมเซ่', '', '11 – 12 ปี', 'หญิง', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(223, 'พุมเซ่', '', '13 – 14 ปี', 'หญิง', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(224, 'พุมเซ่', '', '15 – 17 ปี', 'หญิง', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(225, 'พุมเซ่', '', '18 – 30 ปี', 'หญิง', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(226, 'พุมเซ่', '', '30 – 40 ปี', 'หญิง', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(227, 'พุมเซ่', '', '40 – 50 ปี', 'หญิง', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(228, 'พุมเซ่', '', '50 ปี ขึ้นไป', 'หญิง', NULL, NULL, 'นํ้าตาล', 'Pattern 6-7'),
+(229, 'พุมเซ่', '', 'ไม่เกิน 6 ปี', 'หญิง', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(230, 'พุมเซ่', '', '7 – 8 ปี', 'หญิง', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(231, 'พุมเซ่', '', '9 – 10 ปี', 'หญิง', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(232, 'พุมเซ่', '', '11 – 12 ปี', 'หญิง', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(233, 'พุมเซ่', '', '13 – 14 ปี', 'หญิง', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(234, 'พุมเซ่', '', '15 – 17 ปี', 'หญิง', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(235, 'พุมเซ่', '', '18 – 30 ปี', 'หญิง', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(236, 'พุมเซ่', '', '30 – 40 ปี', 'หญิง', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(237, 'พุมเซ่', '', '40 – 50 ปี', 'หญิง', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(238, 'พุมเซ่', '', '50 ปี ขึ้นไป', 'หญิง', NULL, NULL, 'แดง', 'Pattern 7-8'),
+(239, 'พุมเซ่', '', 'ไม่เกิน 6 ปี', 'หญิง', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(240, 'พุมเซ่', '', '7 – 8 ปี', 'หญิง', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(241, 'พุมเซ่', '', '9 – 10 ปี', 'หญิง', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(242, 'พุมเซ่', '', '11 – 12 ปี', 'หญิง', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(243, 'พุมเซ่', '', '13 – 14 ปี', 'หญิง', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(244, 'พุมเซ่', '', '15 – 17 ปี', 'หญิง', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(245, 'พุมเซ่', '', '18 – 30 ปี', 'หญิง', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(246, 'พุมเซ่', '', '30 – 40 ปี', 'หญิง', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(247, 'พุมเซ่', '', '40 – 50 ปี', 'หญิง', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(248, 'พุมเซ่', '', '50 ปี ขึ้นไป', 'หญิง', NULL, NULL, 'ดําแดง, ดํา', 'Koryo, Keumgang'),
+(249, 'พุมเซ่ คู่ผสม', '', 'ไม่เกิน 12 ปี', 'ชาย-หญิง', NULL, NULL, NULL, NULL),
+(250, 'พุมเซ่ คู่ผสม', '', 'ไม่เกิน 18ปี', 'ชาย-หญิง', NULL, NULL, NULL, NULL),
+(251, 'พุมเซ่ ทีม', '', 'ไม่เกิน 12 ปี', 'ชาย', NULL, NULL, 'สายสี', NULL),
+(252, 'พุมเซ่ ทีม', '', 'ไม่เกิน 12 ปี', 'ชาย', NULL, NULL, 'สายดำ', NULL),
+(253, 'พุมเซ่ ทีม', '', 'ไม่เกิน 12 ปี', 'หญิง', NULL, NULL, 'สายสี', NULL),
+(254, 'พุมเซ่ ทีม', '', 'ไม่เกิน 12 ปี', 'หญิง', NULL, NULL, 'สายดำ', NULL),
+(255, 'พุมเซ่ ทีม', '', 'ไม่เกิน 18ปี', 'ชาย', NULL, NULL, 'สายสี', NULL),
+(256, 'พุมเซ่ ทีม', '', 'ไม่เกิน 18ปี', 'ชาย', NULL, NULL, 'สายดำ', NULL),
+(257, 'พุมเซ่ ทีม', '', 'ไม่เกิน 18ปี', 'หญิง', NULL, NULL, 'สายสี', NULL),
+(258, 'พุมเซ่ ทีม', '', 'ไม่เกิน 18ปี', 'หญิง', NULL, NULL, 'สายดำ', NULL),
+(259, 'เคียกพ่า', 'Jump High', 'ไม่เกิน 8ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(260, 'เคียกพ่า', 'Jump High', 'ไม่เกิน 11ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(261, 'เคียกพ่า', 'Jump High', 'ไม่เกิน 15ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(262, 'เคียกพ่า', 'Jump High', 'ไม่เกิน 18ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(263, 'เคียกพ่า', 'Jump High', 'ไม่เกิน 8ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(264, 'เคียกพ่า', 'Jump High', 'ไม่เกิน 11ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(265, 'เคียกพ่า', 'Jump High', 'ไม่เกิน 15ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(266, 'เคียกพ่า', 'Jump High', 'ไม่เกิน 18ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(267, 'เคียกพ่า', 'flying side', 'ไม่เกิน 8ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(268, 'เคียกพ่า', 'flying side', 'ไม่เกิน 11ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(269, 'เคียกพ่า', 'flying side', 'ไม่เกิน 15ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(270, 'เคียกพ่า', 'flying side', 'ไม่เกิน 18ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(271, 'เคียกพ่า', 'flying side', 'ไม่เกิน 8ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(272, 'เคียกพ่า', 'flying side', 'ไม่เกิน 11ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(273, 'เคียกพ่า', 'flying side', 'ไม่เกิน 15ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(274, 'เคียกพ่า', 'flying side', 'ไม่เกิน 18ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(275, 'เคียกพ่า', 'ฟันกระเบื้อง', 'ไม่เกิน 8ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(276, 'เคียกพ่า', 'ฟันกระเบื้อง', 'ไม่เกิน 11ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(277, 'เคียกพ่า', 'ฟันกระเบื้อง', 'ไม่เกิน 15ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(278, 'เคียกพ่า', 'ฟันกระเบื้อง', 'ไม่เกิน 18ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(279, 'เคียกพ่า', 'ฟันกระเบื้อง', 'ไม่เกิน 8ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(280, 'เคียกพ่า', 'ฟันกระเบื้อง', 'ไม่เกิน 11ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(281, 'เคียกพ่า', 'ฟันกระเบื้อง', 'ไม่เกิน 15ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(282, 'เคียกพ่า', 'ฟันกระเบื้อง', 'ไม่เกิน 18ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(283, 'เคียกพ่า', 'ชก กระเบื้อง', 'ไม่เกิน 8ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(284, 'เคียกพ่า', 'ชก กระเบื้อง', 'ไม่เกิน 11ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(285, 'เคียกพ่า', 'ชก กระเบื้อง', 'ไม่เกิน 15ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(286, 'เคียกพ่า', 'ชก กระเบื้อง', 'ไม่เกิน 18ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(287, 'เคียกพ่า', 'ชก กระเบื้อง', 'ไม่เกิน 8ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(288, 'เคียกพ่า', 'ชก กระเบื้อง', 'ไม่เกิน 11ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(289, 'เคียกพ่า', 'ชก กระเบื้อง', 'ไม่เกิน 15ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(290, 'เคียกพ่า', 'ชก กระเบื้อง', 'ไม่เกิน 18ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(291, 'เคียกพ่า', 'ศอก กระเบื้อง', 'ไม่เกิน 8ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(292, 'เคียกพ่า', 'ศอก กระเบื้อง', 'ไม่เกิน 11ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(293, 'เคียกพ่า', 'ศอก กระเบื้อง', 'ไม่เกิน 15ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(294, 'เคียกพ่า', 'ศอก กระเบื้อง', 'ไม่เกิน 18ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(295, 'เคียกพ่า', 'ศอก กระเบื้อง', 'ไม่เกิน 8ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(296, 'เคียกพ่า', 'ศอก กระเบื้อง', 'ไม่เกิน 11ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(297, 'เคียกพ่า', 'ศอก กระเบื้อง', 'ไม่เกิน 15ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(298, 'เคียกพ่า', 'ศอก กระเบื้อง', 'ไม่เกิน 18ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(299, 'Dance Battle', NULL, 'ไม่เกิน 12 ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(300, 'Dance Battle', NULL, 'ไม่เกิน 12 ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(301, 'Dance Battle', NULL, 'ไม่เกิน 18 ปี', 'ชาย', NULL, NULL, NULL, NULL),
+(302, 'Dance Battle', NULL, 'ไม่เกิน 18 ปี', 'หญิง', NULL, NULL, NULL, NULL),
+(303, 'Dance Battle ทีม', NULL, 'ไม่จํากัดอายุ', 'ชาย', NULL, NULL, NULL, NULL),
+(304, 'Dance Battle ทีม', NULL, 'ไม่จํากัดอายุ', 'หญิง', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -88,7 +386,7 @@ CREATE TABLE `data_all` (
 --
 
 INSERT INTO `data_all` (`id`, `users`, `name`, `image`, `IsActive`) VALUES
-(7, 'SUPERADMIN AD CARD', 'asdas', '../uploads/1708505774_826228.jpg', '1');
+(8, 'SUPERADMIN TWD', 'โครงการแข่งขันเทควันโด อบจ.อุตรดิตถ์ ชิงถ้วยพระราชทาน', '../uploads/1710614591_อุตรดิตถ์_3.png', '1');
 
 -- --------------------------------------------------------
 
@@ -119,17 +417,24 @@ CREATE TABLE `data_score` (
 
 CREATE TABLE `event` (
   `id` int(11) NOT NULL,
-  `firstname` varchar(255) DEFAULT NULL,
-  `lastname` varchar(255) DEFAULT NULL,
-  `class` varchar(255) NOT NULL,
-  `age` varchar(255) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
-  `team` varchar(255) NOT NULL,
-  `license` varchar(255) DEFAULT NULL,
-  `weigth` varchar(255) NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `Match` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `name_match` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `ID_Number` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `firstname` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `lastname` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `age` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `team` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `license` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `type_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `age_group` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `kiakpa` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `gender` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `class` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `weight` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `colorse` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `pattern` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `create_time` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -147,7 +452,11 @@ CREATE TABLE `personnel` (
   `image` varchar(255) NOT NULL,
   `create_time` datetime NOT NULL DEFAULT current_timestamp(),
   `IsActive` int(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+--
+-- Dumping data for table `personnel`
+--
 
 -- --------------------------------------------------------
 
@@ -158,22 +467,16 @@ CREATE TABLE `personnel` (
 CREATE TABLE `player` (
   `id` int(11) NOT NULL,
   `ID_Number` varchar(255) NOT NULL,
-  `firstname` varchar(255) DEFAULT NULL,
-  `lastname` varchar(255) DEFAULT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
   `team` varchar(255) NOT NULL,
-  `status` varchar(255) DEFAULT NULL,
-  `age` varchar(255) DEFAULT NULL,
-  `license` varchar(255) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `IsActive` enum('0','1','') NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `player`
---
-
-INSERT INTO `player` (`id`, `ID_Number`, `firstname`, `lastname`, `team`, `status`, `age`, `license`, `image`, `IsActive`) VALUES
-(88, 'TKS000001', 'asdasdasd', 'asdas', 'TY', 'หญิง', '16', 'sadgd', '../tksuploads/1709022788_images.jpg', '0');
+  `status` varchar(255) NOT NULL,
+  `age` varchar(255) NOT NULL,
+  `license` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `create_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `IsActive` varchar(255) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -195,8 +498,7 @@ CREATE TABLE `setting` (
 
 INSERT INTO `setting` (`id`, `name`, `start_date`, `stop_date`, `IsActive`) VALUES
 (1, 'btn-add_data', '', '', '0'),
-(2, 'Start_date', '', '', '1'),
-(3, 'btn-twd_event', '', '', '1');
+(2, 'btn-twd_event', '', '', '0');
 
 -- --------------------------------------------------------
 
@@ -213,17 +515,13 @@ CREATE TABLE `sport` (
   `image` varchar(255) NOT NULL,
   `create_time` datetime NOT NULL DEFAULT current_timestamp(),
   `IsActive` int(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `sport`
 --
 
-INSERT INTO `sport` (`id`, `firstname`, `lastname`, `status`, `province`, `image`, `create_time`, `IsActive`) VALUES
-(125, 'awdawd', 'awdawd', 'awdawd', 'กอล์ฟ', '../uploadsport/1708271075_123456.jpg', '2024-02-18 22:44:35', 0),
-(126, 'adw', 'awd', 'wadawdwd', 'กอล์ฟ', '../uploadsport/1708285177_111.jpg', '2024-02-19 02:39:37', 0);
 
--- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
@@ -238,17 +536,17 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `tell` varchar(255) NOT NULL COMMENT 'เบอร์โทร',
   `Role` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `password` varchar(255) NOT NULL,
+  `create_time` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `gender`, `team`, `email`, `tell`, `Role`, `password`) VALUES
-(23, '', '', '', '', 'plamemee2015@gmail.com', '0943268338', 'SUPERADMIN TWD', '$2y$10$QM3bKU8PWgN81Npm5NRrTOiEnPvFr7npGyKuSEq8ruMWfflH9WsWm'),
-(24, 'Palm', 'Nee', 'Male', 'TY', 'enzoritono@gmail.com', '0943268338', 'TY', '$2y$10$i..2IS8bD9bc99MSnCn.qubQ66y3TTet1BcCZwm6SCVX3IpokqQNK'),
-(25, 'A', 'C', 'Male', 'TKS', 's62122519032@ssru.ac.th', '0943268331', 'TKS', '$2y$10$RuuUr6LwxYxPfcrSizdy.uRBpI7iD1eS.3yiz/ooggb5K77SxJ3ye');
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `gender`, `team`, `email`, `tell`, `Role`, `password`, `create_time`) VALUES
+(1, '', '', '', '', 'plamemee2015@gmail.com', '', 'SUPERADMIN TWD', '$2y$10$pUkv2YQ7PSXzvr5JfXhIB.cjCdc9lzoDFH7fdxWAVNl3yTM4WQ3ii', '2024-03-18 11:19:04'),
+(2, 'Patcharaphong', 'Padongyang', 'Male', 'TKS', 'rikerpol@gmail.com', '0943268338', 'KOP', '$2y$10$eXdb.fvXQ/igaJEOTt.12OAKUVi597votfrEVEN0W3EV1CTaSGqa6', '2024-03-18 11:19:04');
 
 -- --------------------------------------------------------
 
@@ -263,14 +561,14 @@ CREATE TABLE `users_t` (
   `area` varchar(255) NOT NULL,
   `province` varchar(255) DEFAULT NULL,
   `Role` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `users_t`
 --
 
 INSERT INTO `users_t` (`id`, `users`, `password`, `area`, `province`, `Role`) VALUES
-(1, 'KKTSPDM', '$2y$10$ljfZZrrTfl/KyK7XrHWki.RVexu/7VQUXjOIDddVjZpyf2GGdkznq', 'ทุกภาค', 'SUPERADMIN AD CARD', 'superadmin'),
+(1, 'KKTSPDM', '$2y$10$DeONr7y9EvS9mXmrGvsTm.BaUl7Umugej25t8ft3q1YaWongIkGxG', 'ทุกภาค', 'SUPER ADMIN', 'superadmin'),
 (2, 'KKTP1', '$2y$10$C8nS.2kTU2zezZowPtZR0uZ.vxr10QKwm6He5C6Qz6bgPLQhpc/qW', 'ภาค 1', 'การกีฬาแห่งประเทศไทย ภาค 1', 'KKTP1'),
 (3, 'KKTP2', '$2y$10$5JvGi/ZDrV3qYQbyRtKhmOnIKCFkwkI3qA7.r7V/lG7jAl9RvV1e2', 'ภาค 2', 'การกีฬาแห่งประเทศไทย ภาค 2', 'KKTP2'),
 (4, 'KKTP3', '$2y$10$jfzH2VkukLr8Z8SEg/x/wuSBQwYwXm3aHk8Konf0Tw741RpEDNEnu', 'ภาค 3', 'การกีฬาแห่งประเทศไทย ภาค 3', 'KKTP3'),
@@ -400,8 +698,8 @@ INSERT INTO `users_t` (`id`, `users`, `password`, `area`, `province`, `Role`) VA
 (128, 'SPTRAT', '$2y$10$Wmz5NTy3huiSEf/PbLwLrOurX0wsQIbs.t.9X43Z1JBwgljK0gGbm', '', 'ไตรกีฬา (กีฬาสาธิต)', 'SPTRAT'),
 (129, 'SPDRAU', '$2y$10$QyNqK.5PSwSAInGST9YIROqakmEo.bbey6dn8VqqxnTiA/AmcH15G', '', 'หมากรุกสากล (กีฬาสาธิต)', 'SPDRAU'),
 (130, 'SPKCKB', '$2y$10$ZJMZptOsE6krqawW3iDMR.ArWqKXMarlgDoJV8DWDGLgFXXrZdzOy', '', 'คิกบ็อกซิ่ง (กีฬาสาธิต)', 'SPKCKB'),
-(131, 'SCKARATE', '$2y$10$mLswSxC5mFP2G1gITwiDbexoKGKP/oeJWO.RvqHt07QELvdZ3IUV.', '', 'SCKARATE', 'SCKARATE'),
-(132, 'SCKARATE1', '$2y$10$PHw5LXCDud9dLD4tMbZYGuCs3DLrZIW6953IMI/gaZIZyD/k2ifha', '', 'SCKARATE1', 'SCKARATE1');
+(131, 'SCKARATE', '$2y$10$.B64EBn5IXiidi9Higatt.Kg4veF0Byr9GRnoxlCuLWFy3OrTTPkG', '', 'SCKARATE', 'SCKARATE'),
+(132, 'SCKARATE1', '$2y$10$I/Zlzg2IjM/RbBZ5F93oku53jtjhDOH5CMpJ19LrubH2C3Z8rb.UC', '', '', 'SCKARATE1');
 
 --
 -- Indexes for dumped tables
@@ -488,55 +786,55 @@ ALTER TABLE `backup`
 -- AUTO_INCREMENT for table `create_event`
 --
 ALTER TABLE `create_event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=305;
 
 --
 -- AUTO_INCREMENT for table `data_all`
 --
 ALTER TABLE `data_all`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `data_score`
 --
 ALTER TABLE `data_score`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `personnel`
 --
 ALTER TABLE `personnel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
 
 --
 -- AUTO_INCREMENT for table `player`
 --
 ALTER TABLE `player`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `setting`
 --
 ALTER TABLE `setting`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sport`
 --
 ALTER TABLE `sport`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users_t`

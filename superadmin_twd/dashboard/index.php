@@ -81,8 +81,7 @@ function getAgeGroup($age)
                                                 </h4>
                                             </div>
                                             <div class="List p-2" style="max-height: 700px; overflow-y: auto;">
-                                                <table id="index-event" class="table table-striped table-hover"
-                                                    style="border-radius: 50%;">
+                                                <table id="index-event" class="table table-striped table-hover" style="border-radius: 50%;">
                                                     <tbody>
                                                         <?php
                                                         $counter = 1;
@@ -90,29 +89,25 @@ function getAgeGroup($age)
                                                             $teamChartLabels = array_keys($data_by_team);
                                                             $teamChartData = array_values($data_by_team);
                                                             while ($person = $per_table->fetch(PDO::FETCH_ASSOC)) {
-                                                                ?>
+                                                        ?>
                                                                 <tr id="<?php echo $person["id"]; ?>">
                                                                     <td class="align-middle">
                                                                         <?php echo $counter; ?>
                                                                     </td>
-                                                                    <td class="align-middle"
-                                                                        style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                                    <td class="align-middle" style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                                                         <?php echo $person["firstname"]; ?>
                                                                     </td>
-                                                                    <td class="align-middle"
-                                                                        style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                                    <td class="align-middle" style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                                                         <?php echo $person["lastname"]; ?>
                                                                     </td>
                                                                     <td class="align-middle">
                                                                         <?php echo $person["team"]; ?>
                                                                     </td>
                                                                     <td class="align-middle">
-                                                                        <img src="../../service/tksuploads/<?php echo $person["image"]; ?>"
-                                                                            alt="Profile"
-                                                                            style="max-width: 20px; border-radius: 50%;">
+                                                                        <img src="../../service/tksuploads/<?php echo $person["image"]; ?>" alt="Profile" style="max-width: 20px; border-radius: 50%;">
                                                                     </td>
                                                                 </tr>
-                                                                <?php
+                                                            <?php
                                                                 $counter++;
                                                                 if ($counter > 20) {
                                                                     break;
@@ -123,14 +118,13 @@ function getAgeGroup($age)
                                                             <tr>
                                                                 <td colspan="6">ยังไม่รายชื่อที่สมัคร</td>
                                                             </tr>
-                                                            <?php
+                                                        <?php
                                                         }
                                                         ?>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="col-md-6">
                                         <div class="card p-3 mb-2">

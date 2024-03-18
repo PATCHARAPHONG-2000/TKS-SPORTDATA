@@ -8,37 +8,15 @@ $(document).ready(function () {
     ordering: false,
     searching: true,
     info: true,
-    className: "select-checkbox",
 
     columnDefs: [
-      {
-        width: "5%",
-        targets: 0,
-      },
-      {
-        width: "10%",
-        targets: 1,
-      },
-      {
-        width: "20%",
-        targets: 2,
-      },
-      {
-        width: "20%",
-        targets: 3,
-      },
-      {
-        width: "7%",
-        targets: 4,
-      },
-      {
-        width: "7%",
-        targets: 5,
-      },
-      {
-        width: "15%",
-        targets: 6,
-      },
+      { width: "5%", targets: 0 },
+      { width: "10%", targets: 1 },
+      { width: "20%", targets: 2 },
+      { width: "20%", targets: 3 },
+      { width: "7%", targets: 4 },
+      { width: "7%", targets: 5 },
+      { width: "15%", targets: 6 },
     ],
   });
 
@@ -46,9 +24,13 @@ $(document).ready(function () {
     $(".checkbox").prop("checked", this.checked);
 
     if (this.checked) {
-      $("#save, #team_save, #Poomse_save").prop("disabled", false);
+      $(
+        "#save, #team_save, #Poomse_save, #Poomse_save_doubles, #Poomse_save_team, #Kiakpa_save, #Dance_battle_save, #DanceBattle_save_team"
+      ).prop("disabled", false);
     } else {
-      $("#save, #team_save, #Poomse_save").prop("disabled", true);
+      $(
+        "#save, #team_save, #Poomse_save, #Poomse_save_doubles, #Poomse_save_team, #Kiakpa_save, #Dance_battle_save, #DanceBattle_save_team"
+      ).prop("disabled", true);
     }
   });
 
@@ -60,9 +42,13 @@ $(document).ready(function () {
     }
 
     if ($(".checkbox:checked").length > 0) {
-      $("#save, #team_save, #Poomse_save").prop("disabled", false);
+      $(
+        "#save, #team_save, #Poomse_save, #Poomse_save_doubles, #Poomse_save_team, #Kiakpa_save, #Dance_battle_save, #DanceBattle_save_team"
+      ).prop("disabled", false);
     } else {
-      $("#save, #team_save, #Poomse_save").prop("disabled", true);
+      $(
+        "#save, #team_save, #Poomse_save, #Poomse_save_doubles, #Poomse_save_team, #Kiakpa_save, #Dance_battle_save, #DanceBattle_save_team"
+      ).prop("disabled", true);
     }
   });
 
@@ -73,11 +59,13 @@ $(document).ready(function () {
       })
       .get();
 
+    let selectedEvent = $("#List_event").val();
     let selectedAge = $("#age").val();
     let selectedClass = $("#sp_class").val();
     let selectedWeigth = $("#weight").val();
 
     if (
+      selectedEvent &&
       selectedAge &&
       selectedClass &&
       selectedWeigth &&
@@ -89,15 +77,15 @@ $(document).ready(function () {
         url: "../../service/pages-twd/event/create",
         data: {
           ids: selectedIds,
+          Type_Name: selectedEvent,
           class: selectedClass,
           weight: selectedWeigth,
-          age: selectedAge,
+          age_group: selectedAge,
           name_match: params.selectedName,
         },
         success: function (response) {
-          console.log(response);
           Swal.fire({
-            text: "รายการของคุณถูกบันทึกเรียบร้อย",
+            text: "สมัครเรียบร้อย",
             icon: "success",
             timer: 1000,
             confirmButtonText: "ตกลง",
@@ -107,9 +95,8 @@ $(document).ready(function () {
           });
         },
         error: function (xhr, status, error) {
-          console.error(error);
           Swal.fire({
-            text: "เกิดข้อผิดพลาดในการส่งข้อมูล",
+            text: "เกิดข้อผิดพลาด กรุณาติดต่อเจ้าหน้าที่",
             icon: "error",
             timer: 1000,
             confirmButtonText: "ตกลง",
@@ -121,7 +108,7 @@ $(document).ready(function () {
       });
     } else {
       Swal.fire({
-        text: "กรุณาเลือกคลาสและรุ่นน้ำหนักและรายชื่อนักกีฬา?",
+        text: "กรุณาเลือกอีเว้นท์ และรายชื่อนักกีฬา?",
         icon: "question",
         confirmButtonText: "ตกลง",
       });
@@ -135,47 +122,53 @@ $(document).ready(function () {
       })
       .get();
 
+    let selectedEvent = $("#List_event").val();
     let selectedAge = $("#team_age").val();
     let selectedWeight = $("#team_weight").val();
 
-    if (selectedAge && selectedWeight && selectedIds.length > 0) {
+    if (
+      selectedIds.length >= 3 &&
+      selectedIds.length <= 5 &&
+      selectedAge &&
+      selectedEvent &&
+      selectedWeight
+    ) {
       $.ajax({
         type: "POST",
         url: "../../service/pages-twd/event/create-team",
         data: {
           ids: selectedIds,
+          Type_Name: selectedEvent,
           team_age: selectedAge,
           team_weight: selectedWeight,
           name_match: params.selectedName,
         },
         success: function (response) {
-          console.log(response);
           Swal.fire({
-            text: "รายการทีมของคุณถูกบันทึกเรียบร้อย",
+            text: "สมัครเรียบร้อย",
             icon: "success",
-            // timer: 1000,
+            timer: 1000,
             confirmButtonText: "ตกลง",
             timerProgressBar: true,
           }).then((result) => {
-            // location.reload();
+            location.reload();
           });
         },
         error: function (xhr, status, error) {
-          console.error(error);
           Swal.fire({
-            text: "เกิดข้อผิดพลาดในการส่งข้อมูล",
+            text: "เกิดข้อผิดพลาด กรุณาติดต่อเจ้าหน้าที่",
             icon: "error",
-            // timer: 1000,
+            timer: 1000,
             confirmButtonText: "ตกลง",
             timerProgressBar: true,
           }).then((result) => {
-            // location.reload();
+            location.reload();
           });
         },
       });
     } else {
       Swal.fire({
-        text: "กรุณาเลือกรุ่นอายุและน้ำหนักทีม และเลือกนักกีฬาในทีมของคุณ?",
+        text: "กรุณาเลือกอีเว้นท์ และเลือกระบุนักกีฬาอย่างน้อย 3-5 คน ตามระเบียบการ",
         icon: "question",
         confirmButtonText: "ตกลง",
       });
@@ -189,11 +182,13 @@ $(document).ready(function () {
       })
       .get();
 
+    let selectedEvent = $("#List_event").val();
     let selectedAge = $("#Poomse_age").val();
     let selectedColor = $("#Poomse_colorse").val();
     let selectedPattern = $("#Poomse_pattern").val();
 
     if (
+      selectedEvent &&
       selectedAge &&
       selectedColor &&
       selectedPattern &&
@@ -204,39 +199,316 @@ $(document).ready(function () {
         url: "../../service/pages-twd/event/create-poomse",
         data: {
           ids: selectedIds,
+          Type_Name: selectedEvent,
           Poomse_age: selectedAge,
           Poomse_colorse: selectedColor,
           Poomse_pattern: selectedPattern,
           name_match: params.selectedName,
         },
         success: function (response) {
-          console.log(response);
           Swal.fire({
-            text: "รายการ Poomse ของคุณถูกบันทึกเรียบร้อย",
+            text: "สมัครเรียบร้อย",
             icon: "success",
-            // timer: 1000,
+            timer: 1000,
             confirmButtonText: "ตกลง",
             timerProgressBar: true,
           }).then((result) => {
-            // location.reload();
+            location.reload();
           });
         },
         error: function (xhr, status, error) {
-          console.error(error);
           Swal.fire({
-            text: "เกิดข้อผิดพลาดในการส่งข้อมูล",
+            text: "เกิดข้อผิดพลาด กรุณาติดต่อเจ้าหน้าที่",
             icon: "error",
-            // timer: 1000,
+            timer: 1000,
             confirmButtonText: "ตกลง",
             timerProgressBar: true,
           }).then((result) => {
-            // location.assign("./");
+            location.assign("./");
           });
         },
       });
     } else {
       Swal.fire({
-        text: "กรุณาเลือกรุ่นอายุ, สายสี และ Pattern ของ Poomse และเลือกนักกีฬา?",
+        text: "กรุณาเลือกอีเว้นท์ และเลือกนักกีฬา?",
+        icon: "question",
+        confirmButtonText: "ตกลง",
+      });
+    }
+  });
+
+  $("#Poomse_save_doubles").on("click", function () {
+    let selectedIds = $(".checkbox:checked")
+      .map(function () {
+        return $(this).val();
+      })
+      .get();
+
+    let selectedEvent = $("#List_event").val();
+    let selectedAge = $("#Poomse_age_doubles").val();
+
+    if (
+      selectedIds.length >= 2 &&
+      selectedIds.length <= 2 &&
+      selectedEvent &&
+      selectedAge
+    ) {
+      $.ajax({
+        type: "POST",
+        url: "../../service/pages-twd/event/create-poomse_doubles",
+        data: {
+          ids: selectedIds,
+          Type_Name: selectedEvent,
+          Poomse_age: selectedAge,
+          name_match: params.selectedName,
+        },
+        success: function (response) {
+          Swal.fire({
+            text: "สมัครเรียบร้อย",
+            icon: "success",
+            timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            location.reload();
+          });
+        },
+        error: function (xhr, status, error) {
+          Swal.fire({
+            text: "เกิดข้อผิดพลาด กรุณาติดต่อเจ้าหน้าที่",
+            icon: "error",
+            timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            location.assign("./");
+          });
+        },
+      });
+    } else {
+      Swal.fire({
+        text: "กรุณาเลือกอีเว้นท์ และเลือกนักกีฬาอย่างน้อย 2 คน ชาย-หญิง",
+        icon: "question",
+        confirmButtonText: "ตกลง",
+      });
+    }
+  });
+
+  $("#Poomse_save_team").on("click", function () {
+    let selectedIds = $(".checkbox:checked")
+      .map(function () {
+        return $(this).val();
+      })
+      .get();
+
+    let selectedEvent = $("#List_event").val();
+    let selectedAge = $("#Poomse_age_team").val();
+    let selectedColor = $("#Poomse_colorse_team").val();
+
+    if (
+      selectedIds.length >= 3 &&
+      selectedIds.length <= 3 &&
+      selectedEvent &&
+      selectedAge &&
+      selectedColor
+    ) {
+      $.ajax({
+        type: "POST",
+        url: "../../service/pages-twd/event/create-poomse_team",
+        data: {
+          ids: selectedIds,
+          Type_Name: selectedEvent,
+          Poomse_age: selectedAge,
+          Poomse_colorse: selectedColor,
+          name_match: params.selectedName,
+        },
+        success: function (response) {
+          Swal.fire({
+            text: "สมัครเรียบร้อย",
+            icon: "success",
+            timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            location.reload();
+          });
+        },
+        error: function (xhr, status, error) {
+          Swal.fire({
+            text: "เกิดข้อผิดพลาด กรุณาติดต่อเจ้าหน้าที่",
+            icon: "error",
+            timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            location.assign("./");
+          });
+        },
+      });
+    } else {
+      Swal.fire({
+        text: "กรุณาเลือกอีเว้นท์ และเลือกนักกีฬาอย่างน้อย 3 คน ตามระเบียบการ",
+        icon: "question",
+        confirmButtonText: "ตกลง",
+      });
+    }
+  });
+
+  $("#Kiakpa_save").on("click", function () {
+    let selectedIds = $(".checkbox:checked")
+      .map(function () {
+        return $(this).val();
+      })
+      .get();
+
+    let selectedEvent = $("#List_event").val();
+    let selectedType = $("#Kiakpa_type").val();
+    let selectedAge = $("#Kiakpa_age").val();
+
+    if (
+      selectedEvent &&
+      selectedAge &&
+      selectedType &&
+      selectedIds.length > 0
+    ) {
+      $.ajax({
+        type: "POST",
+        url: "../../service/pages-twd/event/create-Kiakpa",
+        data: {
+          ids: selectedIds,
+          Type_Name: selectedEvent,
+          Kiakpa_age: selectedAge,
+          Kiakpa_types: selectedType,
+          name_match: params.selectedName,
+        },
+        success: function (response) {
+          Swal.fire({
+            text: "สมัครเรียบร้อย",
+            icon: "success",
+            timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            location.reload();
+          });
+        },
+        error: function (xhr, status, error) {
+          Swal.fire({
+            text: "เกิดข้อผิดพลาด กรุณาติดต่อเจ้าหน้าที่",
+            icon: "error",
+            timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            location.assign("./");
+          });
+        },
+      });
+    } else {
+      Swal.fire({
+        text: "กรุณาเลือกอีเว้นท์ และเลือกนักกีฬา?",
+        icon: "question",
+        confirmButtonText: "ตกลง",
+      });
+    }
+  });
+
+  $("#Dance_battle_save").on("click", function () {
+    let selectedIds = $(".checkbox:checked")
+      .map(function () {
+        return $(this).val();
+      })
+      .get();
+
+    let selectedEvent = $("#List_event").val();
+    let selectedAge = $("#Dancebattleage").val();
+
+    if (selectedEvent && selectedAge && selectedIds.length > 0) {
+      $.ajax({
+        type: "POST",
+        url: "../../service/pages-twd/event/create-dancebattle",
+        data: {
+          ids: selectedIds,
+          Type_Name: selectedEvent,
+          Dancebattle_age: selectedAge,
+          name_match: params.selectedName,
+        },
+        success: function (response) {
+          Swal.fire({
+            text: "สมัครเรียบร้อย",
+            icon: "success",
+            timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            location.reload();
+          });
+        },
+        error: function (xhr, status, error) {
+          Swal.fire({
+            text: "เกิดข้อผิดพลาด กรุณาติดต่อเจ้าหน้าที่",
+            icon: "error",
+            timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            location.assign("./");
+          });
+        },
+      });
+    } else {
+      Swal.fire({
+        text: "กรุณาเลือกอีเว้นท์ และเลือกนักกีฬา?",
+        icon: "question",
+        confirmButtonText: "ตกลง",
+      });
+    }
+  });
+
+  $("#DanceBattle_save_team").on("click", function () {
+    let selectedIds = $(".checkbox:checked")
+      .map(function () {
+        return $(this).val();
+      })
+      .get();
+
+    let selectedEvent = $("#List_event").val();
+
+    if (selectedIds.length >= 3 && selectedIds.length <= 5 && selectedEvent) {
+      $.ajax({
+        type: "POST",
+        url: "../../service/pages-twd/event/create-dancebattle-team",
+        data: {
+          ids: selectedIds,
+          Type_Name: selectedEvent,
+          name_match: params.selectedName,
+        },
+        success: function (response) {
+          Swal.fire({
+            text: "สมัครเรียบร้อย",
+            icon: "success",
+            timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            location.reload();
+          });
+        },
+        error: function (xhr, status, error) {
+          Swal.fire({
+            text: "เกิดข้อผิดพลาด กรุณาติดต่อเจ้าหน้าที่",
+            icon: "error",
+            timer: 1000,
+            confirmButtonText: "ตกลง",
+            timerProgressBar: true,
+          }).then((result) => {
+            location.assign("./");
+          });
+        },
+      });
+    } else {
+      Swal.fire({
+        text: "กรุณาเลือกอีเว้นท์ และนักกีฬา 3 ถึง 5 คน ตามนรเะเบียบการ",
         icon: "question",
         confirmButtonText: "ตกลง",
       });
@@ -252,309 +524,306 @@ $(document).ready(function () {
   });
 });
 
-function fetcstatus() {
-  var gender = document.getElementById("gender").value;
-  var List_event = document.getElementById("List_event").value;
+function fetchData(url, data, callback) {
   var xhr = new XMLHttpRequest();
-  xhr.open(
-    "POST",
-    "../../service/pages-twd/event/fetchdata/fetch_status",
-    true
-  );
+  xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-      var ageGroups = JSON.parse(xhr.responseText);
+      callback(JSON.parse(xhr.responseText));
+    }
+  };
+  xhr.send(data);
+}
+
+function fetcstatus() {
+  var gender = document.getElementById("gender").value;
+  var List_event = document.getElementById("List_event").value;
+  fetchData(
+    "../../service/pages-twd/event/fetchdata/fetch_solo",
+    "gender=" + gender + "&List_event=" + List_event,
+    function (ageGroups) {
       if (Array.isArray(ageGroups)) {
         var ageDropdown = document.getElementById("age");
         ageDropdown.innerHTML =
-          "<option value='' disabled selected>กรุณาเลือกอายุ</option>"; // Clear previous options
+          "<option value='' disabled selected>กรุณาเลือกอายุ</option>";
         ageGroups.forEach(function (age) {
-          var option = document.createElement("option");
-          option.text = age;
-          option.value = age;
-          ageDropdown.appendChild(option);
+          var option = new Option(age, age);
+          ageDropdown.add(option);
         });
         clearNextDropdown("weight");
       }
     }
-  };
-  xhr.send("gender=" + gender + "&List_event=" + List_event);
+  );
 }
 
 function fetchWeight() {
   var age = document.getElementById("age").value;
   var gender = document.getElementById("gender").value;
-  var xhr = new XMLHttpRequest();
-  xhr.open(
-    "POST",
-    "../../service/pages-twd/event/fetchdata/fetch_weight",
-    true
-  );
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function () {
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      var weights = JSON.parse(this.responseText);
+  fetchData(
+    "../../service/pages-twd/event/fetchdata/fetch_solo",
+    "age=" + age + "&gender=" + gender,
+    function (weights) {
       var weightDropdown = document.getElementById("weight");
       weightDropdown.innerHTML =
-        "<option value='' disabled selected>กรุณาเลือกรุ่นน้ำหนัก</option>"; // Clear previous options
+        "<option value='' disabled selected>กรุณาเลือกรุ่นน้ำหนัก</option>";
       weights.forEach(function (weight) {
-        var option = document.createElement("option");
-        option.text = weight;
-        option.value = weight;
-        weightDropdown.appendChild(option);
+        var option = new Option(weight, weight);
+        weightDropdown.add(option);
       });
       clearNextDropdown("sp_class");
     }
-  };
-  xhr.send("age=" + age + "&gender=" + gender);
+  );
 }
 
 function fetchClass() {
-  var weight = document.getElementById("weight").value;
-  var age = document.getElementById("age").value; // เพิ่มการเก็บค่าอายุ
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "../../service/pages-twd/event/fetchdata/fetch_class", true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function () {
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      var class_r = JSON.parse(this.responseText);
+  var age = document.getElementById("age").value;
+  fetchData(
+    "../../service/pages-twd/event/fetchdata/fetch_solo",
+    "age=" + age,
+    function (class_r) {
       var classDropdown = document.getElementById("sp_class");
       classDropdown.innerHTML =
-        "<option value='' disabled selected>กรุณาเลือกคลาส</option>"; // Clear previous options
+        "<option value='' disabled selected>กรุณาเลือกคลาส</option>";
       class_r.forEach(function (sp_class) {
-        var option = document.createElement("option");
-        option.text = sp_class;
-        option.value = sp_class;
-        classDropdown.appendChild(option);
+        var option = new Option(sp_class, sp_class);
+        classDropdown.add(option);
       });
     }
-  };
-  xhr.send("age=" + age); // ส่งค่าอายุไปด้วย
+  );
 }
 
 function fetcstatus_team() {
   var team_gender = document.getElementById("team_gender").value;
   var List_event = document.getElementById("List_event").value;
-  var xhr = new XMLHttpRequest();
-  xhr.open(
-    "POST",
-    "../../service/pages-twd/event/fetchdata/fetch_status_team",
-    true
-  );
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-      var ageGroups = JSON.parse(xhr.responseText);
+  fetchData(
+    "../../service/pages-twd/event/fetchdata/fetch_team",
+    "team_gender=" + team_gender + "&List_event=" + List_event,
+    function (ageGroups) {
       if (Array.isArray(ageGroups)) {
         var ageDropdown = document.getElementById("team_age");
         ageDropdown.innerHTML =
-          "<option value='' disabled selected>กรุณาเลือกอายุ</option>"; // Clear previous options
+          "<option value='' disabled selected>กรุณาเลือกอายุ</option>";
         ageGroups.forEach(function (age) {
-          var option = document.createElement("option");
-          option.text = age;
-          option.value = age;
-          ageDropdown.appendChild(option);
+          var option = new Option(age, age);
+          ageDropdown.add(option);
         });
         clearNextDropdown("team_weight");
       }
     }
-  };
-  xhr.send("team_gender=" + team_gender + "&List_event=" + List_event);
+  );
 }
 
 function fetchWeight_team() {
   var team_age = document.getElementById("team_age").value;
   var team_gender = document.getElementById("team_gender").value;
-  var xhr = new XMLHttpRequest();
-  xhr.open(
-    "POST",
-    "../../service/pages-twd/event/fetchdata/fetch_weight_team",
-    true
-  ); // เพิ่ม .php ให้ถูกต้อง
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function () {
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      var weights = JSON.parse(this.responseText);
+  fetchData(
+    "../../service/pages-twd/event/fetchdata/fetch_team",
+    "team_age=" + team_age + "&team_gender=" + team_gender,
+    function (weights) {
       var weightDropdown = document.getElementById("team_weight");
       weightDropdown.innerHTML =
-        "<option value='' disabled selected>กรุณาเลือกรุ่นน้ำหนัก</option>"; // Clear previous options
+        "<option value='' disabled selected>กรุณาเลือกรุ่นน้ำหนัก</option>";
       weights.forEach(function (weight) {
-        var option = document.createElement("option");
-        option.text = weight;
-        option.value = weight;
-        weightDropdown.appendChild(option);
+        var option = new Option(weight, weight);
+        weightDropdown.add(option);
       });
-      clearNextDropdown("sp_class");
     }
-  };
-  xhr.send("team_age=" + team_age + "&team_gender=" + team_gender); // แก้ชื่อพารามิเตอร์เป็น team_age และ team_gender
-}
-
-function fetcstatus_Poomse() {
-  var gender = document.getElementById("Poomse_gender").value;
-  var List_event = document.getElementById("List_event").value; // ต้องกำหนด id ใน HTML
-  var xhr = new XMLHttpRequest();
-  xhr.open(
-    "POST",
-    "../../service/pages-twd/event/fetchdata/fetch_status",
-    true
   );
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-      var ageGroups = JSON.parse(xhr.responseText);
-      if (Array.isArray(ageGroups)) {
-        var ageDropdown = document.getElementById("Poomse_age"); // ต้องกำหนด id ใน HTML
-        ageDropdown.innerHTML =
-          "<option value='' disabled selected>กรุณาเลือกอายุ</option>"; // Clear previous options
-        ageGroups.forEach(function (age) {
-          var option = document.createElement("option");
-          option.text = age;
-          option.value = age;
-          ageDropdown.appendChild(option);
-        });
-        clearNextDropdown("Poomse_weight");
-      }
-    }
-  };
-  xhr.send("gender=" + gender + "&List_event=" + List_event);
-}
-
-function fetchWeight_Poomse() {
-  var age = document.getElementById("Poomse_age").value;
-  var gender = document.getElementById("Poomse_gender").value;
-  var xhr = new XMLHttpRequest();
-  xhr.open(
-    "POST",
-    "../../service/pages-twd/event/fetchdata/fetch_weight",
-    true
-  );
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function () {
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      var weights = JSON.parse(this.responseText);
-      var weightDropdown = document.getElementById("Poomse_weight");
-      weightDropdown.innerHTML =
-        "<option value='' disabled selected>กรุณาเลือกรุ่นน้ำหนัก</option>"; // Clear previous options
-      weights.forEach(function (weight) {
-        var option = document.createElement("option");
-        option.text = weight;
-        option.value = weight;
-        weightDropdown.appendChild(option);
-      });
-      clearNextDropdown("sp_class");
-    }
-  };
-  xhr.send("age=" + age + "&gender=" + gender);
-}
-
-function fetchcolorse_Poomse() {
-  var weight = document.getElementById("Poomse_weight").value;
-  var age = document.getElementById("Poomse_age").value; // เพิ่มการเก็บค่าอายุ
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "../../service/pages-twd/event/fetchdata/fetch_class", true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function () {
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      var class_r = JSON.parse(this.responseText);
-      var classDropdown = document.getElementById("sp_class");
-      classDropdown.innerHTML =
-        "<option value='' disabled selected>กรุณาเลือกคลาส</option>"; // Clear previous options
-      class_r.forEach(function (sp_class) {
-        var option = document.createElement("option");
-        option.text = sp_class;
-        option.value = sp_class;
-        classDropdown.appendChild(option);
-      });
-    }
-  };
-  xhr.send("age=" + age);
 }
 
 function fetcstatus_Poomse() {
   var Poomse_gender = document.getElementById("Poomse_gender").value;
-  var List_event = document.getElementById("List_event").value; // ต้องกำหนด id ใน HTML
-  var xhr = new XMLHttpRequest();
-  xhr.open(
-    "POST",
-    "../../service/pages-twd/event/fetchdata/fetch_status_poomse",
-    true
-  );
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-      var ageGroups = JSON.parse(xhr.responseText);
+  var List_event = document.getElementById("List_event").value;
+  fetchData(
+    "../../service/pages-twd/event/fetchdata/fetch_poomse",
+    "Poomse_gender=" + Poomse_gender + "&List_event=" + List_event,
+    function (ageGroups) {
       if (Array.isArray(ageGroups)) {
-        var ageDropdown = document.getElementById("Poomse_age"); // ต้องกำหนด id ใน HTML
+        var ageDropdown = document.getElementById("Poomse_age");
         ageDropdown.innerHTML =
-          "<option value='' disabled selected>กรุณาเลือกอายุ</option>"; // Clear previous options
+          "<option value='' disabled selected>กรุณาเลือกอายุ</option>";
         ageGroups.forEach(function (age) {
-          var option = document.createElement("option");
-          option.text = age;
-          option.value = age;
-          ageDropdown.appendChild(option);
+          var option = new Option(age, age);
+          ageDropdown.add(option);
         });
-        clearNextDropdown("Poomse_colorse");
+        clearNextDropdown("Poomse_weight");
       }
     }
-  };
-  xhr.send("Poomse_gender=" + Poomse_gender + "&List_event=" + List_event);
+  );
 }
 
 function fetchWeight_Poomse() {
   var Poomse_age = document.getElementById("Poomse_age").value;
   var Poomse_gender = document.getElementById("Poomse_gender").value;
-  var xhr = new XMLHttpRequest();
-  xhr.open(
-    "POST",
-    "../../service/pages-twd/event/fetchdata/fetch_weight_poomse",
-    true
-  );
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function () {
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      var weights = JSON.parse(this.responseText);
+  fetchData(
+    "../../service/pages-twd/event/fetchdata/fetch_poomse",
+    "Poomse_age=" + Poomse_age + "&Poomse_gender=" + Poomse_gender,
+    function (weights) {
       var weightDropdown = document.getElementById("Poomse_colorse");
       weightDropdown.innerHTML =
-        "<option value='' disabled selected>กรุณาเลือกรุ่นน้ำหนัก</option>"; // Clear previous options
+        "<option value='' disabled selected>กรุณาเลือกรุ่นน้ำหนัก</option>";
       weights.forEach(function (weight) {
-        var option = document.createElement("option");
-        option.text = weight;
-        option.value = weight;
-        weightDropdown.appendChild(option);
+        var option = new Option(weight, weight);
+        weightDropdown.add(option);
       });
-      clearNextDropdown("sp_class");
+      clearNextDropdown("Poomse_pattern", "Poomse_colorse");
     }
-  };
-  xhr.send("Poomse_age=" + Poomse_age + "&Poomse_gender=" + Poomse_gender);
+  );
 }
 
 function fetchcolorse_Poomse() {
   var Poomse_colorse = document.getElementById("Poomse_colorse").value;
-  var Poomse_age = document.getElementById("Poomse_age").value; // เพิ่มการเก็บค่าอายุ
-  var xhr = new XMLHttpRequest();
-  xhr.open(
-    "POST",
-    "../../service/pages-twd/event/fetchdata/fetch_colorse_poomse",
-    true
-  );
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function () {
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      var Poomse_pattern = JSON.parse(this.responseText);
+  var Poomse_age = document.getElementById("Poomse_age").value;
+  fetchData(
+    "../../service/pages-twd/event/fetchdata/fetch_poomse",
+    "Poomse_colorse=" + Poomse_colorse + "&Poomse_age=" + Poomse_age,
+    function (class_r) {
       var classDropdown = document.getElementById("Poomse_pattern");
       classDropdown.innerHTML =
-        "<option value='' disabled selected>กรุณาเลือกคลาส</option>"; // Clear previous options
-      Poomse_pattern.forEach(function (Poomse_pattern) {
-        var option = document.createElement("option");
-        option.text = Poomse_pattern;
-        option.value = Poomse_pattern;
-        classDropdown.appendChild(option);
+        "<option value='' disabled selected>กรุณาเลือกคลาส</option>";
+      class_r.forEach(function (Poomse_pattern) {
+        var option = new Option(Poomse_pattern, Poomse_pattern);
+        classDropdown.add(option);
       });
     }
-  };
-  xhr.send("Poomse_colorse=" + Poomse_colorse + "&Poomse_age=" + Poomse_age);
+  );
+}
+
+function fetcstatus_Poomse_doubles() {
+  var List_event = document.getElementById("List_event").value;
+
+  if (List_event === "พุมเซ่ คู่ผสม") {
+    fetchData(
+      "../../service/pages-twd/event/fetchdata/fetch_poomse_doubles",
+      "List_event=" + List_event,
+      function (Poomse_age_doubles) {
+        var classDropdown = document.getElementById("Poomse_age_doubles");
+        classDropdown.innerHTML =
+          "<option value='' disabled selected>กรุณาเลือกรุ่นน้ำหนัก</option>";
+        Poomse_age_doubles.forEach(function (Poomse_age_double) {
+          var option = new Option(Poomse_age_double, Poomse_age_double);
+          classDropdown.add(option);
+        });
+      }
+    );
+  }
+}
+
+function fetcstatus_Poomse_team() {
+  var Poomse_gender_team = document.getElementById("Poomse_gender_team").value;
+  var List_event = document.getElementById("List_event").value;
+  fetchData(
+    "../../service/pages-twd/event/fetchdata/fetch_poomse_team",
+    "Poomse_gender_team=" + Poomse_gender_team + "&List_event=" + List_event,
+    function (ageGroups) {
+      if (Array.isArray(ageGroups)) {
+        var ageDropdown = document.getElementById("Poomse_age_team");
+        ageDropdown.innerHTML =
+          "<option value='' disabled selected>กรุณาเลือกอายุ</option>";
+        ageGroups.forEach(function (age) {
+          var option = document.createElement("option");
+          option.text = age;
+          option.value = age;
+          ageDropdown.appendChild(option);
+        });
+        clearNextDropdown("Poomse_colorse_team");
+      }
+    }
+  );
+}
+
+function fetchWeight_Poomse_team() {
+  var Poomse_age_team = document.getElementById("Poomse_age_team").value;
+  var Poomse_gender_team = document.getElementById("Poomse_gender_team").value;
+  fetchData(
+    "../../service/pages-twd/event/fetchdata/fetch_poomse_team",
+    "Poomse_age_team=" +
+      Poomse_age_team +
+      "&Poomse_gender_team=" +
+      Poomse_gender_team,
+    function (colors) {
+      var colorDropdown = document.getElementById("Poomse_colorse_team");
+      colorDropdown.innerHTML =
+        "<option value='' disabled selected>กรุณาเลือกสี</option>";
+      colors.forEach(function (color) {
+        var option = document.createElement("option");
+        option.text = color;
+        option.value = color;
+        colorDropdown.appendChild(option);
+      });
+    }
+  );
+}
+
+function fetcstatus_Kiakpa() {
+  var Kiakpa_gender = document.getElementById("Kiakpa_gender").value;
+  var List_event = document.getElementById("List_event").value;
+  fetchData(
+    "../../service/pages-twd/event/fetchdata/fetch_Kiakpa",
+    "Kiakpa_gender=" + Kiakpa_gender + "&List_event=" + List_event,
+    function (Kiakpa_types) {
+      if (Array.isArray(Kiakpa_types)) {
+        var KiakpaTypeSelect = document.getElementById("Kiakpa_type");
+        KiakpaTypeSelect.innerHTML =
+          "<option value='' disabled selected>กรุณาเลือกชนิดกีฬา</option>";
+        Kiakpa_types.forEach(function (type) {
+          var option = document.createElement("option");
+          option.text = type;
+          option.value = type;
+          KiakpaTypeSelect.appendChild(option);
+        });
+
+        clearNextDropdown("Kiakpa_age");
+      }
+    }
+  );
+}
+
+function fetcstatus_Kiakpa_type() {
+  var Kiakpa_gender = document.getElementById("Kiakpa_gender").value;
+  var Kiakpa_type = document.getElementById("Kiakpa_type").value;
+  fetchData(
+    "../../service/pages-twd/event/fetchdata/fetch_Kiakpa",
+    "Kiakpa_gender=" + Kiakpa_gender + "&Kiakpa_type=" + Kiakpa_type,
+    function (Kiakpa_ages) {
+      if (Array.isArray(Kiakpa_ages)) {
+        var KiakpaageSelect = document.getElementById("Kiakpa_age");
+        KiakpaageSelect.innerHTML =
+          "<option value='' disabled selected>กรุณาเลือกชนิดกีฬา</option>";
+        Kiakpa_ages.forEach(function (age) {
+          var option = document.createElement("option");
+          option.text = age;
+          option.value = age;
+          KiakpaageSelect.appendChild(option);
+        });
+      }
+    }
+  );
+}
+
+function fetc_Dance_battle_age() {
+  var Dance_battle_gender = document.getElementById(
+    "Dance_battle_gender"
+  ).value;
+  var List_event = document.getElementById("List_event").value;
+  fetchData(
+    "../../service/pages-twd/event/fetchdata/fetch_dance_battle",
+    "Dance_battle_gender=" + Dance_battle_gender + "&List_event=" + List_event,
+    function (Dancebattles) {
+      if (Array.isArray(Dancebattles)) {
+        var DanceBattleSelect = document.getElementById("Dancebattleage");
+        DanceBattleSelect.innerHTML =
+          "<option value='' disabled selected>กรุณาเลือกชนิดกีฬา</option>";
+        Dancebattles.forEach(function (age) {
+          var option = document.createElement("option");
+          option.text = age;
+          option.value = age;
+          DanceBattleSelect.appendChild(option);
+        });
+      }
+    }
+  );
 }
 
 function clearNextDropdown(nextDropdownId) {
@@ -565,67 +834,104 @@ function clearNextDropdown(nextDropdownId) {
   }
 }
 
-function selectgender() {
-  var selectedGender = document.getElementById("gender").value;
-  var selectedTeamGender = document.getElementById("team_gender").value;
-  var selectedPoomseGender = document.getElementById("Poomse_gender").value;
+function resetTable() {
   var tableRows = document
     .getElementById("form-create-event")
-    .getElementsByTagName("tbody")[0]
-    .getElementsByTagName("tr");
+    .querySelectorAll("tbody tr");
+  tableRows.forEach(function (row) {
+    row.style.display = ""; // แสดงทุกแถว
+  });
+}
+
+function selectgender() {
+  var genders = [
+    "gender",
+    "team_gender",
+    "Poomse_gender",
+    "Poomse_gender_team",
+    "Kiakpa_gender",
+    "Dance_battle_gender",
+    "DanceBattle_gender_team",
+  ];
+  var selectedGenders = genders.map(function (id) {
+    return document.getElementById(id).value;
+  });
+  var tableRows = document
+    .getElementById("form-create-event")
+    .querySelectorAll("tbody tr");
 
   for (var i = 0; i < tableRows.length; i++) {
-    var genderColumn = tableRows[i].getElementsByTagName("td")[4];
+    var genderColumn = tableRows[i].querySelector("td:nth-child(5)");
     if (genderColumn) {
       var gender = genderColumn.innerText.trim();
-      if (selectedGender === "ชาย" && gender !== "ชาย") {
-        tableRows[i].style.display = "none";
-      } else if (selectedGender === "หญิง" && gender !== "หญิง") {
-        tableRows[i].style.display = "none";
-      } else if (selectedTeamGender === "ชาย" && gender !== "ชาย") {
-        tableRows[i].style.display = "none";
-      } else if (selectedTeamGender === "หญิง" && gender !== "หญิง") {
-        tableRows[i].style.display = "none";
-      } else if (selectedPoomseGender === "ชาย" && gender !== "ชาย") {
-        tableRows[i].style.display = "none";
-      } else if (selectedPoomseGender === "หญิง" && gender !== "หญิง") {
-        tableRows[i].style.display = "none";
-      } else {
-        tableRows[i].style.display = "";
+      var shouldDisplay = selectedGenders.some(function (selectedGender) {
+        return selectedGender === gender;
+      });
+      tableRows[i].style.display = shouldDisplay ? "" : "none";
+    }
+  }
+  function selectgender() {
+    var genders = [
+      "gender",
+      "team_gender",
+      "Poomse_gender",
+      "Poomse_gender_team",
+      "Kiakpa_gender",
+      "Dance_battle_gender",
+      "DanceBattle_gender_team",
+    ];
+    var selectedGenders = genders.map(function (id) {
+      return document.getElementById(id).value;
+    });
+    var tableRows = document
+      .getElementById("form-create-event")
+      .querySelectorAll("tbody tr");
+
+    for (var i = 0; i < tableRows.length; i++) {
+      var genderColumn = tableRows[i].querySelector("td:nth-child(5)");
+      if (genderColumn) {
+        var gender = genderColumn.innerText.trim();
+        var shouldDisplay = selectedGenders.some(function (selectedGender) {
+          return selectedGender === gender;
+        });
+        tableRows[i].style.display = shouldDisplay ? "" : "none";
       }
     }
   }
 }
 
 function List_event() {
+  resetTable(); // รีเซ็ตตาราง
   var selected_sport = document.getElementById("List_event").value;
-  var fight_div = document.getElementById("fight");
-  var fight_team_div = document.getElementById("fight-team");
-  var fight_poomse_div = document.getElementById("Poomse-Solo");
+  var elements = {
+    "ต่อสู้ (เดี่ยว)": "fight",
+    "ต่อสู้ ทีม": "fight-team",
+    พุมเซ่: "Poomse-Solo",
+    "พุมเซ่ คู่ผสม": "Poomse-doubles",
+    "พุมเซ่ ทีม": "Poomse-team",
+    เคียกพ่า: "Kiakpa",
+    "Dance Battle": "Dance_battle",
+    "Dance Battle ทีม": "Dance_battle_team",
+  };
 
-  fight_div.style.display = "none";
-  fight_team_div.style.display = "none";
-  fight_poomse_div.style.display = "none";
+  Object.keys(elements).forEach(function (sport) {
+    var element = document.getElementById(elements[sport]);
+    if (selected_sport === sport && element) {
+      element.style.display = "flex";
+    } else if (element) {
+      element.style.display = "none";
+    }
+  });
 
-  // แสดงเฉพาะองค์ประกอบที่ถูกเลือก
-  if (selected_sport == "ต่อสู้ (เดี่ยว)") {
-    fight_div.style.display = "flex";
-  } else if (selected_sport == "ต่อสู้ ทีม") {
-    fight_team_div.style.display = "flex";
-  } else if (selected_sport == "พุมเซ่") {
-    fight_poomse_div.style.display = "flex";
-  }
-
-  // เรียกใช้ฟังก์ชันเพื่อล้างข้อมูล dropdown
   clearDropdowns();
 }
 
 function clearDropdowns() {
-  // ล้างข้อมูลใน dropdown ที่เกี่ยวข้อง
-  document.getElementById("age").innerHTML =
-    "<option value='' disabled selected>กรุณาเลือกอายุ</option>";
-  document.getElementById("weight").innerHTML =
-    "<option value='' disabled selected>กรุณาเลือกรุ่นน้ำหนัก</option>";
-  document.getElementById("sp_class").innerHTML =
-    "<option value='' disabled selected>กรุณาเลือกคลาส</option>";
+  document.getElementById("gender").selectedIndex = 0;
+  document.getElementById("team_gender").selectedIndex = 0;
+  document.getElementById("Poomse_gender").selectedIndex = 0;
+  document.getElementById("Poomse_gender_team").selectedIndex = 0;
+  document.getElementById("Kiakpa_gender").selectedIndex = 0;
+  document.getElementById("Dance_battle_gender").selectedIndex = 0;
+  document.getElementById("DanceBattle_gender_team").selectedIndex = 0;
 }
