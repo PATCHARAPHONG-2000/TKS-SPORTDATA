@@ -17,9 +17,7 @@ $conn = $Database->connect();
     <meta content="" name="keywords">
 
     <link href="assets/images/favicon.png" rel="icon">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -32,14 +30,14 @@ $conn = $Database->connect();
     <link rel="stylesheet" href="assets/css/login.css">
 
     <style>
-    ::placeholder {
-        font-size: 15px;
-    }
+        ::placeholder {
+            font-size: 15px;
+        }
 
-    .form-label {
-        color: #000000;
-        font-weight: 500;
-    }
+        .form-label {
+            color: #000000;
+            font-weight: 500;
+        }
     </style>
 
 </head>
@@ -51,11 +49,9 @@ $conn = $Database->connect();
             <div class="contact-info d-flex align-items-center">
             </div>
             <div class="social-links d-none d-md-block">
-                <a href="https://www.facebook.com/TKSsoft" target="_blank" class="facebook"><i
-                        class="bi bi-facebook"></i></a>
+                <a href="https://www.facebook.com/TKSsoft" target="_blank" class="facebook"><i class="bi bi-facebook"></i></a>
                 <a href="https://line.me/ti/p/_EFnRUO5tK" target="_blank" class="line"> <i class="bi bi-line"></i></a>
-                <a href="login-score" class="karate"><img src="assets/images/karate-icon.png" alt=""
-                        style="width: 15px; height:22px;"></a>
+                <a href="login-score" class="karate"><img src="assets/images/karate-icon.png" alt="" style="width: 15px; height:22px;"></a>
             </div>
         </div>
     </section>
@@ -71,21 +67,28 @@ $conn = $Database->connect();
                     <li><a class="nav-link scrollto " href="index#photo">Photo</a></li>
                     <li><a class="nav-link scrollto" href="index#contact">Contact</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Login
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="login" style="color:black">TKS SPORTDATA</a>
-                            <a class="dropdown-item" href="login_ad" style="color:black">AD-CARD</a>
+                            <a class="dropdown-item" href="login_ad" style="color:black">AD Card</a>
                         </div>
                     </li>
-
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            รายชื่อนักกีฬา
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="check_List_name_pc" style="color:black">สำหรับ คอมพิวเตอร์</a>
+                            <a class="dropdown-item" href="check_List_name_moblie" style="color:black">สำหรับ โทรศัพท์</a>
+                        </div>
+                    </li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
+            </nav>
         </div>
-    </header><!-- End Header -->
+    </header>
 
     <main id="main">
 
@@ -100,17 +103,13 @@ $conn = $Database->connect();
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
                                                 <label for="firstName" class="form-label">First Name</label>
-                                                <input type="text" id="firstName" name="firstName" placeholder="ชื่อ"
-                                                    class="form-control form-control-lg" required
-                                                    value="<?php echo isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : ''; ?>" />
+                                                <input type="text" id="firstName" name="firstName" placeholder="ชื่อ" class="form-control form-control-lg" required value="<?php echo isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : ''; ?>" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
                                                 <label for="lastName" class="form-label">Last Name</label>
-                                                <input type="text" id="lastName" name="lastname" placeholder="นามสกุล"
-                                                    class="form-control form-control-lg" required
-                                                    value="<?php echo isset($_POST['lastname']) ? htmlspecialchars($_POST['lastname']) : ''; ?>" />
+                                                <input type="text" id="lastName" name="lastname" placeholder="นามสกุล" class="form-control form-control-lg" required value="<?php echo isset($_POST['lastname']) ? htmlspecialchars($_POST['lastname']) : ''; ?>" />
                                             </div>
                                         </div>
                                     </div>
@@ -119,23 +118,17 @@ $conn = $Database->connect();
                                         <div class="col-md-6 mb-4 d-flex align-items-center">
                                             <div class="form-outline datepicker w-100">
                                                 <label for="team" class="form-label">Team</label>
-                                                <input type="text" id="team" name="team" placeholder="ทีม"
-                                                    class="form-control form-control-lg" required
-                                                    value="<?php echo isset($_POST['team']) ? htmlspecialchars($_POST['team']) : ''; ?>" />
+                                                <input type="text" id="team" name="team" placeholder="ทีม" class="form-control form-control-lg" required value="<?php echo isset($_POST['team']) ? htmlspecialchars($_POST['team']) : ''; ?>" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-6  gender">
                                             <h6 class="form-label mb-2 pb-1 mt-2">Gender </h6>
                                             <div class="form-check form-check-inline mt-2">
-                                                <input class="form-check-input" type="radio" name="gender"
-                                                    id="femaleGender" value="Female" required
-                                                    <?php echo (isset($_POST['gender']) && $_POST['gender'] == 'Female') ? 'checked' : ''; ?> />
+                                                <input class="form-check-input" type="radio" name="gender" id="femaleGender" value="Female" required <?php echo (isset($_POST['gender']) && $_POST['gender'] == 'Female') ? 'checked' : ''; ?> />
                                                 <label class="form-check-label" for="femaleGender">Female</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="gender"
-                                                    id="maleGender" value="Male" required
-                                                    <?php echo (isset($_POST['gender']) && $_POST['gender'] == 'Male') ? 'checked' : ''; ?> />
+                                                <input class="form-check-input" type="radio" name="gender" id="maleGender" value="Male" required <?php echo (isset($_POST['gender']) && $_POST['gender'] == 'Male') ? 'checked' : ''; ?> />
                                                 <label class="form-check-label" for="maleGender">Male</label>
                                             </div>
                                         </div>
@@ -145,19 +138,13 @@ $conn = $Database->connect();
                                         <div class="col-md-6 mb-4 pb-2">
                                             <div class="form-outline">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input type="email" id="email" name="email" placeholder="อีเมล"
-                                                    class="form-control form-control-lg" required
-                                                    value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" />
+                                                <input type="email" id="email" name="email" placeholder="อีเมล" class="form-control form-control-lg" required value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4 pb-2">
                                             <div class="form-outline">
                                                 <label for="tell" class="form-label">Phone Number</label>
-                                                <input type="tel" id="tell" name="tell" placeholder="เบอร์โทร"
-                                                    class="form-control form-control-lg" minlength="10" maxlength="10"
-                                                    required pattern="[0-9]{10}"
-                                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-                                                    value="<?php echo isset($_POST['tell']) ? htmlspecialchars($_POST['tell']) : ''; ?>" />
+                                                <input type="tel" id="tell" name="tell" placeholder="เบอร์โทร" class="form-control form-control-lg" minlength="10" maxlength="10" required pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" value="<?php echo isset($_POST['tell']) ? htmlspecialchars($_POST['tell']) : ''; ?>" />
                                             </div>
                                         </div>
                                     </div>
@@ -166,9 +153,7 @@ $conn = $Database->connect();
                                         <div class="col-md-6 mb-4 pb-2">
                                             <div class="form-outline">
                                                 <label for="password" class="form-label">Password</label>
-                                                <input type="password" id="password" name="password"
-                                                    placeholder="รหัสผ่าน" class="form-control form-control-lg"
-                                                    required />
+                                                <input type="password" id="password" name="password" placeholder="รหัสผ่าน" class="form-control form-control-lg" required />
                                                 <span id="passwordHelpInline" class="form-text ms-2">
                                                     รหัสผ่านของคุณ ต้องมีอย่างน้อย 8 ตัวขึ้นไป
                                                 </span>
@@ -178,9 +163,7 @@ $conn = $Database->connect();
                                         <div class="col-md-6 mb-4 pb-2">
                                             <div class="form-outline">
                                                 <label for="c_password" class="form-label">Confirm Password</label>
-                                                <input type="password" id="c_password" name="c_password"
-                                                    placeholder="ยืนยันรหัสผ่าน" class="form-control form-control-lg"
-                                                    required />
+                                                <input type="password" id="c_password" name="c_password" placeholder="ยืนยันรหัสผ่าน" class="form-control form-control-lg" required />
                                             </div>
                                         </div>
                                     </div>
@@ -188,13 +171,11 @@ $conn = $Database->connect();
                                     <input type="hidden" id="cookieSetting" name="cookieSetting" value="0">
 
                                     <div class="mt-2 pt-2 text-center">
-                                        <button class="btn align-items-center" name="signup"
-                                            type="submit">สมัครสมาชิก</button>
+                                        <button class="btn align-items-center" name="signup" type="submit">สมัครสมาชิก</button>
                                     </div>
                                 </form>
                                 <div>
-                                    <p class="mb-0 mt-4 text-center">มีบัญชีอยู่แล้วใช่ไหม? <a href="login"
-                                            class="fw-bold login-button ms-2" id="loginLink">Login</a></p>
+                                    <p class="mb-0 mt-4 text-center">มีบัญชีอยู่แล้วใช่ไหม? <a href="login" class="fw-bold login-button ms-2" id="loginLink">Login</a></p>
                                 </div>
                             </div>
                         </div>
@@ -247,8 +228,7 @@ $conn = $Database->connect();
         </div>
     </footer>
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <div id="preloader"></div>
 
     <script src="assets/vendor/aos/aos.js"></script>

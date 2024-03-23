@@ -49,18 +49,7 @@ if (isset($_SESSION['team']['role'])) {
                                         <i class="fas fa-users"></i>
                                         รายชื่อนักกีฬาที่เข้าร่วมอีเว้นท์
                                     </h4>
-                                    <!-- <div>
-                                        <a href="form-create.php" class="btn btn-primary mt-3 mr-3">
-                                            <i class="fas fa-plus"></i>
-                                            เพิ่มนักกีฬา
-                                        </a>
-                                        <a href="#" class="btn btn-info mt-3 text-white delete-btn" type="button">
-                                            <i class="nav-icon fa-solid fa-print"></i>
-                                            ลบรายการที่เลือก
-                                        </a>
-                                    </div> -->
                                 </div>
-
                                 <div class="p-2">
                                     <table id="index-event" class="table table table-striped table-hover">
                                         <thead>

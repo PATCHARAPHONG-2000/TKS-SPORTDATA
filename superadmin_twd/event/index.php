@@ -11,7 +11,7 @@ $per->execute();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>จัดการสมาชิก | AppzStory</title>
+    <title>TKS SOFTVISION</title>
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon.ico">
     <!-- stylesheet -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
@@ -42,27 +42,6 @@ $per->execute();
                                         <i class="fas fa-users"></i>
                                         รายชื่อนักกีฬาที่เข้าร่วมอีเว้นท์
                                     </h4>
-                                    <div>
-                                        <a href="excel" class="btn btn-primary mt-3 mr-3">
-                                            <i class="fas fa-plus"></i>
-                                            โหลดข้อมูล
-                                        </a>
-                                        <!-- <div class="form-group mb-5 pt-5">
-                                            <div class="mr-3">
-                                                <label for="name_match" style="color: black; font-size: 1.0rem;">ชื่อ-แมตท์</label>
-                                                <select class="form-control" name="name_match" id="name_match" required onchange="showAthletes()">
-                                                    <option value="" disabled selected>กรุณาเลือกชื่อแมตท์</option>
-                                                    <?php
-                                                    $name = $conn->prepare("SELECT DISTINCT name_match FROM event");
-                                                    $name->execute();
-                                                    while ($row = $name->fetch(PDO::FETCH_ASSOC)) {
-                                                        echo "<option value='{$row['name_match']}'>{$row['name_match']}</option>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div> -->
-                                    </div>
                                 </div>
 
                                 <div class="p-2">
@@ -109,7 +88,11 @@ $per->execute();
                                                             <?php echo isset($person["weight"]) ? $person["weight"] : '-'; ?>
                                                         </td>
                                                         <td class="align-middle">
-                                                            <img src="../../service/tksuploads/<?php echo $person["image"]; ?>" alt="Profile" style="max-width: 50px;">
+                                                            <?php if ($person["image"] && file_exists("../../service/tksuploads/" . $person["image"])) : ?>
+                                                                <img src="../../service/tksuploads/<?php echo $person["image"]; ?>" alt="Profile" style="max-width: 50px;">
+                                                            <?php else : ?>
+                                                                <img src="../../assets/images/avatar.png" alt="Profile" style="max-width: 50px;">
+                                                            <?php endif; ?>
                                                         </td>
                                                         <td class="align-middle">
                                                             <a href="info?id=<?php echo $person['id']; ?>" class="btn btn-info">

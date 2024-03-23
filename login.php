@@ -11,9 +11,7 @@ $conn = $Database->connect();
     <title>TKS SPORTDATA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
@@ -34,21 +32,28 @@ $conn = $Database->connect();
                     <li><a class="nav-link scrollto " href="index#photo">Photo</a></li>
                     <li><a class="nav-link scrollto" href="index#contact">Contact</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Login
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="login" style="color:black">TKS SPORTDATA</a>
-                            <a class="dropdown-item" href="login_ad" style="color:black">AD-CARD</a>
+                            <a class="dropdown-item" href="login_ad" style="color:black">AD Card</a>
                         </div>
                     </li>
-
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            รายชื่อนักกีฬา
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="check_List_name_pc" style="color:black">สำหรับ คอมพิวเตอร์</a>
+                            <a class="dropdown-item" href="check_List_name_moblie" style="color:black">สำหรับ โทรศัพท์</a>
+                        </div>
+                    </li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
+            </nav>
         </div>
-    </header><!-- End Header -->
+    </header>
 
     <main id="main">
 
@@ -62,20 +67,15 @@ $conn = $Database->connect();
                                     <div class="mb-md-5 ">
                                         <h2 class="fw-bold mb-5 text-uppercase text-center">Login</h2>
                                         <div class="form-outline form-white mb-4 position-relative">
-                                            <input type="email" id="email" name="email"
-                                                class="form-control form-control-lg" placeholder="Email" required />
+                                            <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Email" required />
                                         </div>
                                         <div class="form-outline form-white mb-3 position-relative">
-                                            <input type="password" id="password" name="password"
-                                                class="form-control form-control-lg" placeholder="Password" required />
-                                            <i class="fa-regular fa-eye position-absolute px-2 end-0 top-50 translate-middle-y"
-                                                style="cursor: pointer;" id="show_pass"></i>
+                                            <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password" required />
+                                            <i class="fa-regular fa-eye position-absolute px-2 end-0 top-50 translate-middle-y" style="cursor: pointer;" id="show_pass"></i>
                                         </div>
-                                        <p class="small mb-4 pb-lg-2 ms-2"><a class="-50" id="resetpassword"
-                                                href="">Forgot password?</a></p>
+                                        <p class="small mb-4 pb-lg-2 ms-2"><a class="-50" id="resetpassword" href="">Forgot password?</a></p>
                                         <div class="mt-4 pt-2 text-center">
-                                            <button class="btn align-items-center" name="login"
-                                                type="submit">Login</button>
+                                            <button class="btn align-items-center" name="login" type="submit">Login</button>
                                         </div>
                                     </div>
                                 </form>

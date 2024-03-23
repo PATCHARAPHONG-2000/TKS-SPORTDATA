@@ -38,15 +38,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dir = "../tksuploads/";
     $newFileName = time() . '_' . $_FILES['image']['name'];
     $fileImage = $dir . $newFileName;
-    $check = getimagesize($_FILES['image']['tmp_name']);
 
     $allowedImageTypes = ['image/jpeg', 'image/png'];
-    if (!$check || !in_array($check['mime'], $allowedImageTypes)) {
-        respondError('Invalid or unreadable image format. Please upload a JPEG or PNG image.');
-    }
 
-    if (!move_uploaded_file($_FILES["image"]["tmp_name"], $fileImage)) {
-        respondError('Error uploading image');
+    if (isset($_FILES['image']) && $_FILES['image']['tmp_name'] != '') {
+        $check = getimagesize($_FILES['image']['tmp_name']);
+
+        // ตรวจสอบไฟล์ภาพ
+        if (!$check || !in_array($check['mime'], $allowedImageTypes)) {
+            respondError('Invalid or unreadable image format. Please upload a JPEG or PNG image.');
+        }
+
+        // อัพโหลดไฟล์ภาพ
+        if (!move_uploaded_file($_FILES["image"]["tmp_name"], $fileImage)) {
+            respondError('Error uploading image');
+        }
     }
 
     $firstname = $_POST['firstname'];
@@ -59,8 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $status = 'ชาย';
     } elseif ($status === 'female') {
         $status = 'หญิง';
-    } else {
-        $status = 'ไม่ระบุ';
     }
 
     // สร้างรหัส ID ที่ไม่ซ้ำกับฐานข้อมูล

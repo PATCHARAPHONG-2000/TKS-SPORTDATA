@@ -870,34 +870,6 @@ function selectgender() {
       tableRows[i].style.display = shouldDisplay ? "" : "none";
     }
   }
-  function selectgender() {
-    var genders = [
-      "gender",
-      "team_gender",
-      "Poomse_gender",
-      "Poomse_gender_team",
-      "Kiakpa_gender",
-      "Dance_battle_gender",
-      "DanceBattle_gender_team",
-    ];
-    var selectedGenders = genders.map(function (id) {
-      return document.getElementById(id).value;
-    });
-    var tableRows = document
-      .getElementById("form-create-event")
-      .querySelectorAll("tbody tr");
-
-    for (var i = 0; i < tableRows.length; i++) {
-      var genderColumn = tableRows[i].querySelector("td:nth-child(5)");
-      if (genderColumn) {
-        var gender = genderColumn.innerText.trim();
-        var shouldDisplay = selectedGenders.some(function (selectedGender) {
-          return selectedGender === gender;
-        });
-        tableRows[i].style.display = shouldDisplay ? "" : "none";
-      }
-    }
-  }
 }
 
 function List_event() {

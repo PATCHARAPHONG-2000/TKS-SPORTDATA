@@ -50,13 +50,13 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="social-links d-none d-md-block">
                 <a href="https://www.facebook.com/TKSsoft" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="https://line.me/ti/p/_EFnRUO5tK" class="line"> <i class="bi bi-line"></i></a>
+                <!-- <a href="https://line.me/ti/p/_EFnRUO5tK" class="line"> <i class="bi bi-line"></i></a> -->
+                <a href="./assets/images/LINE.jpg" target="_blank" class="line"> <i class="bi bi-line"></i></a>
                 <a href="login-score" class="karate"><img src="assets/images/karate-icon.png" alt="" style="width: 15px; height:22px;"></a>
             </div>
         </div>
     </section>
 
-    <!-- ======= Header ======= -->
     <header id="header" class="d-flex align-items-center">
         <div class="container d-flex align-items-center justify-content-between">
             <h1 class="logo"><a href="./">TKS SPORTDATA</a></h1>
@@ -72,16 +72,24 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                             Login
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="login" style="color:black">TKS DATASPORT</a>
+                            <a class="dropdown-item" href="login" style="color:black">TKS SPORTDATA</a>
                             <a class="dropdown-item" href="login_ad" style="color:black">AD Card</a>
                         </div>
                     </li>
-
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            รายชื่อนักกีฬา
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="check_List_name_pc" style="color:black">สำหรับ คอมพิวเตอร์</a>
+                            <a class="dropdown-item" href="check_List_name_moblie" style="color:black">สำหรับ โทรศัพท์</a>
+                        </div>
+                    </li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
+            </nav>
         </div>
-    </header><!-- End Header -->
+    </header>
 
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="d-flex align-items-center">
@@ -201,7 +209,6 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
-
                         <div class="carousel-inner">
                             <?php foreach ($rows as $key => $row) {
                                 $users = $row['users'];
@@ -211,12 +218,12 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                                 if (filter_var($users, FILTER_VALIDATE_EMAIL)) {
                                     // กรณีเป็นอีเมล
                                     echo '<div class="carousel-item' . (($key == 0) ? ' active' : '') . '">';
-                                    echo '<a href="check_ad/"><img src="' . $imageSrc . '" class="d-block w-100" alt="..."></a>';
+                                    echo '<p href="check_ad/"><img src="' . $imageSrc . '" class="d-block w-100" alt="..."></p>';
                                     echo '</div>';
                                 } else if ($users == "SUPERADMIN TWD") {
                                     // กรณีเป็น SUPERADMIN TWD
                                     echo '<div class="carousel-item' . (($key == 0) ? ' active' : '') . '">';
-                                    echo '<a href="check_twd/"><img src="' . $imageSrc . '" class="d-block w-100" alt="..."></a>';
+                                    echo '<a href="check_List_name_PC"><img src="' . $imageSrc . '" class="d-block w-100" alt="..."></a>';
                                     echo '</div>';
                                 } else {
                                     // กรณีอื่นๆ (ไม่ใช่อีเมลและไม่ใช่ SUPERADMIN TWD)
@@ -225,7 +232,6 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                                     echo '</div>';
                                 }
                             } ?>
-
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

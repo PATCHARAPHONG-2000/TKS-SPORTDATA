@@ -12,7 +12,7 @@ require_once '../connect.php'; // ปรับเส้นทางตามค�
 $Database = new Database();
 $connect = $Database->connect();
 
-if ($connect) { 
+if ($connect) {
     if (isset($_SESSION['id_city'])) {
         $userStatus = $_SESSION['id_city']['province']; // เช็ค session สำหรับสถานะผู้ใช้
 
@@ -25,15 +25,15 @@ if ($connect) {
             $data = array();
             foreach ($stmt->fetchAll() as $row) {
                 $data[] = [
-                    'id' => $row['id'], 
+                    'id' => $row['id'],
                     'firstname' => $row['firstname'],
                     'lastname' => $row['lastname'],
                     'status' => $row['status'],
                     'sector' => $row['sector'],
                     'province' => $row['province'],
                     'image' => $row['image'],
-                    'IsActive'=> $row['IsActive'],
-                    
+                    'IsActive' => $row['IsActive'],
+
                 ];
             }
 
@@ -51,4 +51,3 @@ if ($connect) {
 }
 
 echo json_encode($response);
-?>

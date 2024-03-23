@@ -44,9 +44,41 @@ function isActive($data)
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="../sportsperson/" class="nav-link <?php echo isActive('dashboard') ?>">
+                        <i class="nav-icon fas fa-users-rectangle"></i>
+                        <p>รายชื่อนักกีฬาทั้งหมด</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="../event/" class="nav-link <?php echo isActive('dashboard') ?>">
                         <i class="nav-icon fas fa-users-rectangle"></i>
                         <p>รายชื่อนักกีฬาที่สมัคร</p>
+                    </a>
+                </li>
+                <div>
+                    <hr>
+                </div>
+                <li class="nav-header">สมาชิก</li>
+                <li class="nav-item">
+                    <a href="../users/" class="nav-link">
+                        <i class="nav-icon fa-solid fa-hospital-user fa-xl2 mr-2"></i>
+                        <p>รายชื่อสมาชิก</p>
+                    </a>
+                </li>
+                <div>
+                    <hr>
+                </div>
+                <li class="nav-header">จัดการ</li>
+                <li class="nav-item">
+                    <a href="../Certificate/" class="nav-link">
+                        <i class="nav-icon fa-solid fa-certificate fa-xl2 mr-2"></i>
+                        <p>Certificate</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../users/" class="nav-link">
+                        <i class="nav-icon fa-solid fa-id-card fa-xl2 mr-2"></i>
+                        <p>AD Card</p>
                     </a>
                 </li>
                 <div>

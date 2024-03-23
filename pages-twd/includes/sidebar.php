@@ -13,6 +13,11 @@ $sql = $conn->prepare("SELECT * FROM setting WHERE name = 'btn-twd_event' ORDER 
 $sql->execute();
 $event = $sql->fetch(PDO::FETCH_ASSOC);
 
+
+$data = $conn->prepare("SELECT * FROM data_all WHERE name = 'ระเบียบการ' ORDER BY id");
+$data->execute();
+$procedure = $data->fetch(PDO::FETCH_ASSOC);
+
 if (isset($_SESSION['team']['role'])) {
     $role = $_SESSION['team']['role'];
 } else {
@@ -86,8 +91,6 @@ if (isset($_SESSION['team']['role'])) {
                         <p>ระเบียบการแข่งขัน</p>
                     </a>
                 </li>
-
-
                 <li class="nav-header">บัญชีของเรา</li>
                 <li class="nav-item">
                     <a id="logout" class="nav-link" onclick="confirmLogout()">

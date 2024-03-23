@@ -1,10 +1,6 @@
 <?php
 require_once('../authen.php');
 
-$Database = new Database();
-$conn = $Database->connect();
-
-
 $id = $_GET['id'];
 $params = array('id' => $id);
 $selectbyidUser = $conn->prepare("SELECT * FROM player WHERE id = :id");
@@ -146,7 +142,6 @@ if (isset($_SESSION['team']['role'])) {
                 return;
             }
 
-            // เมื่อไฟล์ถูกต้อง อัปเดตป้ายกำกับด้วยชื่อไฟล์
             const fileName = file.name;
             customFileLabel.html(fileName);
         });

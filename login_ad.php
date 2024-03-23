@@ -10,9 +10,7 @@ require_once 'service/connect.php';
     <title>TKS SPORTDATA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -51,21 +49,28 @@ require_once 'service/connect.php';
                     <li><a class="nav-link scrollto " href="index#photo">Photo</a></li>
                     <li><a class="nav-link scrollto" href="index#contact">Contact</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Login
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="login" style="color:black">TKS SPORTDATA</a>
-                            <a class="dropdown-item" href="login_ad" style="color:black">AD-CARD</a>
+                            <a class="dropdown-item" href="login_ad" style="color:black">AD Card</a>
                         </div>
                     </li>
-
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            รายชื่อนักกีฬา
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="check_List_name_pc" style="color:black">สำหรับ คอมพิวเตอร์</a>
+                            <a class="dropdown-item" href="check_List_name_moblie" style="color:black">สำหรับ โทรศัพท์</a>
+                        </div>
+                    </li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
+            </nav>
         </div>
-    </header><!-- End Header -->
+    </header>
 
     <main id="main">
 
@@ -81,16 +86,13 @@ require_once 'service/connect.php';
                                     <div class="mb-md-5">
                                         <h2 class="fw-bold mb-5 text-uppercase text-center">AD Card</h2>
                                         <div class="form-outline form-white mb-4">
-                                            <input type="text" id="user" name="user"
-                                                class="form-control form-control-lg" placeholder="USERNAME" required />
+                                            <input type="text" id="user" name="user" class="form-control form-control-lg" placeholder="USERNAME" required />
                                         </div>
                                         <div class="form-outline form-white mb-4">
-                                            <input type="password" id="password" name="password"
-                                                class="form-control form-control-lg" placeholder="PASSWORD" required />
+                                            <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="PASSWORD" required />
                                         </div>
                                         <div class="mt-4 pt-2 text-center">
-                                            <button class="btn align-items-center" name="login"
-                                                type="submit">Login</button>
+                                            <button class="btn align-items-center" name="login" type="submit">Login</button>
                                         </div>
                                     </div>
                                 </form>
@@ -151,8 +153,7 @@ require_once 'service/connect.php';
     <!-- End Footer -->
 
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <div id="preloader"></div>
 
     <!--  -->
@@ -173,128 +174,128 @@ require_once 'service/connect.php';
 
 
     <script>
-    $(function() {
-        $("#formLogin").submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "service/auth/login_ad.php",
-                data: $(this).serialize(),
-                dataType: "json",
-            }).done(function(resp) {
-                if (resp.error) {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: resp.error,
-                        confirmButtonColor: "#FF0000", // Red color
-                    });
-                } else {
-                    if (resp.role === "superadmin") {
-                        let timerInterval;
+        $(function() {
+            $("#formLogin").submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "service/auth/login_ad.php",
+                    data: $(this).serialize(),
+                    dataType: "json",
+                }).done(function(resp) {
+                    if (resp.error) {
                         Swal.fire({
-                            title: "กำลังเข้าสู่ระบบ",
-                            html: "กำลังตรวจสอบ <b></b> ข้อมูล.",
-                            timer: 1000,
-                            timerProgressBar: true,
-                            didOpen: () => {
-                                Swal.showLoading();
-                                const timer = Swal.getPopup().querySelector("b");
-                                timerInterval = setInterval(() => {
-                                    timer.textContent =
-                                        `${Swal.getTimerLeft()}`;
-                                }, 100);
-                            },
-                            willClose: () => {
-                                clearInterval(timerInterval);
-                            }
-                        }).then((result) => {
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                                // The timer was responsible for closing the alert
-                                location.href = "superadmin-ad/";
-                            }
-                        });
-
-                    } else if (resp.role === "users") {
-                        let timerInterval;
-                        Swal.fire({
-                            title: "กำลังเข้าสู่ระบบ",
-                            html: "กำลังตรวจสอบ <b></b> ข้อมูล.",
-                            timer: 1000,
-                            timerProgressBar: true,
-                            didOpen: () => {
-                                Swal.showLoading();
-                                const timer = Swal.getPopup().querySelector("b");
-                                timerInterval = setInterval(() => {
-                                    timer.textContent =
-                                        `${Swal.getTimerLeft()}`;
-                                }, 100);
-                            },
-                            willClose: () => {
-                                clearInterval(timerInterval);
-                            }
-                        }).then((result) => {
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                                // The timer was responsible for closing the alert
-                                location.href = "kkt-ad/";
-                            }
-                        });
-
-                    } else if (resp.role === "userad") {
-                        let timerInterval;
-                        Swal.fire({
-                            title: "กำลังเข้าสู่ระบบ",
-                            html: "กำลังตรวจสอบ <b></b> ข้อมูล.",
-                            timer: 1000,
-                            timerProgressBar: true,
-                            didOpen: () => {
-                                Swal.showLoading();
-                                const timer = Swal.getPopup().querySelector("b");
-                                timerInterval = setInterval(() => {
-                                    timer.textContent =
-                                        `${Swal.getTimerLeft()}`;
-                                }, 100);
-                            },
-                            willClose: () => {
-                                clearInterval(timerInterval);
-                            }
-                        }).then((result) => {
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                                // The timer was responsible for closing the alert
-                                location.href = "pages-ad/";
-                            }
-                        });
-                    } else if (resp.role === "sport") {
-                        let timerInterval;
-                        Swal.fire({
-                            title: "กำลังเข้าสู่ระบบ",
-                            html: "กำลังตรวจสอบ <b></b> ข้อมูล.",
-                            timer: 1000,
-                            timerProgressBar: true,
-                            didOpen: () => {
-                                Swal.showLoading();
-                                const timer = Swal.getPopup().querySelector("b");
-                                timerInterval = setInterval(() => {
-                                    timer.textContent =
-                                        `${Swal.getTimerLeft()}`;
-                                }, 100);
-                            },
-                            willClose: () => {
-                                clearInterval(timerInterval);
-                            }
-                        }).then((result) => {
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                                // The timer was responsible for closing the alert
-                                location.href = "pages-sport/";
-                            }
+                            icon: "error",
+                            title: "Oops...",
+                            text: resp.error,
+                            confirmButtonColor: "#FF0000", // Red color
                         });
                     } else {
-                        console.log("Role not recognized");
+                        if (resp.role === "superadmin") {
+                            let timerInterval;
+                            Swal.fire({
+                                title: "กำลังเข้าสู่ระบบ",
+                                html: "กำลังตรวจสอบ <b></b> ข้อมูล.",
+                                timer: 1000,
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading();
+                                    const timer = Swal.getPopup().querySelector("b");
+                                    timerInterval = setInterval(() => {
+                                        timer.textContent =
+                                            `${Swal.getTimerLeft()}`;
+                                    }, 100);
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval);
+                                }
+                            }).then((result) => {
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    // The timer was responsible for closing the alert
+                                    location.href = "superadmin-ad/";
+                                }
+                            });
+
+                        } else if (resp.role === "users") {
+                            let timerInterval;
+                            Swal.fire({
+                                title: "กำลังเข้าสู่ระบบ",
+                                html: "กำลังตรวจสอบ <b></b> ข้อมูล.",
+                                timer: 1000,
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading();
+                                    const timer = Swal.getPopup().querySelector("b");
+                                    timerInterval = setInterval(() => {
+                                        timer.textContent =
+                                            `${Swal.getTimerLeft()}`;
+                                    }, 100);
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval);
+                                }
+                            }).then((result) => {
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    // The timer was responsible for closing the alert
+                                    location.href = "kkt-ad/";
+                                }
+                            });
+
+                        } else if (resp.role === "userad") {
+                            let timerInterval;
+                            Swal.fire({
+                                title: "กำลังเข้าสู่ระบบ",
+                                html: "กำลังตรวจสอบ <b></b> ข้อมูล.",
+                                timer: 1000,
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading();
+                                    const timer = Swal.getPopup().querySelector("b");
+                                    timerInterval = setInterval(() => {
+                                        timer.textContent =
+                                            `${Swal.getTimerLeft()}`;
+                                    }, 100);
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval);
+                                }
+                            }).then((result) => {
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    // The timer was responsible for closing the alert
+                                    location.href = "pages-ad/";
+                                }
+                            });
+                        } else if (resp.role === "sport") {
+                            let timerInterval;
+                            Swal.fire({
+                                title: "กำลังเข้าสู่ระบบ",
+                                html: "กำลังตรวจสอบ <b></b> ข้อมูล.",
+                                timer: 1000,
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading();
+                                    const timer = Swal.getPopup().querySelector("b");
+                                    timerInterval = setInterval(() => {
+                                        timer.textContent =
+                                            `${Swal.getTimerLeft()}`;
+                                    }, 100);
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval);
+                                }
+                            }).then((result) => {
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    // The timer was responsible for closing the alert
+                                    location.href = "pages-sport/";
+                                }
+                            });
+                        } else {
+                            console.log("Role not recognized");
+                        }
                     }
-                }
+                });
             });
         });
-    });
     </script>
 
 

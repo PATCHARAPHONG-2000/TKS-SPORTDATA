@@ -149,7 +149,11 @@ if (isset($_SESSION['team']['role'])) {
                                                                 <?php echo !empty($person["weight"]) ? $person["weight"] : '-'; ?>
                                                             </td>
                                                             <td class="align-middle">
-                                                                <img src="../../service/tksuploads/<?php echo $person["image"]; ?>" alt="Profile" style="max-width: 50px;">
+                                                                <?php if ($person["image"] && file_exists("../../service/tksuploads/" . $person["image"])) : ?>
+                                                                    <img src="../../service/tksuploads/<?php echo $person["image"]; ?>" alt="Profile" style="max-width: 50px;">
+                                                                <?php else : ?>
+                                                                    <img src="../../assets/images/avatar.png" alt="Profile" style="max-width: 50px;">
+                                                                <?php endif; ?>
                                                             </td>
                                                             <td class="align-middle">
                                                                 <button onclick="deletePerson(<?php echo $person['id']; ?>)" class="btn btn-danger ">

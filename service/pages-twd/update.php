@@ -49,6 +49,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $age = filter_input(INPUT_POST, 'age');
     $license = filter_input(INPUT_POST, 'license');
 
+    if ($status === 'male') {
+        $status = 'ชาย';
+    } elseif ($status === 'female') {
+        $status = 'หญิง';
+    }
+
     $sql = "UPDATE `player` SET ";
     $params = [];
 

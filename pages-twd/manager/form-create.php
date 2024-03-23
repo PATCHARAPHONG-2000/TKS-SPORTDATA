@@ -48,11 +48,11 @@ if (isset($_SESSION['team']['role'])) {
                                         <div class="row">
                                             <div class="col-md-6 px-1 px-md-5">
                                                 <div class="form-group">
-                                                    <label for="firstname">ชื่อ</label>
+                                                    <label for="firstname">ชื่อ <span style="color: red;">*</span></label>
                                                     <input type="text" class="form-control" name="firstname" id="firstname" placeholder="ชื่อ" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="permission">เพศ</label>
+                                                    <label for="permission">เพศ <span style="color: red;">*</span></label>
                                                     <select class="form-control" name="status" id="permission" required>
                                                         <option value disabled selected>เลือกเพศ</option>
                                                         <option value="male">ชาย</option>
@@ -60,7 +60,7 @@ if (isset($_SESSION['team']['role'])) {
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="age">อายุ</label>
+                                                    <label for="age">อายุ <span style="color: red;">*</span></label>
                                                     <select class="form-control" name="age" id="age" required>
                                                         <option value="" disabled selected>กรุณาเลือกอายุ</option>
                                                         <?php
@@ -73,17 +73,17 @@ if (isset($_SESSION['team']['role'])) {
                                             </div>
                                             <div class="col-md-6 px-1 px-md-5">
                                                 <div class="form-group">
-                                                    <label for="lastname">นามสกุล</label>
+                                                    <label for="lastname">นามสกุล <span style="color: red;">*</span></label>
                                                     <input type="text" class="form-control" name="lastname" id="lastname" placeholder="นามสกุล" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="license">License Number</label>
-                                                    <input type="text" class="form-control" name="license" id="license" placeholder="License Number" required>
+                                                    <input type="text" class="form-control" name="license" id="license" placeholder="License Number">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="customFile">รูปโปรไฟล์ <span style="color: red;">*</span></label>
+                                                    <label for="customFile">รูปโปรไฟล์ </label>
                                                     <div class="custom-file mb-2">
-                                                        <input name="image" type="file" class="custom-file-input" id="customFile" accept="image/*" required>
+                                                        <input name="image" type="file" class="custom-file-input" id="customFile" accept="image/*">
                                                         <label class="custom-file-label" for="customFile">เลือกรูปภาพ</label>
                                                     </div>
                                                     <p for="" style="font-size: 12px; color: red;" class="mt-2 mb-1">*
